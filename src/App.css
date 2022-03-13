@@ -1,3 +1,18 @@
+:root {
+  --main-beige: #D1B48D;
+  --main-gray-coco: #C0C0C0;
+  --size-big : 25px;
+  --size-medium : 13px;
+}
+
+.main-beige{
+  color: var(--main-beige);
+  font-size: var(--size-big) !important;
+}
+.main-beige-bg {
+  background-color: var(--main-beige);
+}
+
 .App {
   text-align: center;
 }

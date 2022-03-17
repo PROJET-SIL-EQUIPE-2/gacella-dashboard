@@ -5,21 +5,34 @@ import React from "react";
 import HomeRoute from "./Routes/Home/Home.Route";
 import ContactRoute from "./Routes/Contact/Contact.Route";
 import {AccessAlarm , Adjust} from "@mui/icons-material";
+import Sidebar from "./SideBar";
+import themes from "./themes";
+import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
+import {useSelector} from "react-redux";
+import NavigationScroll from "./SideBar/NavigationScroll";
 
 
 function App() {
-  return (
+    const customization = useSelector((state) => state.templateSettings);
+
+    return (
       <React.Fragment>
-        <h1 style={{color : "var(--main-beige)"}}>HEADER</h1>
-          <Adjust/>
-          <Switch>
-            <Route exact path="/home" component={()=><HomeRoute/>} />
-            <Route exact path="/contact" component={()=><ContactRoute/>} />
+          <StyledEngineProvider injectFirst>
+              <ThemeProvider theme={themes(customization)}>
+                  <CssBaseline/>
+                  <NavigationScroll>
+                      <Sidebar>
+                          <Switch>
+                              <Route exact path="/home" component={()=><HomeRoute/>} />
+                              <Route exact path="/contact" component={()=><ContactRoute/>} />
 
-            {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
+                              {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
 
-          </Switch>
-        <h1>Footer</h1>
+                          </Switch>
+                      </Sidebar>
+                  </NavigationScroll>
+              </ThemeProvider>
+          </StyledEngineProvider>
       </React.Fragment>
   );
 }

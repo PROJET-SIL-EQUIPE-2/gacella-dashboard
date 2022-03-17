@@ -10,7 +10,7 @@ import {Route, Router, Switch} from "react-router-dom";
 import {Provider} from "react-redux";
 import store from "./redux/store";
 import {createBrowserHistory} from "history";
-
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export const history = createBrowserHistory();
 ReactDOM.render(
@@ -22,7 +22,7 @@ ReactDOM.render(
           {/*/statistics */}
           {/*/statistics/1*/}
           <Router history={history}>
-              <App />
+                <App />
           </Router>
       </Provider>
   </React.StrictMode>,

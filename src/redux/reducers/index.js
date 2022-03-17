@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
 import postsReducerModal from "./postsReducer.Modal";
+import customizationReducer from "./customizationReducer";
 
 
 let persistConfig = {
@@ -14,6 +15,7 @@ let persistConfig = {
 
 let reducers= combineReducers({
     posts : postsReducerModal,
+    templateSettings : customizationReducer
     // users : usersReducer,
 });
 

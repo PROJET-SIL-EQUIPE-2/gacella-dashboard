@@ -103,3 +103,19 @@ export const fetchAddPost=(postToAdd)=>(dispatch)=>{
     }))
 
 }
+
+
+export const templateOpenMenu=(id)=>{
+    return{
+        type : Actiontypes.TEMPLATE_MENU_OPEN,
+        id: id
+    }
+}
+
+export const templateSetMenu=(id)=>{
+    return{
+        type : Actiontypes.TEMPLATE_SET_MENU,
+        opened : id
+    }
+}
+

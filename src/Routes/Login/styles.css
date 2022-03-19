@@ -1,0 +1,44 @@
+#forgetPassword:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.loginPaper{
+    padding: 3rem !important;
+}
+.loginInput{
+    background-color: white !important;
+    border-radius: 20px !important;
+}
+
+.loginInput:focus{
+
+    border-color: var(--gacela-orange) !important;
+    box-shadow: 0 0 0 0.2rem rgb(234 172 139 / 25%) !important;
+
+}
+
+.form-control{
+    height: calc(2em + 0.75rem + 2px) !important;
+}
+
+#connectButton{
+    border-radius: 20px !important;
+    background-color: var(--gacela-orange);
+    color: var(--gacela-grayEA);
+    box-shadow: none !important;
+}
+
+#gacelaCarImg{
+    width: -webkit-fill-available !important;
+    margin-right: -3rem !important;
+    z-index: 2;
+    padding-top: 3rem ;
+    padding-left: 3rem;
+}
+#premierService{
+    font-size: 1.8rem !important;
+    text-align: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}

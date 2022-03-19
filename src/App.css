@@ -1,9 +1,124 @@
+/*Import laura and Roboto Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 :root {
   --main-beige: #D1B48D;
   --main-gray-coco: #C0C0C0;
+  --gacela-orange :  #EAAC8B;
+  --gacela-black21 : #212121;
+  --gacela-black17 : #171717;
+  --gacela-blue-link : #2196F3;
+  --gacela-grayEA : #EAEFF5;
+
+
   --size-big : 25px;
   --size-medium : 13px;
+  --lora-font : 'Lora', serif;
+  --roboto-font: 'Roboto', sans-serif;
 }
+
+.gacela-orange{
+  color: var(--gacela-orange) !important;
+}
+
+.gacela-orange-bg {
+  background-color: var(--gacela-orange)!important;
+}
+
+.gacela-black21{
+  color: var(--gacela-black21) !important;
+}
+
+.gacela-black21-bg {
+  background-color: var(--gacela-black21) !important;
+}
+
+.gacela-black17{
+  color: var(--gacela-black17) !important;
+}
+
+.gacela-black17-bg {
+  background-color: var(--gacela-black17) !important;
+}
+
+.gacela-blue-link{
+  color: var(--gacela-blue-link) !important;
+}
+
+.gacela-blue-link-bg{
+  background-color: var(--gacela-blue-link) !important;
+}
+
+.gacela-grayEA{
+  color: var(--gacela-grayEA) !important;
+}
+
+.gacela-grayEA-bg{
+  background-color: var(--gacela-grayEA) !important;
+}
+
+.lora{
+  font-family:'Lora', serif !important;
+}
+
+
+.roboto{
+  font-family: var(--roboto-font) !important;
+}
+
+.roboto-100{
+  font-family: var(--roboto-font) !important;
+  font-weight: 100 !important;
+}
+
+.roboto-300{
+  font-family: var(--roboto-font) !important;
+  font-weight: 300 !important;
+}
+
+.roboto-400{
+  font-family: var(--roboto-font) !important;
+  font-weight: 400 !important;
+}
+
+.roboto-500{
+  font-family: var(--roboto-font) !important;
+  font-weight: 500 !important;
+}
+
+.roboto-700{
+  font-family: var(--roboto-font) !important;
+  font-weight: 700 !important;
+}
+
+.roboto-900{
+  font-family: var(--roboto-font) !important;
+  font-weight: 900 !important;
+}
+
+.lora-400{
+  font-family: var(--lora-font) !important;
+  font-weight: 400 !important;
+}
+
+.lora-500{
+  font-family: var(--lora-font) !important;
+  font-weight: 500 !important;
+}
+
+.lora-600{
+  font-family: var(--lora-font) !important;
+  font-weight: 600 !important;
+}
+
+
+
+.lora-700{
+  font-family: var(--lora-font) !important;
+  font-weight: 700 !important;
+}
+
+
 
 .main-beige{
   color: var(--main-beige);

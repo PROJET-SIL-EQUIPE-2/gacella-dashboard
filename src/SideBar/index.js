@@ -18,6 +18,7 @@ import navigation from './Sidebar/menu-items';
 // assets
 import { IconChevronRight } from '@tabler/icons';
 import {templateSetMenu} from "../redux/actions/actions";
+import {useLocation} from "react-router";
 
 const drawerWidth = 240;
 
@@ -82,6 +83,11 @@ const MainLayout = ({children}) => {
         dispatch(templateSetMenu(!matchDownMd ))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [matchDownMd]);
+    let routeLocation = useLocation();
+    let pathName = routeLocation.pathname;
+    if(pathName==="/login"){
+        return children
+    }
 
     return (
         <Box sx={{ display: 'flex' }}>

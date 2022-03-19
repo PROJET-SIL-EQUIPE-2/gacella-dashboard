@@ -10,6 +10,7 @@ import themes from "./themes";
 import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
 import {useSelector} from "react-redux";
 import NavigationScroll from "./SideBar/NavigationScroll";
+import Login from "./Routes/Login/Login.Route";
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
                           <Switch>
                               <Route exact path="/home" component={()=><HomeRoute/>} />
                               <Route exact path="/contact" component={()=><ContactRoute/>} />
-
+                              <Route exact path="/login" component={()=><Login/>} />
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
 
                           </Switch>

@@ -24,7 +24,7 @@ const  Login=()=>{
                     </div>
                 </div>
                 <div style={!md ? {padding : "0"}:{}} className="col-12 col-md-6">
-                    <Paper style={{backgroundColor: 'rgba(234, 239, 245, 0.4)'}} className="h-100 loginPaper" elevation={4}>
+                    <Paper style={{backgroundColor: 'rgba(234, 239, 245, 0.4)' , minHeight : "100%"}} className="loginPaper" elevation={4}>
                         <div className="d-flex flex-column ml-md-4">
                             <div style={{fontSize :"2rem"}} className="gacela-orange lora-700" >
                                 Bienvenue à nouveau
@@ -32,7 +32,7 @@ const  Login=()=>{
                             <div style={{fontSize: "1.3rem"}} className="gacela-black21 lora-400">
                                 Entrez vos informations d'identification pour continuer :
                             </div>
-                            <div style={{marginTop : "8%"}} className="h-100 d-flex flex-column">
+                            <div style={{marginTop : "1rem"}} className="h-100 d-flex flex-column">
                                 <FormGroup>
                                     <Label className="roboto-700" for="exampleEmail">Email</Label>
                                     <Input type="email" name="email" className="loginInput" placeholder="email" />

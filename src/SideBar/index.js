@@ -112,7 +112,7 @@ const MainLayout = ({children}) => {
             <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
 
             {/* main content */}
-            <Main theme={theme} open={leftDrawerOpened}>
+            <Main className="gacela-orangeFA-bg" theme={theme} open={leftDrawerOpened} >
                 {/* breadcrumb */}
                 <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
                 {children}

@@ -11,6 +11,7 @@ import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
 import {useSelector} from "react-redux";
 import NavigationScroll from "./SideBar/NavigationScroll";
 import Login from "./Routes/Login/Login.Route";
+import LocatairesSignUpRequestsRoute from "./Routes/LocatairesSignUpRequests/LocatairesSignUpRequests.Route";
 
 
 function App() {
@@ -25,8 +26,10 @@ function App() {
                       <Sidebar>
                           <Switch>
                               <Route exact path="/home" component={()=><HomeRoute/>} />
+                              <Route exact path="/locataires_requests" component={()=><LocatairesSignUpRequestsRoute/>} />
                               <Route exact path="/contact" component={()=><ContactRoute/>} />
                               <Route exact path="/login" component={()=><Login/>} />
+
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
 
                           </Switch>

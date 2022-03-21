@@ -5,16 +5,25 @@
   --main-beige: #D1B48D;
   --main-gray-coco: #C0C0C0;
   --gacela-orange :  #EAAC8B;
+  --gacela-orangeFA: #FAECE5;
   --gacela-black21 : #212121;
   --gacela-black17 : #171717;
   --gacela-blue-link : #2196F3;
   --gacela-grayEA : #EAEFF5;
-
-
+  --gacela-gray9E : #9E9E9E;
   --size-big : 25px;
   --size-medium : 13px;
   --lora-font : 'Lora', serif;
   --roboto-font: 'Roboto', sans-serif;
+}
+
+.--gacela-orangeFA{
+  color: var(--gacela-orangeFA) !important; ;
+}
+
+.gacela-orangeFA-bg{
+  background-color: var(--gacela-orangeFA) !important; ;
+
 }
 
 .gacela-orange{
@@ -57,6 +66,13 @@
   background-color: var(--gacela-grayEA) !important;
 }
 
+.gacela-gray9E{
+    color: var(--gacela-gray9E) !important;
+}
+
+.gacela-gray9E-bg{
+  background-color: var(--gacela-gray9E) !important;
+}
 .lora{
   font-family:'Lora', serif !important;
 }
@@ -126,6 +142,17 @@
 }
 .main-beige-bg {
   background-color: var(--main-beige);
+}
+
+[class^='MTableToolbar-title-'] > h6, [class*='MTableToolbar-title-'] > h6{
+  color : #171717 !important;
+  font-family: var(--lora-font);
+  font-weight: 400;
+  font-size: 1.4rem ;
+}
+
+.MuiTableCell-root > div > button > img{
+
 }
 
 .App {

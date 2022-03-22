@@ -3,22 +3,75 @@
 }
 nav {
     height : 70px ; 
-    background-color : blue ; 
+    width : 100%;
+    margin: auto;
+    background-color : red ;
+    display: flex;
+
     
 }
+#nav-intern {
+    display: flex;
 
+}
+#logo-menu {
+   /*  z-index: 10; */
+    background-color : orange ;
+    width : 30rem;
+    border-radius: 50%;
+/*     padding: 0 4px ; */
+}
+#logo-menu img {
+    width : 60%;
+    height: 100% ;
+    margin : 30px ;
+}
+#container-menu {
+/*     z-index: -5;
+ */ 
+ padding-top: 25px;
+
+  border-radius: 30px ;
+  background-color : red ;
+  height : 70px ; 
+  width : 70%;
+  margin: auto;
+}
+#badge-menu {
+    border-radius: 30px ;
+    padding : 0px 0px ;
+    width: 50%;
+    background-color : pink ;
+
+
+}
 .liste {
+/*     z-index: -10;
+ */ 
+    border-radius: 30px ;
+    background-color : black ;
+
     list-style-type: none;
-    background-color: blue ; 
     height: 100px ;
+    width: 100%;
     display: flex ;
-    justify-content:center ; 
-    align-items:center ; 
+    justify-content: center ; 
+    align-items: center ; 
     position: relative ; 
     margin: 0;
     padding: 0;
 
 
+
+}
+#logoMenu {
+    width: 50px;
+}
+.liste li {
+    display:inline;
+    vertical-align: middle;
+        text-align: center ;
+        line-height: 50px ;
 
 }
 .items {

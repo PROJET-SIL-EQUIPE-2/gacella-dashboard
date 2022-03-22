@@ -42,7 +42,7 @@ nav {
 #badge-menu {
     border-radius: 30px ;
     padding : 0px 0px ;
-    width: 50%;
+    width: 45%;
     background-color : #5079AA ;
     color : #FFFFFF ;
 
@@ -86,7 +86,7 @@ nav {
 }
 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
     .liste {
         flex-direction: column;
         height : 200px ; 
@@ -106,7 +106,11 @@ nav {
         position : absolute ; 
         right : 10px ; 
         top: 10px;
-        color: #6b2525;
         cursor : pointer ; 
+        font-size: 3rem;
+    }
+    #logo-menu {
+        display : none ; 
     }
 }
+

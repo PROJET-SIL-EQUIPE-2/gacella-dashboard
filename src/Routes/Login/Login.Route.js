@@ -5,6 +5,7 @@ import './styles.css'
 import GacelaCar from "../../assets/images/Login/Gacella car.svg"
 import GacelaTextBlue from "../../assets/images/Login/Gacella Text Blue.svg"
 import React from "react";
+import Navbar from "../../ui-component/navbar/Navbar" ; 
 const  Login=()=>{
 
     const sm = useMediaQuery('(min-width:576px)');
@@ -13,10 +14,17 @@ const  Login=()=>{
     const xl= useMediaQuery('(min-width:1200px)');
 
     return(
+       
         <React.Fragment>
+            
+            <Navbar className="">  </Navbar>
+
             <div className="d-none d-md-block" style={{height : "10vh"}}/>
+
             <div style={ md ?{height : "70vh"} : {height : "100vh"}} className="d-flex flex-md-row flex-column">
+
                 <div className="col-md-6 d-none d-none d-md-flex  flex-column justify-content-center align-items-center" >
+
                     <img id="gacelaCarImg" src={GacelaCar} alt=""/>
                     <img className="mt-lg-3 mb-lg-3" src={GacelaTextBlue} alt=""/>
                     <div id="premierService" className="lora-600 gacela-orange">

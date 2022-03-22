@@ -1,7 +1,8 @@
+
 import React , {useState , useEffect} from 'react' ; 
 import "./Navbar.css" ;
 import ListIcon from '@mui/icons-material/List';
-import LogoMenu from "../../assets/images/logos/bleu_orange_logo_without_text.svg" ;
+import LogoMenu from "../../assets/images/logos/GACELADARK_BLUE.svg" ;
 
 const Navbar = () => {
     const [toggleMenu , setToggleMenu] = useState(true) ; // menu caché de base
@@ -35,7 +36,7 @@ const Navbar = () => {
                 <div id="nav-intern"> 
                
                 
-            <ul className="liste">
+            <ul className="liste w-100" >
             <div id="logo-menu"> 
                 <img id="logoMenu" src={LogoMenu}  alt=""/> 
                 </div>

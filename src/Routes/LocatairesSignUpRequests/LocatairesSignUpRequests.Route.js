@@ -8,10 +8,15 @@ import CheckIcon from "./assets/CheckIcon.png"
 import {tableLang , tableIcons} from '../../ui-component/ReactTablesWidget/Widget'
 import DeleteIcon from "./assets/DeleteIcon.png"
 import './styles.css';
+import './Compounents/rejectDialog.Compounent';
+import RejectDialog from "./Compounents/rejectDialog.Compounent";
+import {useState} from "react";
 
 
 
 export default function LocatairesSignUpRequestsRoute() {
+
+    const [isRejectDialogopen, setRejectDialogOpenStatus] = useState(false);
     const columns=[
         { title: 'Avatar', field: 'imageUrl', render: rowData =>(
             <div className="d-flex align-items-center">
@@ -52,7 +57,7 @@ export default function LocatairesSignUpRequestsRoute() {
             rowData => ({
             icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={DeleteIcon}/>),
             tooltip: 'Delete User',
-            onClick: (event, rowData) => console.log("CLICK"),
+            onClick: (event, rowData) => setRejectDialogOpenStatus(true),
         })
     ]
     return (
@@ -80,6 +85,7 @@ export default function LocatairesSignUpRequestsRoute() {
                 }}
 
             />
+            <RejectDialog isOpen={isRejectDialogopen} setOpen={setRejectDialogOpenStatus}/>
         </div>
     );
 }

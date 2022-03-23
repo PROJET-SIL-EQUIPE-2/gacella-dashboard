@@ -232,7 +232,7 @@ export const fetchResetPassword=({email})=>(dispatch)=>{
             .catch(err=>{
                 if(err?.response?.data){
                     console.log("RESPONSE=",err.response);
-                    dispatch(resetPasswordError(err.response.data , dispatch));
+                    dispatch(resetPasswordError(err.response.data.message , dispatch));
                     reject(err.response.data);
                 }else{
                     console.log(err.message);
@@ -307,14 +307,16 @@ const acceptLocataireLoading=()=>{
     }
 }
 
-const acceptLocataireSuccess=(data)=>{
+const acceptLocataireSuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le demande est accepté avec succées", "success"))
     return{
         type : Actiontypes.POST_ACCEPT_LOCATAIRE_SUCCESS,
         payload : data
     }
 }
 
-const acceptLocataireError=(err)=>{
+const acceptLocataireError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
     return{
         type : Actiontypes.POST_ACCEPT_LOCATAIRE_ERROR,
         paylaod : err
@@ -322,7 +324,7 @@ const acceptLocataireError=(err)=>{
     }
 }
 
-export const fetchAcceptLocataire=(locataireId)=>(dispatch)=>{
+export const fetchAcceptLocataire=(email)=>(dispatch)=>{
     const headers = {
         'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
     };
@@ -333,16 +335,22 @@ export const fetchAcceptLocataire=(locataireId)=>(dispatch)=>{
     };
     // let formattedCouponToPost={...couponToPost , }
     return new Promise(((resolve, reject) => {
-        axios.post(Endpoints.ENDPOINT_POST_ACCEPT_LOCATAIRE , locataireId, options)
+        axios.post(Endpoints.ENDPOINT_POST_ACCEPT_LOCATAIRE , {email : email}, options)
             .then(res=>{
                 // dispatch(addPostSuccess(res.data));
-                dispatch(acceptLocataireSuccess(res));
+                dispatch(acceptLocataireSuccess(res.response , dispatch));
                 resolve();
             })
             .catch(err=>{
-                console.log('ERROR OBJECT = ' , err);
-                dispatch(acceptLocataireError(err));
-                reject(err.message);
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(acceptLocataireError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(acceptLocataireError(err) , dispatch);
+                    reject(err.message);
+                }
             });
     }))
 
@@ -358,14 +366,16 @@ const rejectLocataireLoading=()=>{
     }
 }
 
-const rejectLocataireSuccess=(data)=>{
+const rejectLocataireSuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("le reject est effectué avec succées", "success"))
     return{
         type : Actiontypes.POST_REJECT_LOCATAIRE_SUCCESS,
         payload : data
     }
 }
 
-const rejectlocataireError=(err)=>{
+const rejectlocataireError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
     return{
         type : Actiontypes.POST_REJECT_LOCATAIRE_ERROR,
         paylaod : err
@@ -373,7 +383,7 @@ const rejectlocataireError=(err)=>{
     }
 }
 
-export const fetchRejectLocataire=(data)=>(dispatch)=>{
+export const fetchRejectLocataire=({locataireEmail  , rejectMessage })=>(dispatch)=>{
     const headers = {
         'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
     };
@@ -384,15 +394,23 @@ export const fetchRejectLocataire=(data)=>(dispatch)=>{
     };
     // let formattedCouponToPost={...couponToPost , }
     return new Promise(((resolve, reject) => {
-        axios.post(Endpoints.ENDPOINT_POST_REJECT_LOCATAIRE , data, options)
+        axios.post(Endpoints.ENDPOINT_POST_REJECT_LOCATAIRE , {email : locataireEmail , justificatif : rejectMessage}, options)
             .then(res=>{
                 // dispatch(addPostSuccess(res.data));
-                dispatch(rejectLocataireSuccess(res));
+                dispatch(rejectLocataireSuccess(res.data , dispatch));
                 resolve();
             })
             .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(rejectlocataireError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(rejectlocataireError(err ,  dispatch));
+                    reject(err.message);
+                }
                 console.log('ERROR OBJECT = ' , err);
-                dispatch(rejectlocataireError(err));
                 reject(err.message);
             });
     }))
@@ -416,3 +434,5 @@ export const closeSnackBar=()=>{
         type : Actiontypes.CLOSE_SNACKBAR
     }
 }
+
+

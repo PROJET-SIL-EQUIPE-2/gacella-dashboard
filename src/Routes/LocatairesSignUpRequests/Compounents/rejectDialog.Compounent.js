@@ -8,9 +8,18 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {FormGroup, Input, Label} from "reactstrap";
 import './styles.css'
+import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {fetchRejectLocataire} from "../../../redux/actions/actions";
 
-export default function RejectDialog({isOpen , setOpen}) {
+export default function RejectDialog({isOpen , setOpen , locataireEmail}) {
 
+
+    const [rejectMessage, setRejectMessage] = useState("");
+    const dispatch = useDispatch();
+    const submitReject = ()=>{
+        dispatch(fetchRejectLocataire({locataireEmail : locataireEmail , rejectMessage : rejectMessage}));
+    }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -29,10 +38,10 @@ export default function RejectDialog({isOpen , setOpen}) {
                         Entrez votre justificatif du rejet pour continuer
                     </DialogContentText>
                     <FormGroup>
-                        <Input  style={{minHeight : "8rem" }} type="textarea" name="password"  id="rejectDialogTextArea" placeholder="Mot de passe ..." />
+                        <Input onChange={(e)=>setRejectMessage(e.target.value)} style={{minHeight : "8rem" }} type="textarea" name="password"  id="rejectDialogTextArea" placeholder="Mot de passe ..." />
                     </FormGroup>
                     <div className="w-100 mt-lg-3 mt-lg-3">
-                        <Button style={{color : "white"}} id="connectButton" className="w-100" variant="contained">Envoyer </Button>
+                        <Button onClick={()=>submitReject()} style={{color : "white"}} id="connectButton" className="w-100" variant="contained">Envoyer </Button>
                     </div>
                 </DialogContent>
 

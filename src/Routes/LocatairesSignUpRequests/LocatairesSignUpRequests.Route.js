@@ -12,7 +12,7 @@ import './Compounents/rejectDialog.Compounent';
 import RejectDialog from "./Compounents/rejectDialog.Compounent";
 import {useState , useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchgetLocatairesRequests} from "../../redux/actions/actions";
+import {fetchAcceptLocataire, fetchgetLocatairesRequests} from "../../redux/actions/actions";
 import PermisDialog from "./Compounents/permisDialog.Compounent";
 import PhotosDialog from "./Compounents/photosDialog.Compounent";
 
@@ -24,6 +24,8 @@ export default function LocatairesSignUpRequestsRoute() {
     const locatairesrequests = useSelector(state => state.locatairesRequests);
     const [permisDialog, setPermisDialog] = useState(null);
     const [photoDialog, setPhotoDialog] = useState(null);
+    const [locataireEmail, setLocataireEmail] = useState(null);
+
     useEffect(()=>{
         dispatch(fetchgetLocatairesRequests());
     }, [])
@@ -62,12 +64,12 @@ export default function LocatairesSignUpRequestsRoute() {
             rowData=>({
                 icon: ()=> (<img style={{ height : "40px" , width : "40px" }}  src={CheckIcon}/>),
                 tooltip: "Confirmer l'inscription",
-                onClick: (event, rowData) => alert("You saved " + rowData.name)
+                onClick: (event, rowData) => dispatch(fetchAcceptLocataire(rowData.email))
             }),
             rowData => ({
             icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={DeleteIcon}/>),
             tooltip: 'Delete User',
-            onClick: (event, rowData) => setRejectDialogOpenStatus(true),
+            onClick: (event, rowData) => {setRejectDialogOpenStatus(true); setLocataireEmail(rowData.email); },
         })
     ]
 
@@ -97,7 +99,7 @@ export default function LocatairesSignUpRequestsRoute() {
                         }}
 
                     />
-                    <RejectDialog isOpen={isRejectDialogopen} setOpen={setRejectDialogOpenStatus}/>
+                    <RejectDialog isOpen={isRejectDialogopen} setOpen={setRejectDialogOpenStatus} locataireEmail={locataireEmail}/>
                     <PermisDialog setOpen={setPermisDialog} imageSource={permisDialog} />
                     <PhotosDialog setOpen={setPhotoDialog} imageSource={photoDialog} />
                 </div>

@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import {fetchLogin} from "../../redux/actions/actions";
 import {useDispatch} from "react-redux";
 import {history} from "../../index";
+import Navbar from "../../ui-component/navbar/Navbar" ; 
 
 const  Login=()=>{
     const sm = useMediaQuery('(min-width:576px)');
@@ -25,10 +26,17 @@ const  Login=()=>{
     }
 
     return(
+       
         <React.Fragment>
+            
+            <Navbar className="">  </Navbar>
+
             <div className="d-none d-md-block" style={{height : "10vh"}}/>
+
             <div style={ md ?{height : "70vh"} : {height : "100vh"}} className="d-flex flex-md-row flex-column">
+
                 <div className="col-md-6 d-none d-none d-md-flex  flex-column justify-content-center align-items-center" >
+
                     <img id="gacelaCarImg" src={GacelaCar} alt=""/>
                     <img className="mt-lg-3 mb-lg-3" src={GacelaTextBlue} alt=""/>
                     <div id="premierService" className="lora-600 gacela-orange">

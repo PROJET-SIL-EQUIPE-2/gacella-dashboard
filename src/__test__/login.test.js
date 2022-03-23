@@ -1,14 +1,26 @@
 import { render, screen, cleanup } from "@testing-library/react";
-import Login from "./login"; //must changing
+import {fetchLogin} from "../redux/actions/actions";
+import login from "./login"; //must changing
 
-//test success
-it("Login success", async () => {
-  let username = "iz_mahdi@esi.dz";
-  let password = "test";
-  //Appel la fonction login
-  await Login(username, password).expect(200); // cette ligne à remplacer
-  // ça depend le traitement de la fonction
+
+test('Login success', () => {
+  let email = "is_metidji@esi.dz";
+  let password = "password";
+  return expect(fetchLogin({email : email , password : password})).resolves.toBe("success");
 });
+
+// test('Login success', () => {
+//
+//
+//   expect(fetchLogin({ email : email, password : password})).toBe('success');
+// });
+//test success
+// it("Login success", async () => {
+//
+//   //Appel la fonction login
+//   .expect(200); // cette ligne à remplacer
+//   // ça depend le traitement de la fonction
+// });
 
 //test email n'existe pas
 it("fails when an email does not exist supplied", async () => {

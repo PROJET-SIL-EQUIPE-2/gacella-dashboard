@@ -163,7 +163,7 @@ export const fetchLogin=({email , password})=>(dispatch)=>{
                 console.log("RESPONSE SUCCESS =", res);
                 // dispatch(addPostSuccess(res.data));
                 dispatch(loginSuccess(res.data.data , dispatch));
-                resolve()
+                resolve('success')
 
             })
             .catch(err=>{

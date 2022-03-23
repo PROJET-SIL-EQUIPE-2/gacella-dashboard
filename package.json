@@ -5,8 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
-    "@material-ui/icons": "^4.11.2",
     "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.2.4",
     "@mui/lab": "^5.0.0-alpha.73",
     "@mui/material": "^5.2.4",
@@ -76,5 +76,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }

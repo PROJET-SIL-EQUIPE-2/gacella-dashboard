@@ -5,25 +5,20 @@ import './styles.css'
 import GacelaCar from "../../assets/images/Login/Gacella car.svg"
 import GacelaTextBlue from "../../assets/images/Login/Gacella Text Blue.svg"
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
-import {fetchLogin} from "../../redux/actions/actions";
+import {fetchResetPassword} from "../../redux/actions/actions";
 import {useDispatch} from "react-redux";
-import {history} from "../../index";
+const  ResetPassword=()=>{
 
-const  Login=()=>{
     const sm = useMediaQuery('(min-width:576px)');
     const md = useMediaQuery('(min-width:768px)');
     const lg = useMediaQuery('(min-width:992px)');
     const xl= useMediaQuery('(min-width:1200px)');
+    const [resetPasswordForm, setResetPasswordForm] = useState({});
     const dispatch = useDispatch();
-    const [loginForm, setLoginForm] = useState({});
-    const submitLogin =()=>{
-        dispatch(fetchLogin(loginForm))
-            .then(res=>{
-                history.push("/home");
-            })
-    }
 
+    const submitResetPassword =()=>{
+        dispatch(fetchResetPassword(resetPasswordForm));
+    }
     return(
         <React.Fragment>
             <div className="d-none d-md-block" style={{height : "10vh"}}/>
@@ -36,28 +31,21 @@ const  Login=()=>{
                     </div>
                 </div>
                 <div style={!md ? {padding : "0"}:{}} className="col-12 col-md-6">
-                    <Paper style={{backgroundColor: 'rgba(234, 239, 245, 0.4)' , minHeight : "100%"}} className="loginPaper" elevation={4}>
-                        <div className="d-flex flex-column ml-md-4">
+                    <Paper style={{backgroundColor: 'rgba(234, 239, 245, 0.4)' , minHeight : "100%"}} className="loginPaper d-flex align-items-center justify-content-center" elevation={4}>
+                        <div className="d-flex flex-column ml-md-4 w-100">
                             <div style={{fontSize :"2rem"}} className="gacela-orange lora-700" >
-                                Bienvenue à nouveau
+                                Mot de passe oublié
                             </div>
                             <div style={{fontSize: "1.3rem"}} className="gacela-black21 lora-400">
-                                Entrez vos informations d'identification pour continuer :
+                                Saissez votre adresse e-mail ci-dessous
                             </div>
                             <div style={{marginTop : "1rem"}} className="h-100 d-flex flex-column">
                                 <FormGroup>
                                     <Label className="roboto-700" for="exampleEmail">Email</Label>
-                                    <Input onChange={(e)=>{setLoginForm(oldState=>{ return{...oldState , [e.target.name] : e.target.value} })}}  type="email" name="email" className="loginInput" placeholder="email" />
+                                    <Input onChange={(e)=>{setResetPasswordForm(oldState=>{ return{...oldState , [e.target.name] : e.target.value} })}} type="email" name="email" className="loginInput" placeholder="email" />
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label className="roboto-700" for="examplePassword">Mot de passe</Label>
-                                    <Input onChange={(e)=>{setLoginForm(oldState=>{ return{...oldState , [e.target.name] : e.target.value} })}} type="password" name="password" className="loginInput" id="examplePassword" placeholder="Mot de passe ..." />
-                                </FormGroup>
-                                <div className="d-flex justify-content-end">
-                                    <Link to={"/login/reset-password"}>  <div id="forgetPassword" className="roboto-500 gacela-blue-link mt-md-1 mb-md-3"> Mot de passe oublié ? </div> </Link>
-                                </div>
                                 <div className="w-100 mt-lg-3">
-                                    <Button onClick={submitLogin} disabled={!(loginForm.email?.length && loginForm.password?.length) } id="connectButton" className="w-100" variant="contained">Se connecter</Button>
+                                    <Button onClick={submitResetPassword} disabled={!(resetPasswordForm.email?.length)} id="connectButton" className="w-100" variant="contained">Envoyer</Button>
                                 </div>
                             </div>
                         </div>
@@ -69,4 +57,4 @@ const  Login=()=>{
     )
 }
 
-export default Login;
+export default ResetPassword;

@@ -10,20 +10,30 @@ import DeleteIcon from "./assets/DeleteIcon.png"
 import './styles.css';
 import './Compounents/rejectDialog.Compounent';
 import RejectDialog from "./Compounents/rejectDialog.Compounent";
-import {useState} from "react";
+import {useState , useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchgetLocatairesRequests} from "../../redux/actions/actions";
+import PermisDialog from "./Compounents/permisDialog.Compounent";
+import PhotosDialog from "./Compounents/photosDialog.Compounent";
 
 
 
 export default function LocatairesSignUpRequestsRoute() {
-
     const [isRejectDialogopen, setRejectDialogOpenStatus] = useState(false);
+    const dispatch = useDispatch();
+    const locatairesrequests = useSelector(state => state.locatairesRequests);
+    const [permisDialog, setPermisDialog] = useState(null);
+    const [photoDialog, setPhotoDialog] = useState(null);
+    useEffect(()=>{
+        dispatch(fetchgetLocatairesRequests());
+    }, [])
     const columns=[
         { title: 'Avatar', field: 'imageUrl', render: rowData =>(
             <div className="d-flex align-items-center">
-                <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}}  src={rowData.imageUrl} />
+                <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}}  src={rowData.personal_photo} />
                 <div className="pl-2 flex-column">
-                    <div className="roboto-500 gacela-black21"> John Michael </div>
-                    <div className="roboto-500 gacela-gray9E pt-2"> john.michael@gmail.com</div>
+                    <div className="roboto-500 gacela-black21"> {rowData.familyName} {rowData.name} </div>
+                    <div className="roboto-500 gacela-gray9E pt-2"> {rowData.email}</div>
                 </div>
             </div>
             )
@@ -31,15 +41,15 @@ export default function LocatairesSignUpRequestsRoute() {
         {
             title: 'Numéro de téléphone',
             field: 'phoneNumber',
-            render: rowData =>(<div className="roboto-500">0546859263</div>)
+            render: rowData =>(<div className="roboto-500">{rowData.phone_number}</div>)
         },{
-            title: 'Permis',
+            title: 'identité',
             field: 'permis',
-            render: rowData =>(<img style={{ height : "40px" , width : "40px" }} src={PermisIcon}/>)
+            render: rowData =>(<img className="hoverable" onClick={()=>setPermisDialog(rowData.photo_identity)}  style={{ height : "40px" , width : "40px" }} src={PermisIcon}/>)
         },{
-            title: 'Identité',
+            title: 'Photo',
             field: 'permis',
-            render: rowData =>(<img style={{ height : "40px" , width : "40px" }} src={IdentiteIcon}/>)
+            render: rowData =>(<img className="hoverable" onClick={()=>setPhotoDialog(rowData.personal_photo)}  style={{ height : "40px" , width : "40px" }} src={IdentiteIcon}/>)
         }
     ]
 
@@ -60,32 +70,38 @@ export default function LocatairesSignUpRequestsRoute() {
             onClick: (event, rowData) => setRejectDialogOpenStatus(true),
         })
     ]
-    return (
-        <div className="bg-white" style={{ height: 400, width: '100%' }}>
-            <MaterialTable
-                style={{borderRadius : '25px'}}
-                icons={tableIcons}
-                localization={tableLang}
-                title="Render Image Preview"
-                columns={columns}
-                data={data}
-                actions={actions}
-                options={{
-                    search: false,
-                    actionsColumnIndex: -1,
-                    headerStyle: {
-                        color: '#9E9E9E',
-                        fontFamily : 'var(--roboto-font)',
-                        fontWeight: 300,
-                        fontSize: '1.2rem'
-                    },
-                    actionsCellStyle:{
-                        paddingRight : "3rem"
-                    }
-                }}
 
-            />
-            <RejectDialog isOpen={isRejectDialogopen} setOpen={setRejectDialogOpenStatus}/>
-        </div>
+    return (
+        (   locatairesrequests.loading || locatairesrequests.error) ? null : (
+                <div className="bg-white" style={{ height: 400, width: '100%' }}>
+                    <MaterialTable
+                        style={{borderRadius : '25px'}}
+                        icons={tableIcons}
+                        localization={tableLang}
+                        title="Demande d'inscription"
+                        columns={columns}
+                        data={locatairesrequests.data}
+                        actions={actions}
+                        options={{
+                            search: false,
+                            actionsColumnIndex: -1,
+                            headerStyle: {
+                                color: '#9E9E9E',
+                                fontFamily : 'var(--roboto-font)',
+                                fontWeight: 300,
+                                fontSize: '1.2rem'
+                            },
+                            actionsCellStyle:{
+                                paddingRight : "3rem"
+                            }
+                        }}
+
+                    />
+                    <RejectDialog isOpen={isRejectDialogopen} setOpen={setRejectDialogOpenStatus}/>
+                    <PermisDialog setOpen={setPermisDialog} imageSource={permisDialog} />
+                    <PhotosDialog setOpen={setPhotoDialog} imageSource={photoDialog} />
+                </div>
+            )
+
     );
 }

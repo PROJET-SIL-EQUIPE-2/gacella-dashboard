@@ -17,6 +17,9 @@
   --roboto-font: 'Roboto', sans-serif;
 }
 
+.hoverable:hover{
+  cursor: pointer;
+}
 .--gacela-orangeFA{
   color: var(--gacela-orangeFA) !important; ;
 }

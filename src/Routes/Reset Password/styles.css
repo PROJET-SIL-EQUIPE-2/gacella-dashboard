@@ -22,7 +22,7 @@
     height: calc(2em + 0.75rem + 2px) !important;
 }
 
-#connectButton:not(.Mui-disabled){
+#connectButton{
     border-radius: 20px !important;
     background-color: var(--gacela-orange);
     color: var(--gacela-grayEA);

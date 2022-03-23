@@ -5,6 +5,9 @@ import { persistStore, persistReducer } from 'redux-persist';
 
 import postsReducerModal from "./postsReducer.Modal";
 import customizationReducer from "./customizationReducer";
+import userModal from "./user.Modal";
+import locatairesRequestsModal from "./locatairesRequests.Modal";
+import snackBarModal from "./snackBarInfo.Modal";
 
 
 let persistConfig = {
@@ -15,7 +18,10 @@ let persistConfig = {
 
 let reducers= combineReducers({
     posts : postsReducerModal,
-    templateSettings : customizationReducer
+    templateSettings : customizationReducer,
+    user : userModal,
+    locatairesRequests : locatairesRequestsModal,
+    snackBarInfo : snackBarModal
     // users : usersReducer,
 });
 

@@ -85,7 +85,7 @@ const MainLayout = ({children}) => {
     }, [matchDownMd]);
     let routeLocation = useLocation();
     let pathName = routeLocation.pathname;
-    if(pathName==="/login"){
+    if(pathName.includes("/login")){
         return children
     }
 

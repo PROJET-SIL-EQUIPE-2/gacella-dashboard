@@ -18,7 +18,12 @@ export default function RejectDialog({isOpen , setOpen , locataireEmail}) {
     const [rejectMessage, setRejectMessage] = useState("");
     const dispatch = useDispatch();
     const submitReject = ()=>{
-        dispatch(fetchRejectLocataire({locataireEmail : locataireEmail , rejectMessage : rejectMessage}));
+        dispatch(fetchRejectLocataire({locataireEmail : locataireEmail , rejectMessage : rejectMessage}))
+            .then(()=>{
+                    setTimeout(()=>{
+                        window.location.reload(false);
+                    },1500)
+            })
     }
 
     const handleClickOpen = () => {
@@ -38,7 +43,7 @@ export default function RejectDialog({isOpen , setOpen , locataireEmail}) {
                         Entrez votre justificatif du rejet pour continuer
                     </DialogContentText>
                     <FormGroup>
-                        <Input onChange={(e)=>setRejectMessage(e.target.value)} style={{minHeight : "8rem" }} type="textarea" name="password"  id="rejectDialogTextArea" placeholder="Mot de passe ..." />
+                        <Input onChange={(e)=>setRejectMessage(e.target.value)} style={{minHeight : "8rem" }} type="textarea" name="password"  id="rejectDialogTextArea" placeholder="Justificatif du rejet ..."/>
                     </FormGroup>
                     <div className="w-100 mt-lg-3 mt-lg-3">
                         <Button onClick={()=>submitReject()} style={{color : "white"}} id="connectButton" className="w-100" variant="contained">Envoyer </Button>

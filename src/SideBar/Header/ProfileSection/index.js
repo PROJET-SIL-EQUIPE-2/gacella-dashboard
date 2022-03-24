@@ -55,9 +55,11 @@ const ProfileSection = () => {
      * anchorRef is used on different componets and specifying one type leads to other components throwing an error
      * */
     const anchorRef = useRef(null);
-    const handleLogout = async () => {
-        console.log('Logout');
-    };
+    const handleLogout = ()=>{
+        localStorage.removeItem('gacela-token');
+        localStorage.removeItem('accountType');
+        history.push('/login');
+    }
 
     const handleClose = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {

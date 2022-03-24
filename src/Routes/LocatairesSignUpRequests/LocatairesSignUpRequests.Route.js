@@ -25,7 +25,7 @@ export default function LocatairesSignUpRequestsRoute() {
     const [permisDialog, setPermisDialog] = useState(null);
     const [photoDialog, setPhotoDialog] = useState(null);
     const [locataireEmail, setLocataireEmail] = useState(null);
-    
+
     const  baseUrlTest = "http://localhost:3000";
 
     useEffect(()=>{
@@ -66,7 +66,15 @@ export default function LocatairesSignUpRequestsRoute() {
             rowData=>({
                 icon: ()=> (<img style={{ height : "40px" , width : "40px" }}  src={CheckIcon}/>),
                 tooltip: "Confirmer l'inscription",
-                onClick: (event, rowData) => dispatch(fetchAcceptLocataire(rowData.email))
+                onClick: (event, rowData) =>{
+                    dispatch(fetchAcceptLocataire(rowData.email))
+                        .then(()=>{
+                            setTimeout(()=>{
+                                window.location.reload(false);
+                            },1500)
+                        })
+
+                }
             }),
             rowData => ({
             icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={DeleteIcon}/>),

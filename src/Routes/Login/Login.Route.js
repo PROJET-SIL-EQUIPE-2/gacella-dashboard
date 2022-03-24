@@ -21,7 +21,7 @@ const  Login=()=>{
     const submitLogin =()=>{
         dispatch(fetchLogin(loginForm))
             .then(res=>{
-                history.push("/home");
+                history.push("/");
             })
     }
 

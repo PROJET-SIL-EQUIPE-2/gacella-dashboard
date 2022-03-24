@@ -15,7 +15,7 @@ const dashboard = {
             id: 'default',
             title: 'Demandes de locataires',
             type: 'item',
-            url: '/locataires_requests',
+            url: 'locataires_requests',
             icon: icons.IconDashboard,
             breadcrumbs: false
         }

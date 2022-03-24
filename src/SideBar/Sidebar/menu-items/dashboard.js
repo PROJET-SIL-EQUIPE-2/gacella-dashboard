@@ -13,9 +13,9 @@ const dashboard = {
     children: [
         {
             id: 'default',
-            title: 'Dashboard',
+            title: 'Demandes de locataires',
             type: 'item',
-            url: '/dashboard/default',
+            url: '/locataires_requests',
             icon: icons.IconDashboard,
             breadcrumbs: false
         }

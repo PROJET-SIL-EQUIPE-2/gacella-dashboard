@@ -162,7 +162,7 @@ export const fetchLogin=({email , password})=>(dispatch)=>{
             .then(res=>{
                 console.log("RESPONSE SUCCESS =", res);
                 // dispatch(addPostSuccess(res.data));
-                dispatch(loginSuccess(res.data.message , dispatch));
+                dispatch(loginSuccess(res.data.data , dispatch));
                 resolve('success')
 
             })
@@ -226,7 +226,7 @@ export const fetchResetPassword=({email})=>(dispatch)=>{
             .then(res=>{
                 // dispatch(addPostSuccess(res.data));
                 console.log("RESPONSE SUCCESS =", res);
-                dispatch(resetPassswordSuccess(res.data , dispatch));
+                dispatch(resetPassswordSuccess(res.data.message , dispatch));
                 resolve();
             })
             .catch(err=>{

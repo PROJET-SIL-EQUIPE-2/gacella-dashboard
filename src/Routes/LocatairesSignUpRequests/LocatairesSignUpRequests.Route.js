@@ -25,6 +25,8 @@ export default function LocatairesSignUpRequestsRoute() {
     const [permisDialog, setPermisDialog] = useState(null);
     const [photoDialog, setPhotoDialog] = useState(null);
     const [locataireEmail, setLocataireEmail] = useState(null);
+    
+    const  baseUrlTest = "http://localhost:3000";
 
     useEffect(()=>{
         dispatch(fetchgetLocatairesRequests());
@@ -47,11 +49,11 @@ export default function LocatairesSignUpRequestsRoute() {
         },{
             title: 'identité',
             field: 'permis',
-            render: rowData =>(<img className="hoverable" onClick={()=>setPermisDialog(rowData.photo_identity)}  style={{ height : "40px" , width : "40px" }} src={PermisIcon}/>)
+            render: rowData =>(<img className="hoverable" onClick={()=>setPermisDialog(`${baseUrlTest + "/" + rowData.photo_identity}`)}  style={{ height : "40px" , width : "40px" }} src={PermisIcon}/>)
         },{
             title: 'Photo',
             field: 'permis',
-            render: rowData =>(<img className="hoverable" onClick={()=>setPhotoDialog(rowData.personal_photo)}  style={{ height : "40px" , width : "40px" }} src={IdentiteIcon}/>)
+            render: rowData =>(<img className="hoverable" onClick={()=>setPhotoDialog(`${baseUrlTest + "/" + rowData.personal_photo}`)}  style={{ height : "40px" , width : "40px" }} src={IdentiteIcon}/>)
         }
     ]
 

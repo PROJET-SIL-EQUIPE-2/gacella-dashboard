@@ -12,6 +12,7 @@ import {useSelector} from "react-redux";
 import NavigationScroll from "./SideBar/NavigationScroll";
 import Login from "./Routes/Login/Login.Route";
 import LocatairesSignUpRequestsRoute from "./Routes/LocatairesSignUpRequests/LocatairesSignUpRequests.Route";
+import Verrouillage from "./Routes/gestionverou/Verrouillage.Route"
 import ResetPasswordRoute from "./Routes/Reset Password/resetPassword.Route";
 import {Redirect} from "react-router";
 import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
@@ -50,7 +51,9 @@ function App() {
                           <Switch>
                               <PrivateRoute exact path="/" component={()=>null} />
                               <PrivateRoute exact path="/home" component={()=><HomeRoute/>} />
-                              <PrivateRoute exact path="/locataires_requests" component={()=><LocatairesSignUpRequestsRoute/>} />
+                              <PrivateRoute exact path="/locata
+                              ires_requests" component={()=><LocatairesSignUpRequestsRoute/>} />
+                              <PrivateRoute exact path="/verouillage" component={()=><Verrouillage/>} />
                               <PrivateRoute exact path="/contact" component={()=><ContactRoute/>} />
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />

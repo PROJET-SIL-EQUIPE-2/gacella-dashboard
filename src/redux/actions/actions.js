@@ -249,6 +249,7 @@ export const fetchResetPassword=({email})=>(dispatch)=>{
 // GET ALL LOCATAIRES REQUESTS
 
 export const getAllLocatairesRequestsLoading=()=>{
+    console.log("LOADING LOCATAIRES !");
     return{
         type: Actiontypes.GET_LOCATAIRES_REQUESTS_LOADING
     }

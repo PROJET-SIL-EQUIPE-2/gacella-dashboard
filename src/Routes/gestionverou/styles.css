@@ -1,1 +1,42 @@
+ main {
+    padding:0px;
+    overflow: hidden;
+}
+ .tack {
+     position: absolute;
+     top: 0px;
+     left : 0px;
 
+ }
+.second{
+    position: absolute;
+    top: 0px;
+    left : 0px;
+    width: 100px;
+    z-index: 9;
+}
+.noir{
+    background-color: #ffffff;
+
+    z-index: 10;
+    border-radius: 25px;
+    margin: 10% 0;
+}
+.contenaire {
+    position: absolute;
+    left : 3%;
+    top: 0;
+    z-index: 11;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+ .no-padding {
+     padding: 0 !important;
+ }
+.parent{
+    position: relative;
+}
+.rightaligned{
+    position: absolute;
+    right: 0;
+}

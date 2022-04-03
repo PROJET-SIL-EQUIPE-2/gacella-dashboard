@@ -51,8 +51,7 @@ function App() {
                           <Switch>
                               <PrivateRoute exact path="/" component={()=>null} />
                               <PrivateRoute exact path="/home" component={()=><HomeRoute/>} />
-                              <PrivateRoute exact path="/locata
-                              ires_requests" component={()=><LocatairesSignUpRequestsRoute/>} />
+                              <PrivateRoute exact path="/locataires_requests" component={()=><LocatairesSignUpRequestsRoute/>} />
                               <PrivateRoute exact path="/verouillage" component={()=><Verrouillage/>} />
                               <PrivateRoute exact path="/contact" component={()=><ContactRoute/>} />
                               <Route exact path="/login" component={()=><Login/>} />

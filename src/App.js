@@ -15,6 +15,7 @@ import LocatairesSignUpRequestsRoute from "./Routes/LocatairesSignUpRequests/Loc
 import ResetPasswordRoute from "./Routes/Reset Password/resetPassword.Route";
 import {Redirect} from "react-router";
 import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
+import CarsViewRoute from "./Routes/CarsView/carsView.Route";
 
 
 function App() {
@@ -52,6 +53,8 @@ function App() {
                               <PrivateRoute exact path="/home" component={()=><HomeRoute/>} />
                               <PrivateRoute exact path="/locataires_requests" component={()=><LocatairesSignUpRequestsRoute/>} />
                               <PrivateRoute exact path="/contact" component={()=><ContactRoute/>} />
+                              <PrivateRoute exact path="/cars-view" component={()=><CarsViewRoute/>} />
+
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
 

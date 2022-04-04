@@ -436,3 +436,54 @@ export const closeSnackBar=()=>{
 }
 
 
+// GET ALL AMS
+
+export const getAllAMSLoading=()=>{
+    return{
+        type: Actiontypes.GET_ALL_AMS_LOADING
+    }
+}
+
+export const getAllAMSError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_ALL_AMS_ERROR,
+        payload: err
+    }
+}
+
+
+export const getAllAMSSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_ALL_AMS_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetAMS=()=>(dispatch)=>{
+    dispatch(getAllAMSLoading());
+    const headers = {
+        // Pour athentification
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+        // pour specifier le format de reponse
+        'Content-Type': 'application/json'
+    };
+    // const headers = {
+    //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+    // };
+    axios.get( Endpoints.ENDPOINT_GET_AMS,
+        { headers: headers }
+    )
+        .then(res=>{
+            console.log('response =', res);
+            dispatch(getAllAMSSuccess(res.data , dispatch))
+        })
+        .catch(err=>{
+            console.log('err =', err.response.data);
+            dispatch(getAllAMSError(err.response.data , dispatch))
+        });
+
+}
+

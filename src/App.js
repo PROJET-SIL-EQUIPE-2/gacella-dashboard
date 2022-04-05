@@ -16,6 +16,7 @@ import Verrouillage from "./Routes/gestionverou/Verrouillage.Route"
 import ResetPasswordRoute from "./Routes/Reset Password/resetPassword.Route";
 import {Redirect} from "react-router";
 import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
+import LocataireDemandesDeverouillage from "./Routes/DemandeDeverouillage/LocatairesSignUpRequests.Route";
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
                               <PrivateRoute exact path="/contact" component={()=><ContactRoute/>} />
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
+                              <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
 
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}

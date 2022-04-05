@@ -299,6 +299,31 @@ export const fetchgetLocatairesRequests=()=>(dispatch)=>{
 }
 
 
+export const fetchgetDeverouillageRequests=()=>(dispatch)=>{
+    dispatch(getAllLocatairesRequestsLoading());
+    const headers = {
+        // Pour athentification
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+        // pour specifier le format de reponse
+        'Content-Type': 'application/json'
+    };
+    // const headers = {
+    //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+    // };
+    axios.get( Endpoints.ENDPOINT_GET_DEVEROUILLAGE_REQUESTS,
+        { headers: headers }
+    )
+        .then(res=>{
+            console.log('response =', res);
+            dispatch(getAllLocatairesRequestsSuccess(res.data , dispatch))
+        })
+        .catch(err=>{
+            console.log('err =', err.response.data);
+            dispatch(getAllLocatairesRequestsError(err.response.data , dispatch))
+        });
+
+}
+
 // ACCEPT LOCATAIRE REQUEST
 
 

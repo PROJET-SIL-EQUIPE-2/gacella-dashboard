@@ -1,6 +1,7 @@
 import * as Actiontypes from "./actionsTypes";
 import * as Endpoints from "../endpoints";
 import axios from "axios"
+import {GET_DECIDEURS_PROFILES_LOADING} from "./actionsTypes";
 
 // TEMPLATE GET METHOD
 export const getAllPostsLoading=()=>{
@@ -17,14 +18,12 @@ export const getAllPostsError=(err)=>{
     }
 }
 
-
 export const getAllPostsSuccess=(content)=>{
     return{
         type: Actiontypes.GET_ALL_POSTS_SUCCESS,
         payload: content
     }
 }
-
 
 export const fetchAllPosts=()=>(dispatch)=>{
     dispatch(getAllPostsLoading());
@@ -53,8 +52,6 @@ export const fetchAllPosts=()=>(dispatch)=>{
 
 
 // TEMPLATE POST METHOD
-
-
 
 const addPostLoading=()=>{
     return{
@@ -185,7 +182,6 @@ export const fetchLogin=({email , password})=>(dispatch)=>{
 
 // RESET PASSWORD
 
-
 const resetPasswordLoading=()=>{
     return{
         type : Actiontypes.POST_RESET_PASSWORD_LOADING,
@@ -296,7 +292,6 @@ export const fetchgetLocatairesRequests=()=>(dispatch)=>{
         });
 
 }
-
 
 // ACCEPT LOCATAIRE REQUEST
 
@@ -414,6 +409,55 @@ export const fetchRejectLocataire=({locataireEmail  , rejectMessage })=>(dispatc
                 reject(err.message);
             });
     }))
+
+}
+
+
+// GET ALL DECIDEURS PROFILES
+
+export const getAllDecideursProfilesLoading=()=>{
+    return{
+        type: Actiontypes.GET_DECIDEURS_PROFILES_LOADING
+    }
+}
+
+export const getAllDecideursProfilesError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_DECIDEURS_PROFILES_ERROR,
+        payload: err
+    }
+}
+
+export const getAllDecideursProfilesSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_DECIDEURS_PROFILES_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetDecideursProfiles=()=>(dispatch)=>{
+    dispatch(getAllDecideursProfilesLoading());
+    const headers = {
+        // Pour athentification
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+        // pour specifier le format de reponse
+        'Content-Type': 'application/json'
+    };
+
+    axios.get( Endpoints.ENDPOINT_GET_DECIDEURS_PROFILES,
+        { headers: headers }
+    )
+        .then(res=>{
+            console.log('response =', res);
+            dispatch(getAllDecideursProfilesSuccess(res.data , dispatch))
+        })
+        .catch(err=>{
+            console.log('err =', err.response.data);
+            dispatch(getAllDecideursProfilesError(err.response.data , dispatch))
+        });
 
 }
 

@@ -8,6 +8,7 @@ import customizationReducer from "./customizationReducer";
 import userModal from "./user.Modal";
 import locatairesRequestsModal from "./locatairesRequests.Modal";
 import snackBarModal from "./snackBarInfo.Modal";
+import decideursProfilesModal from "./decideursProfiles.Modal";
 
 
 let persistConfig = {
@@ -21,6 +22,7 @@ let reducers= combineReducers({
     templateSettings : customizationReducer,
     user : userModal,
     locatairesRequests : locatairesRequestsModal,
+    decideursProfiles : decideursProfilesModal,
     snackBarInfo : snackBarModal
     // users : usersReducer,
 });

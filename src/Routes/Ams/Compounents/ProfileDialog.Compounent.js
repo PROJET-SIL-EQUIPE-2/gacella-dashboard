@@ -11,19 +11,8 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {fetchRejectLocataire} from "../../../redux/actions/actions";
 
-export default function RejectDialog({isOpen , setOpen , locataireEmail}) {
+export default function ProfileDialog({isOpen , setOpen , amId}) {
 
-
-    const [rejectMessage, setRejectMessage] = useState("");
-    const dispatch = useDispatch();
-    const submitReject = ()=>{
-        dispatch(fetchRejectLocataire({locataireEmail : locataireEmail , rejectMessage : rejectMessage}))
-            .then(()=>{
-                    setTimeout(()=>{
-                        window.location.reload(false);
-                    },1500)
-            })
-    }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -36,17 +25,11 @@ export default function RejectDialog({isOpen , setOpen , locataireEmail}) {
     return (
         <div>
             <Dialog className="p-2" open={isOpen} onClose={handleClose}>
-                <DialogTitle style={{fontSize : "2rem"}} className="lora-700 gacela-orange">Argument du rejet</DialogTitle>
+                <DialogTitle style={{fontSize : "2rem"}} className="lora-700 gacela-orange">Détails</DialogTitle>
                 <DialogContent>
                     <DialogContentText style={{fontSize : "1.4rem"}} className="lora-400 gacela-black21 mb-lg-3">
-                        Entrez votre justificatif du rejet pour continuer
+                        datails
                     </DialogContentText>
-                    <FormGroup>
-                        <Input onChange={(e)=>setRejectMessage(e.target.value)} style={{minHeight : "8rem" }} type="textarea" name="password"  id="rejectDialogTextArea" placeholder="Justificatif du rejet ..."/>
-                    </FormGroup>
-                    <div className="w-100 mt-lg-3 mt-lg-3">
-                        <Button onClick={()=>submitReject()} style={{color : "white"}} id="connectButton" className="w-100" variant="contained">Envoyer </Button>
-                    </div>
                 </DialogContent>
 
             </Dialog>

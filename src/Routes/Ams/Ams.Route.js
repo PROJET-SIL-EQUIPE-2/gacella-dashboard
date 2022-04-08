@@ -13,7 +13,7 @@ import {fetchgetAMS} from "../../redux/actions/actions";
 
 export default function AmsRoute() {
     const [isAmProfileDialogopen, setAmProfileDialogOpenStatus] = useState(false);
-    const [amEmail, setAmEmail] = useState(null);
+    const [amId, setAmId] = useState(null);
     const dispatch = useDispatch();
     const am = useSelector(state => state.am);
 
@@ -22,15 +22,12 @@ export default function AmsRoute() {
     useEffect(()=>{
         dispatch(fetchgetAMS());
     }, [])
+    
     const columns=[
-        { title: 'Avatar', field: 'imageUrl', render: rowData =>(
-            <div className="d-flex align-items-center">
-                <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}}  src={rowData.personal_photo} />
-                <div className="pl-2 flex-column">
-                    <div className="roboto-500 gacela-black21"> {rowData.familyName} {rowData.name} </div>
-                </div>
-            </div>
-            )
+        { 
+            title: 'Nom Complet',
+            field: 'name_familyName',
+            render: rowData =>(<div className="roboto-500">{rowData.familyName} {rowData.name}</div>)
         },
         {
             title: 'Adresse Email',
@@ -49,10 +46,17 @@ export default function AmsRoute() {
             rowData => ({
             icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={profileIcon}/>),
             tooltip: 'Go to Profile',
-            onClick: (event, rowData) => {setAmProfileDialogOpenStatus(true); setAmEmail(rowData.email); },
+            onClick: (event, rowData) => {setAmProfileDialogOpenStatus(true); setAmId(rowData.agent_id); },
         })
     ]
 
+
+    const data=[
+        { name: 'Mehmet', familyName: 'Baran', email: "email@email", phone_number:"0123456789", imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
+        { name: 'Zerya Betül', familyName: 'Baran', email: "email@email", phone_number:'0123456789', imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
+        { name: 'Zerya Betül', familyName: 'Baran', email: "email@email", phone_number:'0123456789', imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
+    ]
+    
     return (
         (   am.loading || am.error) ? null : (
                 <div className="bg-white" style={{ height: 400, width: '100%' }}>
@@ -79,7 +83,7 @@ export default function AmsRoute() {
                         }}
 
                     />
-                    <ProfileDialog isOpen={isAmProfileDialogopen} setOpen={setAmProfileDialogOpenStatus} amEmail={amEmail}/>
+                    <ProfileDialog isOpen={isAmProfileDialogopen} setOpen={setAmProfileDialogOpenStatus} amId={amId}/>
                 </div>
             )
 

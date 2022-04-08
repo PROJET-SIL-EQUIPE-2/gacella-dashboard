@@ -8,6 +8,8 @@ import customizationReducer from "./customizationReducer";
 import userModal from "./user.Modal";
 import locatairesRequestsModal from "./locatairesRequests.Modal";
 import snackBarModal from "./snackBarInfo.Modal";
+import amsProfilesModal from "./amsProfiles.Modal";
+
 
 
 let persistConfig = {
@@ -20,6 +22,7 @@ let reducers= combineReducers({
     posts : postsReducerModal,
     templateSettings : customizationReducer,
     user : userModal,
+    amsProfiles : amsProfilesModal,
     locatairesRequests : locatairesRequestsModal,
     snackBarInfo : snackBarModal
     // users : usersReducer,

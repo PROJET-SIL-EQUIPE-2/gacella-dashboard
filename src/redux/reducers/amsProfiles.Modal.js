@@ -12,7 +12,7 @@ const initialState = {
 }
 
 
-export default function gestionAmsModal (state = initialState, action) {
+export default function amsProfilesModal (state = initialState, action) {
     switch(action.type){
         case GET_ALL_AMS_LOADING:
             return {

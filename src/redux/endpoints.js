@@ -7,5 +7,7 @@ module.exports={
     ENDPOINT_GET_LOCATAIRES_REQUESTS: `${baseUrlTest}/api/locataire/non_validated`,
     ENDPOINT_POST_ACCEPT_LOCATAIRE : `${baseUrlTest}/api/signup/locataire/validate`,
     ENDPOINT_POST_REJECT_LOCATAIRE : `${baseUrlTest}/api/signup/locataire/reject`,
-    ENDPOINT_GET_AMS : `${baseUrlTest}/api/ams/non_validated`
+    ENDPOINT_GET_AMS : `${baseUrlTest}/api/agents/all`,
+    ENDPOINT_GET_AM : `${baseUrlTest}/api/agents/1`,
+    
 }

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import MaterialTable, { MTableToolbar } from 'material-table';
-import { Avatar } from '@mui/material';
 import {tableLang , tableIcons} from '../../ui-component/ReactTablesWidget/Widget'
 import profileIcon from "./assets/ProfileIcon.png"
 import './styles.css';
@@ -15,7 +14,7 @@ export default function AmsRoute() {
     const [isAmProfileDialogopen, setAmProfileDialogOpenStatus] = useState(false);
     const [amId, setAmId] = useState(null);
     const dispatch = useDispatch();
-    const am = useSelector(state => state.am);
+    const am = useSelector(state => state.amsProfiles);
 
     const  baseUrlTest = "http://localhost:3000";
 
@@ -39,26 +38,22 @@ export default function AmsRoute() {
             field: 'phoneNumber',
             render: rowData =>(<div className="roboto-500">{rowData.phone_number}</div>)
         },
-
+        {
+            title: 'Profile',
+            field: 'profile',
+            render: rowData =>(<img className="hoverable"
+                                    onClick={() =>{
+                                            /**/
+                                            setAmProfileDialogOpenStatus(true); setAmId(rowData.agent_id);
+                                        }}
+                                    style={{ height : "40px" , width : "40px" }}
+                                    src={profileIcon}
+                                />)
+        },
     ] 
-
-    const actions=[
-            rowData => ({
-            icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={profileIcon}/>),
-            tooltip: 'Go to Profile',
-            onClick: (event, rowData) => {setAmProfileDialogOpenStatus(true); setAmId(rowData.agent_id); },
-        })
-    ]
-
-
-    const data=[
-        { name: 'Mehmet', familyName: 'Baran', email: "email@email", phone_number:"0123456789", imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
-        { name: 'Zerya Betül', familyName: 'Baran', email: "email@email", phone_number:'0123456789', imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
-        { name: 'Zerya Betül', familyName: 'Baran', email: "email@email", phone_number:'0123456789', imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
-    ]
     
     return (
-        (   am.loading || am.error) ? null : (
+        (am.loading || am.error) ? null : (
                 <div className="bg-white" style={{ height: 400, width: '100%' }}>
                     <MaterialTable
                         style={{borderRadius : '25px'}}
@@ -66,10 +61,14 @@ export default function AmsRoute() {
                         localization={tableLang}
                         title="Gestions des comptes des agents de maintenance"
                         columns={columns}
-                        data={am.data}
-                        actions={actions}
+                        data={am.data.data.allAgents}
                         options={{
-                            search: false,
+                            search:false,
+                            selection:true,
+                            sorting:true,
+                            //filtering:true,
+                            showSelectAllCheckbox:true,
+                            showTextRowsSelected:true,
                             actionsColumnIndex: -1,
                             headerStyle: {
                                 color: '#9E9E9E',

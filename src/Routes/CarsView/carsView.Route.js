@@ -5,6 +5,10 @@ import {ElectricCar} from "@mui/icons-material";
 import MarkerIcon from "./car_icon.png";
 import './styles.css';
 import CarsWindowInfo from "./Compounents/carsWindowInfo.Compounent";
+import Paper from "@mui/material/Paper";
+import List from "@mui/material/List";
+import CarteVehicule from "../gestionverou/Compounents/Card";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 const centerPos = {lat : 48.8584  , lng: 2.2945}
 const Marker2Pos = {lat : 48.8570  , lng: 2.2930}
@@ -46,7 +50,20 @@ const cars=[{
         fullName : 'Joe Goldberg',
         email : 'ij_goldberg@esi.dz'
     }
-}]
+} ,{
+    name : 'V-12D7',
+    position : {
+        lat : 48.7230,
+        lng: 2.2550
+    },
+    speed : '45Km/h',
+    heat : '65°C',
+    AM : {
+        fullName : 'Eren Yeager',
+        email : 'ie_yeager@esi.dz'
+    }
+}
+ ]
 const  CarsViewRoute=()=>{
     const [WindowInfoStatus, setWindowInfoStatus] = useState({
         isOpen : false ,
@@ -136,6 +153,7 @@ const  CarsViewRoute=()=>{
 
 
             <GoogleMap
+                style={{height : '100vh'}}
                 center={ WindowInfoStatus.isOpen ? WindowInfoStatus.car.position :  calculateCenterMap()}
                 zoom={10}
                 mapContainerStyle={{width : '100%' , height : '100vh'}}
@@ -161,6 +179,27 @@ const  CarsViewRoute=()=>{
                         )
 
                 })}
+
+                <Paper class={"contenaire"} style={{maxHeight: '100%', overflow: 'auto'}}>
+                    <PerfectScrollbar
+                        style={{ height: '100%', maxHeight: 'calc(100vh - 1px)', overflowX: 'hidden' }}
+                    >
+                    <List
+                    >
+                                {cars.map(car=>{
+                                    return(
+                                        <CarteVehicule onCardClick={()=>setInfoWindowData(car)} idVehicule={car.name} temperature={car.heat} kilometres={car.speed} location={car.position}  email={car.AM.email} nomComplet={car.AM.fullName} heure={null} date={null} type={"comfortable"}></CarteVehicule>
+                                    )
+                                })}
+                        {/*<CarteVehicule idVehicule="5555555" temperature={17.9} kilometres={100} location={"Cheraga, daly brahim"}  email={"fouzi@gmail.com"} nomComplet={"Mon Nom"} heure={"14:30"} date={"16/04/2022"} type={"comfortable"}></CarteVehicule>*/}
+                        {/*<CarteVehicule idVehicule="1010100" temperature={50} kilometres={700} location={" EL Harrach, Alger"}  email={"fouzi@gmail.com"} nomComplet={"Mon Nom"} heure={"14:30"} date={"16/04/2022"} type={"comfortable"}></CarteVehicule>*/}
+                        {/*<CarteVehicule idVehicule="1212212" temperature={10} kilometres={1000} location={"oued smar, beaulieu"}  email={"fouzi@gmail.com"} nomComplet={"Mon Nom"} heure={"14:30"} date={"16/04/2022"} type={"comfortable"}></CarteVehicule>*/}
+
+
+                    </List>
+                    </PerfectScrollbar>
+
+                </Paper>
 
                 {/*<Marker position={Marker2Pos} label={{*/}
                 {/*    text: "Car 2",*/}

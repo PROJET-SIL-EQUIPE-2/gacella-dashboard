@@ -1,9 +1,13 @@
 import * as React from 'react';
-import MaterialTable, { MTableToolbar } from 'material-table';
+import MaterialTable from 'material-table';
 import {tableLang , tableIcons} from '../../ui-component/ReactTablesWidget/Widget'
 import profileIcon from "./assets/ProfileIcon.png"
+import RemoveIcon from "./assets/RemoveIcon.png";
+import AddIcon from "./assets/AddIcon.png";
 import './styles.css';
 import ProfileDialog from "./Compounents/ProfileDialog.Compounent";
+import ConfirmDialog from "./Compounents/ConfirmDialog.Compounent";
+import SignUpDialog from "./Compounents/SignUpDialog.Compounent";
 import {useState , useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchgetAMS} from "../../redux/actions/actions";
@@ -12,7 +16,10 @@ import {fetchgetAMS} from "../../redux/actions/actions";
 
 export default function AmsRoute() {
     const [isAmProfileDialogopen, setAmProfileDialogOpenStatus] = useState(false);
+    const [isConfirmDialogopen, setConfirmDialogOpenStatus] = useState(false);
+    const [isSignUpDialogopen, setSignUpDialogOpenStatus] = useState(false);
     const [amId, setAmId] = useState(null);
+    const [amEmail, setAmEmail] = useState(null);
     const dispatch = useDispatch();
     const am = useSelector(state => state.amsProfiles);
 
@@ -44,13 +51,37 @@ export default function AmsRoute() {
             render: rowData =>(<img className="hoverable"
                                     onClick={() =>{
                                             /**/
-                                            setAmProfileDialogOpenStatus(true); setAmId(rowData.agent_id);
+                                            setAmProfileDialogOpenStatus(true); 
+                                            setAmId(rowData.agent_id);
                                         }}
                                     style={{ height : "40px" , width : "40px" }}
                                     src={profileIcon}
                                 />)
         },
+        {
+            title: 'Delete',
+            field: 'Delete',
+            render: rowData =>(<img className="hoverable"
+                                    onClick={() =>{
+                                            /**/
+                                            setConfirmDialogOpenStatus(true);
+                                            setAmEmail(rowData.email);
+                                        }}
+                                    style={{ height : "40px" , width : "40px" }}
+                                    src={RemoveIcon}
+                                />)
+        },
     ] 
+
+    const actions=[
+        {
+             icon:  ()=>(<img style={{ height : "30px" , width : "30px" }}  src={AddIcon}/>),
+             tooltip: 'Ajouter un agent',
+             position:'toolbar',
+             isFreeAction: true,
+            onClick: (event) => {setSignUpDialogOpenStatus(true); },
+        }
+     ]
     
     return (
         (am.loading || am.error) ? null : (
@@ -61,7 +92,8 @@ export default function AmsRoute() {
                         localization={tableLang}
                         title="Gestions des comptes des agents de maintenance"
                         columns={columns}
-                        data={am.data.data.allAgents}
+                        data={am.data.allAgents}
+                        actions={actions}
                         options={{
                             search:false,
                             selection:true,
@@ -83,6 +115,8 @@ export default function AmsRoute() {
 
                     />
                     <ProfileDialog isOpen={isAmProfileDialogopen} setOpen={setAmProfileDialogOpenStatus} amId={amId}/>
+                    <ConfirmDialog isOpen={isConfirmDialogopen} setOpen={setConfirmDialogOpenStatus} amEmail={amEmail}/>
+                    <SignUpDialog isOpen={isSignUpDialogopen} setOpen={setSignUpDialogOpenStatus} />
                 </div>
             )
 

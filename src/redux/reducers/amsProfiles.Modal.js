@@ -24,7 +24,7 @@ export default function amsProfilesModal (state = initialState, action) {
             localStorage.setItem("gacela-token" , action.payload.token);
             return {
                 ...state ,
-                data : action.payload,
+                data : action.payload.data,
                 error: null,
                 loading: false
             }

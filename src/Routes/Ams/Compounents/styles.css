@@ -1,15 +1,11 @@
 #rejectDialogTextArea {
   height: 8rem;
-  background: rgba(248, 235, 227, 0.5) !important;
+  /* background: rgba(248, 235, 227, 0.5) !important; */
   border-radius: 20px;
 }
 
 .MuiDialog-paper {
   padding: 1rem;
-}
-
-.MuiDialog-container {
-  background-color: rgba(247, 233, 226, 0.5) !important;
 }
 
 .ProfileCont {
@@ -52,4 +48,32 @@
   width: 500px;
   padding: 0;
   margin: 0;
+}
+
+.pannesR {
+  width: 500px;
+  padding: 10px;
+  color: black;
+}
+
+.linepannesR {
+  display: flex;
+  justify-content: space-between;
+}
+.profilDialogue {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}
+
+.profilDialogue > div {
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.profilDialogue > div > div {
+  border: 2px solid black;
+  padding: 25px;
 }

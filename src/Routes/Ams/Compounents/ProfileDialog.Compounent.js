@@ -1,5 +1,3 @@
-import Tasks from "./Tasks.Compounent";
-
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -14,6 +12,9 @@ import { useDispatch } from "react-redux";
 import { fetchRejectLocataire } from "../../../redux/actions/actions";
 import ProfileView from "./ProfileView.Compoument";
 import CustomizedTables from "./DifferentsVehicules.Compounent";
+import TotalePannes from "./TotalPannes.Compounent";
+import Tasks from "./Tasksalt.Compounent";
+import { makeStyles } from "@material-ui/core/styles";
 
 export default function ProfileDialog({ isOpen, setOpen, amId }) {
   const handleClickOpen = () => {
@@ -24,7 +25,7 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
     setOpen(false);
   };
 
-  // replace with request
+  // replace with reel data
   const Userinfos = {
     nom: "nom",
     prenom: "prenom",
@@ -34,7 +35,7 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
     libre: true,
   };
 
-  // replace with request
+  // replace with reel data
   const CarsData = [
     {
       id: "V-12D54",
@@ -86,13 +87,88 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
     },
   ];
 
+  // replace with reel data
+  const tachesData = [
+    {
+      tache: "V-12D54V-12D54V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+    {
+      tache: "V-12D54",
+      progres: "25%",
+    },
+  ];
+
+  const useStyles = makeStyles({
+    diagstyle: {
+      position: "absolute",
+      right: 50,
+      width: 1200,
+    },
+  });
+  const classes = useStyles();
+
   return (
     <div>
-      <Dialog className="p-2" open={isOpen} onClose={handleClose}>
-        <ProfileView Userinfos={Userinfos} />
-
-        <CustomizedTables CarsData={CarsData} />
-        {/*  <Tasks /> */}
+      <Dialog
+        classes={{
+          paper: classes.diagstyle,
+        }}
+        /*  style={{ width: 400 }} */
+        className="p-2 "
+        open={isOpen}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="false"
+      >
+        <DialogContent>
+          <div className="profilDialogue" /* style={{ width: 100 }} */>
+            <div>
+              <ProfileView Userinfos={Userinfos} />
+              <TotalePannes nbpannes="250" />
+            </div>
+            <div className="tables">
+              <CustomizedTables CarsData={CarsData} />
+              <Tasks tachesData={tachesData} />
+            </div>
+          </div>
+        </DialogContent>
       </Dialog>
     </div>
   );

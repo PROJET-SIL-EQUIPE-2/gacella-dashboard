@@ -516,6 +516,62 @@ export const fetchAddDecideur=(newdata)=>(dispatch)=>{
 
 }
 
+// TOGGLE BLOCK DECIDEUR PROFILE
+
+const toggleBlockDecideurLoading=()=>{
+    return{
+        type : Actiontypes.POST_TOGGLE_BLOCK_DECIDEUR_LOADING,
+    }
+}
+
+const toggleBlockDecideursuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile séléctioné a été "+(data?.message.includes("The account is blocked")?"bloqué":"débloqué")+" avec succés", "success"))
+    return{
+        type : Actiontypes.POST_TOGGLE_BLOCK_DECIDEUR_SUCCESS,
+        payload : data
+    }
+}
+
+const toggleBlockDecideurError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : Actiontypes.POST_TOGGLE_BLOCK_DECIDEUR_ERROR,
+        payload : err
+    }
+}
+
+export const fetchToggleBlockDecideur=(email)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    dispatch(toggleBlockDecideurLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+    };
+    // let formattedCouponToPost={...couponToPost , }
+    return new Promise(((resolve, reject) => {
+        axios.patch(Endpoints.ENDPOINT_PATCH_TOGGLE_BLOCK_DECIDEUR ,{email:email}, options)
+            .then(res=>{
+                // dispatch(addPostSuccess(res.data));
+                console.log("success",res);
+                dispatch(toggleBlockDecideursuccess(res.data , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(toggleBlockDecideurError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err?.message);
+                    dispatch(toggleBlockDecideurError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+
+}
+
 // REMOVE DECIDEUR PROFILE
 
 const removeDecideurLoading=()=>{
@@ -552,7 +608,7 @@ export const fetchRemoveDecideur=(email)=>(dispatch)=>{
     };
     // let formattedCouponToPost={...couponToPost , }
     return new Promise(((resolve, reject) => {
-        axios.delete(Endpoints.ENDPOINT_DELETE_REMOVE_DECIDEUR , {headers: {headers},data:{email : email}}, options)
+        axios.delete(Endpoints.ENDPOINT_DELETE_REMOVE_DECIDEUR , {headers: {headers},data:{email : email}},options)
             .then(res=>{
                 // dispatch(addPostSuccess(res.data));
                 dispatch(removeDecideursuccess(res.response , dispatch));

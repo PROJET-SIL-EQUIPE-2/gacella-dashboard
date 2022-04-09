@@ -6,13 +6,16 @@ import LinkIcon from "./assets/LinkIcon.png"
 import RemoveIcon from "./assets/RemoveIcon.png";
 import AddIcon from "./assets/AddUserIcon.png";
 import './styles.css';
-import './Compounents/ProfileDialog.Compounent';
 import ProfileDialog from "./Compounents/ProfileDialog.Compounent";
 import ConfirmDialog from "./Compounents/ConfirmDialog.Compounent";
 import SignUpDialog from "./Compounents/SignUpDialog.Compounent";
-import {useState , useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchgetDecideursProfiles} from "../../redux/actions/actions";
+import {fetchToggleBlockDecideur,fetchgetDecideursProfiles} from "../../redux/actions/actions";
+import BlockRoundedIcon from '@mui/icons-material/BlockRounded';
+import ToggleButton from '@mui/material/ToggleButton';
+import BlockProfileToggleButton from "./Compounents/BlockProfileToggleButton.Compounent";
+
 
 
 
@@ -26,6 +29,7 @@ export default function DecideursProfilesGestionRoute() {
     const decideursProfiles = useSelector(state => state.decideursProfiles);
     const [decideurId, setDecideurId] = useState(null);
     const [decideurEmail, setDecideurEmail] = useState(null);
+
 
     const  baseUrlTest = "http://localhost:3000";
 
@@ -56,6 +60,12 @@ export default function DecideursProfilesGestionRoute() {
             field: 'phoneNumber',
             render: rowData =>(<div className="roboto-500">{rowData.phone_number}</div>)
         },
+        {
+            title: 'Bloqué ?',
+            field: 'blocked',
+            render: rowData=>(<BlockProfileToggleButton email={rowData.email} isBlocked={rowData.blocked}/>
+            )
+        }
     ]
 
     /*const data=[
@@ -86,6 +96,8 @@ export default function DecideursProfilesGestionRoute() {
 
     //console.log(decideursProfiles.data.allDecideurs);
 
+
+
     return (
         ( decideursProfiles.loading || decideursProfiles.error) ? null : (
                 <div className="bg-white" style={{ height: 400, width: '100%' }}>
@@ -98,6 +110,7 @@ export default function DecideursProfilesGestionRoute() {
                         actions={actions}
                         data={decideursProfiles.data.allDecideurs}//{data}//{decideursProfiles.data}
                         options={{
+
                             search:false,
                             sorting:true,
                             actionsColumnIndex: -1,

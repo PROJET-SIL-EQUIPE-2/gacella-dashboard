@@ -138,8 +138,12 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
   const useStyles = makeStyles({
     diagstyle: {
       position: "absolute",
-      right: 50,
-      width: 1200,
+      right: 70,
+      width: 1300,
+      backgroundColor: "transparent",
+    },
+    paper: {
+      backgroundColor: "transparent",
     },
   });
   const classes = useStyles();
@@ -156,8 +160,16 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
         onClose={handleClose}
         fullWidth
         maxWidth="false"
+        style={{ backgroundColor: "transparent" }}
       >
-        <DialogContent>
+        <DialogContent
+          PaperProps={{
+            style: {
+              backgroundColor: "transparent",
+              boxShadow: "none",
+            },
+          }}
+        >
           <div className="profilDialogue" /* style={{ width: 100 }} */>
             <div>
               <ProfileView Userinfos={Userinfos} />

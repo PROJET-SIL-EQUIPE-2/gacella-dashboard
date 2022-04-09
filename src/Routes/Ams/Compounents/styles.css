@@ -74,6 +74,19 @@
   gap: 10px;
 }
 .profilDialogue > div > div {
-  border: 2px solid black;
+  background-color: white;
   padding: 25px;
+  overflow: hidden;
+  border-radius: 25px;
+}
+
+.TableDialog {
+  width: 550px;
+  max-width: 550px;
+  height: 370;
+  max-height: 370px;
+}
+
+.MuiDialog-container {
+  background-color: transparent !important;
 }

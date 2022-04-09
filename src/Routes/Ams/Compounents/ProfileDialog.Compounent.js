@@ -7,12 +7,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {FormGroup, Input, Label} from "reactstrap";
 import './styles.css'
-import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {fetchRejectLocataire} from "../../../redux/actions/actions";
+import Tasks from "./Tasks.Compounent";
 
-export default function ProfileDialog({isOpen , setOpen , amId}) {
 
+export default function ProfileDialog({isOpen , setOpen }) {
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,8 +28,8 @@ export default function ProfileDialog({isOpen , setOpen , amId}) {
                     <DialogContentText style={{fontSize : "1.4rem"}} className="lora-400 gacela-black21 mb-lg-3">
                         datails
                     </DialogContentText>
+                    <Tasks/>
                 </DialogContent>
-
             </Dialog>
         </div>
     );

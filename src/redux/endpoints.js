@@ -8,7 +8,7 @@ module.exports={
     ENDPOINT_POST_ACCEPT_LOCATAIRE : `${baseUrlTest}/api/signup/locataire/validate`,
     ENDPOINT_POST_REJECT_LOCATAIRE : `${baseUrlTest}/api/signup/locataire/reject`,
     ENDPOINT_GET_AMS : `${baseUrlTest}/api/agents/all`,
-    ENDPOINT_GET_AM : `${baseUrlTest}/api/agents/1`,
+    ENDPOINT_GET_AM : `${baseUrlTest}/api/agents/`,
     ENDPOINT_POST_ADD_AM: `${baseUrlTest}/api/signup/agent`,
     ENDPOINT_DELETE_REMOVE_AM: `${baseUrlTest}/api/accounts/agent`,
     

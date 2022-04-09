@@ -591,8 +591,58 @@ export const fetchRemoveAm=(email)=>(dispatch)=>{
                 }
             });
     }))
+}
 
+// GET AM
+
+export const getAMLoading=()=>{
+    return{
+        type: Actiontypes.GET_AM_LOADING
+    }
+}
+
+export const getAMError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_AM_ERROR,
+        payload: err
+    }
 }
 
 
+export const getAMSuccess=(content)=>{
 
+    return{
+        type: Actiontypes.GET_AM_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetAM=(id)=>(dispatch)=>{
+    dispatch(getAMLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+    return new Promise(((resolve, reject) => {
+        axios.get(Endpoints.ENDPOINT_GET_AM+id,{id:id}, options)
+            .then(res=>{
+                console.log("RESPONSE SUCCESS =", res);
+                dispatch(getAMSuccess(res.data.data , dispatch));
+                resolve('success')
+
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(getAMError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(getAMError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+}

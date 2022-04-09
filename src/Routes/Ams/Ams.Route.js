@@ -10,7 +10,7 @@ import ConfirmDialog from "./Compounents/ConfirmDialog.Compounent";
 import SignUpDialog from "./Compounents/SignUpDialog.Compounent";
 import {useState , useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchgetAMS} from "../../redux/actions/actions";
+import {fetchgetAMS,fetchgetAM} from "../../redux/actions/actions";
 
 
 
@@ -52,7 +52,7 @@ export default function AmsRoute() {
                                     onClick={() =>{
                                             /**/
                                             setAmProfileDialogOpenStatus(true); 
-                                            setAmId(rowData.agent_id);
+                                            dispatch(fetchgetAM(rowData.agent_id));
                                         }}
                                     style={{ height : "40px" , width : "40px" }}
                                     src={profileIcon}
@@ -114,7 +114,7 @@ export default function AmsRoute() {
                         }}
 
                     />
-                    <ProfileDialog isOpen={isAmProfileDialogopen} setOpen={setAmProfileDialogOpenStatus} amId={amId}/>
+                    <ProfileDialog isOpen={isAmProfileDialogopen} setOpen={setAmProfileDialogOpenStatus}/>
                     <ConfirmDialog isOpen={isConfirmDialogopen} setOpen={setConfirmDialogOpenStatus} amEmail={amEmail}/>
                     <SignUpDialog isOpen={isSignUpDialogopen} setOpen={setSignUpDialogOpenStatus} />
                 </div>

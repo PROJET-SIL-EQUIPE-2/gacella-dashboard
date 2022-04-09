@@ -1,7 +1,6 @@
 import * as Actiontypes from "./actionsTypes";
 import * as Endpoints from "../endpoints";
 import axios from "axios"
-import {GET_DECIDEURS_PROFILES_LOADING} from "./actionsTypes";
 
 // TEMPLATE GET METHOD
 export const getAllPostsLoading=()=>{
@@ -328,11 +327,9 @@ export const fetchAcceptLocataire=(email)=>(dispatch)=>{
         headers: { 'Content-Type': 'application/json'}
 
     };
-    // let formattedCouponToPost={...couponToPost , }
     return new Promise(((resolve, reject) => {
         axios.post(Endpoints.ENDPOINT_POST_ACCEPT_LOCATAIRE , {email : email}, options)
             .then(res=>{
-                // dispatch(addPostSuccess(res.data));
                 dispatch(acceptLocataireSuccess(res.response , dispatch));
                 resolve();
             })
@@ -458,6 +455,121 @@ export const fetchgetDecideursProfiles=()=>(dispatch)=>{
             console.log('err =', err.response.data);
             dispatch(getAllDecideursProfilesError(err.response.data , dispatch))
         });
+
+}
+
+
+// ADD DECIDEUR REQUEST
+
+
+const addDecideurLoading=()=>{
+    return{
+        type : Actiontypes.POST_ADD_DECIDEUR_LOADING,
+    }
+}
+
+const addDecideurSuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile a été ajouté avec succées", "success"))
+    return{
+        type : Actiontypes.POST_ADD_DECIDEUR_SUCCESS,
+        payload : data
+    }
+}
+
+const addDecideurError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : Actiontypes.POST_ADD_DECIDEUR_ERROR,
+        paylaod : err
+
+    }
+}
+
+export const fetchAddDecideur=(newdata)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    dispatch(addDecideurLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+
+    return new Promise(((resolve, reject) => {
+        axios.post(Endpoints.ENDPOINT_POST_ADD_DECIDEUR ,newdata, options)
+            .then(res=>{
+                dispatch(addDecideurSuccess(res.response , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(addDecideurError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(addDecideurError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+
+}
+
+// REMOVE DECIDEUR PROFILE
+
+const removeDecideurLoading=()=>{
+    return{
+        type : Actiontypes.POST_REMOVE_DECIDEUR_LOADING,
+    }
+}
+
+const removeDecideursuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile séléctioné a été supprimé avec succés", "success"))
+    return{
+        type : Actiontypes.POST_REMOVE_DECIDEUR_SUCCESS,
+        payload : data
+    }
+}
+
+const removeDecideurError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : Actiontypes.POST_REMOVE_DECIDEUR_ERROR,
+        paylaod : err
+
+    }
+}
+
+export const fetchRemoveDecideur=(email)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    dispatch(removeDecideurLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+    // let formattedCouponToPost={...couponToPost , }
+    return new Promise(((resolve, reject) => {
+        axios.delete(Endpoints.ENDPOINT_DELETE_REMOVE_DECIDEUR , {headers: {headers},data:{email : email}}, options)
+            .then(res=>{
+                // dispatch(addPostSuccess(res.data));
+                dispatch(removeDecideursuccess(res.response , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(removeDecideurError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(removeDecideurError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
 
 }
 

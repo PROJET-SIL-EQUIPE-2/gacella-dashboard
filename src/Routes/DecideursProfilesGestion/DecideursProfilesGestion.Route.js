@@ -1,24 +1,31 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import MaterialTable, { MTableToolbar } from 'material-table';
+import MaterialTable from 'material-table';
 import { Avatar } from '@mui/material';
 import {tableLang , tableIcons} from '../../ui-component/ReactTablesWidget/Widget'
-import LinkIcon from "./assets/LinkIcon.svg"
+import LinkIcon from "./assets/LinkIcon.png"
+import RemoveIcon from "./assets/RemoveIcon.png";
+import AddIcon from "./assets/AddUserIcon.png";
 import './styles.css';
 import './Compounents/ProfileDialog.Compounent';
-import RejectDialog from "./Compounents/ProfileDialog.Compounent";
+import ProfileDialog from "./Compounents/ProfileDialog.Compounent";
+import ConfirmDialog from "./Compounents/ConfirmDialog.Compounent";
+import SignUpDialog from "./Compounents/SignUpDialog.Compounent";
 import {useState , useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchgetDecideursProfiles} from "../../redux/actions/actions";
 
 
 
+
 export default function DecideursProfilesGestionRoute() {
 
     const [isProfileDialogopen, setProfileDialogOpenStatus] = useState(false);
+    const [isConfirmDialogopen, setConfirmDialogOpenStatus] = useState(false);
+    const [isSignUpDialogopen, setSignUpDialogOpenStatus] = useState(false);
     const dispatch = useDispatch();
     const decideursProfiles = useSelector(state => state.decideursProfiles);
     const [decideurId, setDecideurId] = useState(null);
+    const [decideurEmail, setDecideurEmail] = useState(null);
 
     const  baseUrlTest = "http://localhost:3000";
 
@@ -49,27 +56,35 @@ export default function DecideursProfilesGestionRoute() {
             field: 'phoneNumber',
             render: rowData =>(<div className="roboto-500">{rowData.phone_number}</div>)
         },
-        {
-            title: 'Profile',
-            field: 'profile',
-            render: rowData =>(<img className="hoverable"
-                                    onClick={() =>{
-                                            /**/
-                                        setProfileDialogOpenStatus(true); setDecideurId(rowData.decideur_id);
-                                        }}
-                                    style={{ height : "40px" , width : "40px" }}
-                                    src={LinkIcon}
-                                />)
-        },
     ]
 
-    const data=[
+    /*const data=[
         { name: 'Mehmet', familyName: 'Baran', email: "email@email", phone_number:"0123456789", imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
         { name: 'Zerya Betül', familyName: 'Baran', email: "email@email", phone_number:'0123456789', imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
         { name: 'Zerya Betül', familyName: 'Baran', email: "email@email", phone_number:'0123456789', imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
+    ]*/
+
+    const actions=[
+       {
+            icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={AddIcon}/>),
+            tooltip: 'Ajouter un décideur',
+            position:'toolbar',
+            isFreeAction: true,
+           onClick: (event) => {setSignUpDialogOpenStatus(true); },
+       }
+        , {
+            icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={LinkIcon}/>),
+            tooltip: 'Voir les détails du décideur',
+            onClick: (event, rowData) => {setDecideurId(rowData.decideur_id); setProfileDialogOpenStatus(true); },
+        }
+        , {
+            icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={RemoveIcon}/>),
+            tooltip: 'supprimer décideur',
+            onClick: (event, rowData) => { setDecideurEmail(rowData.email); setConfirmDialogOpenStatus(true); },
+        }
     ]
 
-    //console.log(decideursProfiles);
+    //console.log(decideursProfiles.data.allDecideurs);
 
     return (
         ( decideursProfiles.loading || decideursProfiles.error) ? null : (
@@ -80,15 +95,11 @@ export default function DecideursProfilesGestionRoute() {
                         localization={tableLang}
                         title="Gestions des comptes des décideurs"
                         columns={columns}
-                        data={decideursProfiles.data}//{data}//{decideursProfiles.data}
-                        //actions={actions}
+                        actions={actions}
+                        data={decideursProfiles.data.allDecideurs}//{data}//{decideursProfiles.data}
                         options={{
                             search:false,
-                            selection:true,
                             sorting:true,
-                            //filtering:true,
-                            showSelectAllCheckbox:true,
-                            showTextRowsSelected:true,
                             actionsColumnIndex: -1,
                             headerStyle: {
                                 color: '#9E9E9E',
@@ -102,7 +113,9 @@ export default function DecideursProfilesGestionRoute() {
                         }}
 
                     />
-                    <RejectDialog isOpen={isProfileDialogopen} setOpen={setProfileDialogOpenStatus} decideurId={decideurId}/>
+                    <ProfileDialog isOpen={isProfileDialogopen} setOpen={setProfileDialogOpenStatus} decideurId={decideurId}/>
+                    <ConfirmDialog isOpen={isConfirmDialogopen} setOpen={setConfirmDialogOpenStatus} decideurEmail={decideurEmail}/>
+                    <SignUpDialog isOpen={isSignUpDialogopen} setOpen={setSignUpDialogOpenStatus} />
                 </div>
         )
     );

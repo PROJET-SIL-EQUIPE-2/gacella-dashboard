@@ -48,7 +48,6 @@ const pages = {
                     id: 'decideurs_profiles',
                     title: 'Décideurs',
                     type: 'item',
-                    //url: '/pages/login/login3',
                     url: 'decideurs_profiles',
                     target: true
                 }

@@ -138,7 +138,7 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
   const useStyles = makeStyles({
     diagstyle: {
       position: "absolute",
-      right: 70,
+      right: "10%",
       width: 1300,
       backgroundColor: "transparent",
     },

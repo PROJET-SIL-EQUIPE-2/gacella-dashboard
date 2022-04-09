@@ -63,7 +63,7 @@
 .profilDialogue {
   display: flex;
   flex-direction: row;
-  gap: 100px;
+  gap: 25px;
 }
 
 .profilDialogue > div {
@@ -71,7 +71,7 @@
   padding: 5px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 25px;
 }
 .profilDialogue > div > div {
   background-color: white;

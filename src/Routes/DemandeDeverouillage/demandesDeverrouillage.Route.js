@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import MaterialTable, { MTableToolbar } from 'material-table';
-import {Avatar, Chip, IconButton, Paper} from '@mui/material';
+import {Avatar, Chip, IconButton, ListItem, Paper} from '@mui/material';
 import PermisIcon from "./assets/PermisIcon.png"
 import IdentiteIcon from "./assets/IdentiteIcon.png"
 import CheckIcon from "./assets/CheckIcon.png"
@@ -18,36 +18,27 @@ import PhotosDialog from "./Compounents/photosDialog.Compounent";
 import { makeStyles } from '@material-ui/core/styles';
 import {Button} from "reactstrap";
 import {createTheme} from "@mui/material/styles";
-function wa(locatairesrequests) {
+import Coordonnees from "./Compounents/coordonneesList.Component";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import LocationIcon from "../gestionverou/assets/LocationIcon.png";
+function addTestData(locatairesrequests) {
     setTimeout(() => {  console.log("World!");}, 0);
-    // put a div in a variable
-
-    const theme = createTheme({
-        components: {
-            MuiButton: {
-                styleOverrides: {
-                    root: {
-                        borderRadius: 28,
-                    },
-                },
-            },
-        },
-    });
 
     locatairesrequests.data.push({
         id: 5,
-        nom: 'Doe',
-        prenom: 'John',
-        email: '',
+        name: 'Doe',
+        familyName: 'John',
+        email: 'JohnDoe@gmail.com',
         parentId: 2,
 
 
     })
     locatairesrequests.data.push({
-        id: 5,
-        nom: 'Doe',
-        prenom: 'John',
-        email: '',
+        id: 50,
+        name: 'Doe2',
+        familyName: 'John1',
+        email: 'JohnDoeSecond@gmail.com',
         parentId: 2,
 
 
@@ -71,7 +62,7 @@ export default function LocataireDemandesDeverouillage() {
     useEffect(()=>{
         dispatch(fetchgetDeverouillageRequests());
     }, [])
-wa(locatairesrequests); // this is not updating the state of the table
+addTestData(locatairesrequests); // this is not updating the state of the table ( random data added to the locataires in db )
     const columns=[
         { title: 'Locataire', field: 'imageUrl', render: rowData =>(
             <div className="d-flex align-items-center">
@@ -97,8 +88,8 @@ wa(locatairesrequests); // this is not updating the state of the table
 
     const actions=[
             rowData=>({
-                icon: ()=> (<img style={{ height : "40px" , width : "40px" }}  src={CheckIcon}/>),
-                tooltip: "Confirmer l'inscription",
+                icon: ()=> (<img   src={CheckIcon}/>),
+                tooltip: "Accepter La demande",
                 onClick: (event, rowData) =>{
                     dispatch(fetchAcceptLocataire(rowData.email))
                         .then(()=>{
@@ -110,8 +101,8 @@ wa(locatairesrequests); // this is not updating the state of the table
                 }
             }),
             rowData => ({
-            icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={DeleteIcon}/>),
-            tooltip: 'Delete User',
+            icon:  ()=>(<img src={DeleteIcon}/>),
+            tooltip: 'Refuser La demandez',
             onClick: (event, rowData) => {setRejectDialogOpenStatus(true); setLocataireEmail(rowData.email); },
         })
     ]
@@ -144,14 +135,16 @@ wa(locatairesrequests); // this is not updating the state of the table
                                 fontWeight: 300,
                                 fontSize: '1.2rem'
                             },
+                            detailPanelType: "single",
+
                             // actionsCellStyle:{
                             //     paddingRight : "3rem"
                             // },
-                            rowStyle: ({parentId}) => {
-                                if(parentId) {
-                                    return { backgroundColor: '#ffaaaa' };
-                                }
-                            }
+                            // rowStyle: ({parentId}) => {
+                            //     if(parentId) {
+                            //         return { backgroundColor: '#ffaaaa' };
+                            //     }
+                            // }
 
                         }}
                         detailPanel={[
@@ -159,7 +152,7 @@ wa(locatairesrequests); // this is not updating the state of the table
                                 tooltip: 'Voir plus',
                                 render: rowData => {
                                     return (
-                                        <MaterialTable style={{margin : '0 10%  10% 10% '  }}
+                                        <MaterialTable style={{margin : '0 10%  5% 10% '  }}
                                             columns={[
                                                 { title: 'Identité', field: 'identité',
                                                     render: (rowData) => {
@@ -177,13 +170,24 @@ wa(locatairesrequests); // this is not updating the state of the table
 
                                                    // render: rowData => <img src={PermisIcon} style={{width: 40, borderRadius: '50%' }}/>
                                                 },
-                                                { title: 'Les coordonnées du client', field: 'name' },
-                                                { title: 'Les coordonnées du véhicule', field: 'surname' },
+                                                { title: 'Les coordonnées du client', field: 'name', render: (rowData)=>{
+
+                                                    return (
+                                                        Coordonnees(rowData)
+                                                    )
+                                                    } },
+                                                { title: 'Les coordonnées du véhicule', field: 'surname', render: (rowData)=>{
+
+                                                        return (
+                                                            Coordonnees(rowData)
+                                                        )
+                                                    } },
 
 
                                             ]}
                                             data={[
-                                                { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63, personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
+                                                { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63, personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' , adresse: 'Rue de la paix, Paris' , coordinates: 33, adresseSecondaire: 'Rue de la paix, Paris'},
+
                                             ]}
 
                                                        components={{
@@ -200,7 +204,8 @@ wa(locatairesrequests); // this is not updating the state of the table
                                                 paging: false,
                                                 showTitle: false,
                                                 actionsColumnIndex: -1,
-                                                toolbarButtonAlignment:"left"
+                                                toolbarButtonAlignment:"left",
+                                                sorting: true
                                             }}
                                                        actions={[rowData => ({
                                             icon:  ()=>(<Button  color="primary" style={{ borderRadius: 50 }} variant="contained">confirmer</Button>),

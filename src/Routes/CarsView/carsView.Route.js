@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import {GoogleMap, useJsApiLoader , Marker , Autocomplete , DirectionsRenderer , InfoWindow } from "@react-google-maps/api";
-import {Backdrop, Button, CircularProgress, TextField} from "@mui/material";
+import {Backdrop, Button, CircularProgress, TextField, Toolbar} from "@mui/material";
 import {ElectricCar} from "@mui/icons-material";
 import MarkerIcon from "./car_icon.png";
 import './styles.css';
@@ -19,8 +19,8 @@ const cars=[{
         lat : 48.5584,
         lng: 2.2945
     },
-    speed : '75Km/h',
-    heat : '55°C',
+    speed : '75',
+    heat : '55',
     AM : {
         fullName : 'Metidji Sid Ahmed',
         email : 'is_metidji@esi.dz'
@@ -32,8 +32,8 @@ const cars=[{
         lat : 48.8570,
         lng: 2.2730
     },
-    speed : '20Km/h',
-    heat : '20°C',
+    speed : '20',
+    heat : '20',
     AM : {
         fullName : 'Youcef belaili',
         email : 'iy_belaili@esi.dz'
@@ -44,8 +44,8 @@ const cars=[{
         lat : 48.7570,
         lng: 2.2330
     },
-    speed : '35Km/h',
-    heat : '40°C',
+    speed : '35K',
+    heat : '40',
     AM : {
         fullName : 'Joe Goldberg',
         email : 'ij_goldberg@esi.dz'
@@ -56,8 +56,8 @@ const cars=[{
         lat : 48.7230,
         lng: 2.2550
     },
-    speed : '45Km/h',
-    heat : '65°C',
+    speed : '45',
+    heat : '65',
     AM : {
         fullName : 'Eren Yeager',
         email : 'ie_yeager@esi.dz'
@@ -133,30 +133,14 @@ const  CarsViewRoute=()=>{
     }
     return (
         <React.Fragment>
-            <h1>CARS VIEW</h1>
-            <div className="d-flex align-items-center">
-                <div className="col-4">
-                    <Autocomplete>
-                        <TextField className="mt-3 mb-3" id="standard-basic" label="From" variant="standard" ref={originRef} />
-                    </Autocomplete>
-                </div>
-                <div className="col-4">
-                    <Autocomplete>
-                        <TextField className="mt-3 mb-3" id="standard-basic" label="To" variant="standard" ref={destiantionRef} />
-                    </Autocomplete>
-                </div>
-                <div className="col-4">
-                    <Button onClick={()=>calculateRoute()} className="w-100" variant="contained">Calculate Route</Button>
 
-                </div>
-            </div>
 
 
             <GoogleMap
-                style={{height : '100vh'}}
+                style={{height : '100%'}}
                 center={ WindowInfoStatus.isOpen ? WindowInfoStatus.car.position :  calculateCenterMap()}
                 zoom={10}
-                mapContainerStyle={{width : '100%' , height : '100vh'}}
+                mapContainerStyle={{width : '100%' , height : '100%'}}
                 options={{
                     zoomControl: false,
                     streetViewControl : false,
@@ -179,8 +163,26 @@ const  CarsViewRoute=()=>{
                         )
 
                 })}
+                <Toolbar className={"filterBar"}>
+                    <h1>CARS VIEW</h1>
+                    <div className="d-flex align-items-center">
+                        <div className="col-4">
+                            <Autocomplete>
+                                <TextField className="mt-3 mb-3" id="standard-basic" label="From" variant="standard" ref={originRef} />
+                            </Autocomplete>
+                        </div>
+                        <div className="col-4">
+                            <Autocomplete>
+                                <TextField className="mt-3 mb-3" id="standard-basic" label="To" variant="standard" ref={destiantionRef} />
+                            </Autocomplete>
+                        </div>
+                        <div className="col-4">
+                            <Button onClick={()=>calculateRoute()} className="w-100" variant="contained">Calculate Route</Button>
 
-                <Paper className={"contenaire"} style={{maxHeight: '100%', overflow: 'auto'}}>
+                        </div>
+                    </div></Toolbar>
+
+                <Paper class={"contenaire"} style={{maxHeight: '100%', overflow: 'auto'}}>
                     <PerfectScrollbar
                         style={{ height: '100%', maxHeight: 'calc(100vh - 1px)', overflowX: 'hidden' }}
                     >
@@ -188,6 +190,7 @@ const  CarsViewRoute=()=>{
                     >
                                 {cars.map(car=>{
                                     return(
+
                                         <CarteVehicule onCardClick={()=>setInfoWindowData(car)} idVehicule={car.name} temperature={car.heat} kilometres={car.speed} location={car.position}  email={car.AM.email} nomComplet={car.AM.fullName} heure={null} date={null} type={"comfortable"}></CarteVehicule>
                                     )
                                 })}
@@ -200,7 +203,6 @@ const  CarsViewRoute=()=>{
                     </PerfectScrollbar>
 
                 </Paper>
-
                 {/*<Marker position={Marker2Pos} label={{*/}
                 {/*    text: "Car 2",*/}
                 {/*    // fontFamily: "Material Icons",*/}

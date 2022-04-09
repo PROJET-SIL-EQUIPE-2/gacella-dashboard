@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 
 import * as React from "react";
 import List from "@mui/material/List";
-import {ListItem} from "@mui/material";
+import {CardActionArea, ListItem} from "@mui/material";
 import LocationIcon from "../assets/LocationIcon.png";
 import SpeedIcon from "../assets/SpeedIcon.png";
 import TemperatureIcon from "../assets/TemperatureIcon.png";
@@ -23,90 +23,92 @@ export default function CarteVehicule(props){
     };
     return(
         <Card variant="outlined"   sx={{ minWidth: 275 }} class="noir">
-            <CardContent>
-                <List style={flexContainer}>
+            <CardActionArea onClick={props.onCardClick}>
+                <CardContent>
+                    <List style={flexContainer}>
 
-                    <ListItem> <Typography variant="h5" component="div">
-                        {props.idVehicule}
-                    </Typography><
+                        <ListItem> <Typography variant="h5" component="div">
+                            {props.idVehicule}
+                        </Typography><
                                             /ListItem>
-                    <ListItem>
-                        <Typography  color="text.secondary">
-                            ({props.type})
-                        </Typography>
-                    </ListItem>
-                </List>
-                <List style={flexContainer}>
-                    <ListItem style={{width: 10}}>
-                        <img src={LocationIcon} alt="LocationIcon"/>
-                    </ListItem>
-                    <ListItem>
-                        <Typography component="div">
-                            {props.location}
-                        </Typography>
-                    </ListItem>
-                </List>
-                <List style={flexContainer } >
+                        <ListItem>
+                            <Typography  color="text.secondary">
+                                ({props.type})
+                            </Typography>
+                        </ListItem>
+                    </List>
+                    <List style={flexContainer}>
+                        <ListItem style={{width: 10}}>
+                            <img src={LocationIcon} alt="LocationIcon"/>
+                        </ListItem>
+                        <ListItem>
+                            <Typography component="div">
+                                {props.location.lat} , {props.location.lng}
+                            </Typography>
+                        </ListItem>
+                    </List>
+                    <List style={flexContainer } >
 
 
-                    <ListItem style={{width: 10}}>
-                        <img src={SpeedIcon} alt="SpeedIcon"/>
-                    </ListItem>
-                    <ListItem style={{wordBreak : "keep-all" }} >
-                        <Typography style={{wordBreak : "keep-all" }} >
-                            {props.kilometres} KM
-                        </Typography>
-                    </ListItem>
+                        <ListItem style={{width: 10}}>
+                            <img src={SpeedIcon} alt="SpeedIcon"/>
+                        </ListItem>
+                        <ListItem style={{wordBreak : "keep-all" }} >
+                            <Typography style={{wordBreak : "keep-all" }} >
+                                {props.kilometres} Km/h
+                            </Typography>
+                        </ListItem>
 
 
-                    <ListItem>
-                        <List style={flexContainer}>
-                            <ListItem style={{width: 10}}>
-                                <img src={TemperatureIcon} alt="temperatureIcon"/>
-                            </ListItem>
-                            <ListItem>
-                                <Typography style={{wordBreak : "keep-all" }} >
-                                    {props.temperature}°C
-                                </Typography>
-                            </ListItem>
-                        </List>
-                    </ListItem>
+                        <ListItem>
+                            <List style={flexContainer}>
+                                <ListItem style={{width: 10}}>
+                                    <img src={TemperatureIcon} alt="temperatureIcon"/>
+                                </ListItem>
+                                <ListItem>
+                                    <Typography style={{wordBreak : "keep-all" }} >
+                                        {props.temperature}°C
+                                    </Typography>
+                                </ListItem>
+                            </List>
+                        </ListItem>
 
 
 
-                </List>
-                <List style={flexContainer}>
-                    <ListItem style={{width: 10}}>
-                        <img src={ProfileIcon} alt="profieleicone"/>
-                    </ListItem>
-                    <ListItem>
-                        <Typography component="div">
-                            {props.nomComplet},
-                        </Typography>
-                    </ListItem>
-                    <ListItem>
-                        <Typography  color="text.secondary"> {props.email}
-                        </Typography>
-                    </ListItem>
-                </List>
-                <List  class={"rightaligned"} style={flexContainer}>
-                    <ListItem style={{width: 10}}>
-                        <img src={TimeIcon} alt="Timeicone"/>
-                    </ListItem>
-                    <ListItem>
-                        <Typography component="div">
-                            {props.heure}
-                        </Typography>
-                    </ListItem>
-                    <ListItem>
-                        <Typography  > {props.date}
-                        </Typography>
-                    </ListItem>
-                </List>
+                    </List>
+                    <List style={flexContainer}>
+                        <ListItem style={{width: 10}}>
+                            <img src={ProfileIcon} alt="profieleicone"/>
+                        </ListItem>
+                        <ListItem>
+                            <Typography component="div">
+                                {props.nomComplet},
+                            </Typography>
+                        </ListItem>
+                        <ListItem>
+                            <Typography  color="text.secondary"> {props.email}
+                            </Typography>
+                        </ListItem>
+                    </List>
+                    {/*<List  class={"rightaligned"} style={flexContainer}>*/}
+                    {/*    <ListItem style={{width: 10}}>*/}
+                    {/*        <img src={TimeIcon} alt="Timeicone"/>*/}
+                    {/*    </ListItem>*/}
+                    {/*    <ListItem>*/}
+                    {/*        <Typography component="div">*/}
+                    {/*            {props.heure}*/}
+                    {/*        </Typography>*/}
+                    {/*    </ListItem>*/}
+                    {/*    <ListItem>*/}
+                    {/*        <Typography  > {props.date}*/}
+                    {/*        </Typography>*/}
+                    {/*    </ListItem>*/}
+                    {/*</List>*/}
 
-            </CardContent>
-            <CardActions>
-            </CardActions>
+                </CardContent>
+            </CardActionArea>
+            {/*<CardActions>*/}
+            {/*</CardActions>*/}
         </Card>
     );
 }

@@ -11,9 +11,7 @@ import ConfirmDialog from "./Compounents/ConfirmDialog.Compounent";
 import SignUpDialog from "./Compounents/SignUpDialog.Compounent";
 import {useState, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchToggleBlockDecideur,fetchgetDecideursProfiles} from "../../redux/actions/actions";
-import BlockRoundedIcon from '@mui/icons-material/BlockRounded';
-import ToggleButton from '@mui/material/ToggleButton';
+import {fetchgetDecideursProfiles} from "../../redux/actions/actions";
 import BlockProfileToggleButton from "./Compounents/BlockProfileToggleButton.Compounent";
 
 
@@ -27,9 +25,8 @@ export default function DecideursProfilesGestionRoute() {
     const [isSignUpDialogopen, setSignUpDialogOpenStatus] = useState(false);
     const dispatch = useDispatch();
     const decideursProfiles = useSelector(state => state.decideursProfiles);
-    const [decideurId, setDecideurId] = useState(null);
+    const [selectedProfile, setSelectedProfile] = useState({});
     const [decideurEmail, setDecideurEmail] = useState(null);
-
 
     const  baseUrlTest = "http://localhost:3000";
 
@@ -82,10 +79,20 @@ export default function DecideursProfilesGestionRoute() {
             isFreeAction: true,
            onClick: (event) => {setSignUpDialogOpenStatus(true); },
        }
-        , {
+        ,{
             icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={LinkIcon}/>),
             tooltip: 'Voir les détails du décideur',
-            onClick: (event, rowData) => {setDecideurId(rowData.decideur_id); setProfileDialogOpenStatus(true); },
+            onClick: (event, rowData) => {setSelectedProfile({
+                    decideur_id: rowData.decideur_id,
+                    name: rowData.name,
+                    family_name: rowData.family_name,
+                    phone_number: rowData.phone_number,
+                    email: rowData.email,
+                    oldPassword: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                });
+                setProfileDialogOpenStatus(true); },
         }
         , {
             icon:  ()=>(<img style={{ height : "40px" , width : "40px" }}  src={RemoveIcon}/>),
@@ -94,9 +101,7 @@ export default function DecideursProfilesGestionRoute() {
         }
     ]
 
-    //console.log(decideursProfiles.data.allDecideurs);
-
-
+    //console.log(selectedProfile) ;
 
     return (
         ( decideursProfiles.loading || decideursProfiles.error) ? null : (
@@ -126,7 +131,7 @@ export default function DecideursProfilesGestionRoute() {
                         }}
 
                     />
-                    <ProfileDialog isOpen={isProfileDialogopen} setOpen={setProfileDialogOpenStatus} decideurId={decideurId}/>
+                    <ProfileDialog isOpen={isProfileDialogopen} setOpen={setProfileDialogOpenStatus} profileForm={selectedProfile} setProfileForm={setSelectedProfile}/>
                     <ConfirmDialog isOpen={isConfirmDialogopen} setOpen={setConfirmDialogOpenStatus} decideurEmail={decideurEmail}/>
                     <SignUpDialog isOpen={isSignUpDialogopen} setOpen={setSignUpDialogOpenStatus} />
                 </div>

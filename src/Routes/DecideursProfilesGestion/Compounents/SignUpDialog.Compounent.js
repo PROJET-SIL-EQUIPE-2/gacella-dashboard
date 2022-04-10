@@ -9,9 +9,8 @@ import {useDispatch} from "react-redux";
 import {fetchAddDecideur, fetchRemoveDecideur} from "../../../redux/actions/actions";
 import {FormGroup, Input, Label} from "reactstrap";
 import {useState} from "react";
-import {useTssEmotionCache} from "tss-react/cache";
 
-export default function ConfrimDialog({isOpen , setOpen}) {
+export default function SignUpDialog({isOpen , setOpen}) {
 
     const dispatch = useDispatch();
     const [signUpForm, setSignUpForm] = useState({});

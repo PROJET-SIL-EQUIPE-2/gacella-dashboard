@@ -516,6 +516,64 @@ export const fetchAddDecideur=(newdata)=>(dispatch)=>{
 
 }
 
+// UPDATE DECIDEUR PROFILE
+
+const updateDecideurDecideurLoading=(email_update)=>{
+    return{
+        type : (email_update?Actiontypes.PUT_UPDATE_DECIDEUR_EMAIL_LOADING:Actiontypes.PUT_UPDATE_DECIDEUR_PASSWORD_LOADING),
+    }
+}
+
+const updateDecideurDecideursuccess=(email_update,data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile séléctioné a été mise à jour avec succés", "success"))
+    return{
+        type : (email_update?Actiontypes.PUT_UPDATE_DECIDEUR_EMAIL_SUCCESS:Actiontypes.PUT_UPDATE_DECIDEUR_PASSWORD_SUCCESS),
+        payload : data
+    }
+}
+
+const updateDecideurError=(email_update,err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : (email_update?Actiontypes.PUT_UPDATE_DECIDEUR_EMAIL_ERROR:Actiontypes.PUT_UPDATE_DECIDEUR_PASSWORD_ERROR) ,
+        payload : err
+    }
+}
+
+export const fetchUpdateDecideur=(data,id)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    const email_update=data.hasOwnProperty("email") ;
+    dispatch(updateDecideurDecideurLoading(email_update));
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+    };
+    // let formattedCouponToPost={...couponToPost , }
+    const url = (email_update?Endpoints.ENDPOINT_PUT_UPDATE_DECIDEUR_EMAIL:Endpoints.ENDPOINT_PUT_UPDATE_DECIDEUR_PASSSWORD)+id
+    console.log('url =',url);
+    return new Promise(((resolve, reject) => {
+        axios.put( url,data, options)
+            .then(res=>{
+                console.log("success",res);
+                dispatch(updateDecideurDecideursuccess(email_update,res.data , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(updateDecideurError(email_update,err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err?.message);
+                    dispatch(updateDecideurError(email_update,err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+
+}
+
 // TOGGLE BLOCK DECIDEUR PROFILE
 
 const toggleBlockDecideurLoading=()=>{

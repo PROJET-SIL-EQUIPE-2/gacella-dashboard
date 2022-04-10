@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import NavigationScroll from "./SideBar/NavigationScroll";
 import Login from "./Routes/Login/Login.Route";
 import LocatairesSignUpRequestsRoute from "./Routes/LocatairesSignUpRequests/LocatairesSignUpRequests.Route";
+import DecideursProfilesGestionRoute from "./Routes/DecideursProfilesGestion/DecideursProfilesGestion.Route";
 import ResetPasswordRoute from "./Routes/Reset Password/resetPassword.Route";
 import {Redirect} from "react-router";
 import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
@@ -52,6 +53,7 @@ function App() {
                               <PrivateRoute exact path="/" component={()=>null} />
                               <PrivateRoute exact path="/home" component={()=><HomeRoute/>} />
                               <PrivateRoute exact path="/locataires_requests" component={()=><LocatairesSignUpRequestsRoute/>} />
+                              <PrivateRoute exact path="/decideurs_profiles" component={()=><DecideursProfilesGestionRoute/>} />
                               <PrivateRoute exact path="/contact" component={()=><ContactRoute/>} />
                               <PrivateRoute exact path="/Agents_de_maintenance" component={()=><AmsRoute/>} />
                               <Route exact path="/login" component={()=><Login/>} />

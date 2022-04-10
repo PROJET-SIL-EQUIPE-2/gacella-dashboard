@@ -17,14 +17,12 @@ export const getAllPostsError=(err)=>{
     }
 }
 
-
 export const getAllPostsSuccess=(content)=>{
     return{
         type: Actiontypes.GET_ALL_POSTS_SUCCESS,
         payload: content
     }
 }
-
 
 export const fetchAllPosts=()=>(dispatch)=>{
     dispatch(getAllPostsLoading());
@@ -53,8 +51,6 @@ export const fetchAllPosts=()=>(dispatch)=>{
 
 
 // TEMPLATE POST METHOD
-
-
 
 const addPostLoading=()=>{
     return{
@@ -185,7 +181,6 @@ export const fetchLogin=({email , password})=>(dispatch)=>{
 
 // RESET PASSWORD
 
-
 const resetPasswordLoading=()=>{
     return{
         type : Actiontypes.POST_RESET_PASSWORD_LOADING,
@@ -297,7 +292,6 @@ export const fetchgetLocatairesRequests=()=>(dispatch)=>{
 
 }
 
-
 // ACCEPT LOCATAIRE REQUEST
 
 
@@ -333,11 +327,9 @@ export const fetchAcceptLocataire=(email)=>(dispatch)=>{
         headers: { 'Content-Type': 'application/json'}
 
     };
-    // let formattedCouponToPost={...couponToPost , }
     return new Promise(((resolve, reject) => {
         axios.post(Endpoints.ENDPOINT_POST_ACCEPT_LOCATAIRE , {email : email}, options)
             .then(res=>{
-                // dispatch(addPostSuccess(res.data));
                 dispatch(acceptLocataireSuccess(res.response , dispatch));
                 resolve();
             })
@@ -412,6 +404,284 @@ export const fetchRejectLocataire=({locataireEmail  , rejectMessage })=>(dispatc
                 }
                 console.log('ERROR OBJECT = ' , err);
                 reject(err.message);
+            });
+    }))
+
+}
+
+
+// GET ALL DECIDEURS PROFILES
+
+export const getAllDecideursProfilesLoading=()=>{
+    return{
+        type: Actiontypes.GET_DECIDEURS_PROFILES_LOADING
+    }
+}
+
+export const getAllDecideursProfilesError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_DECIDEURS_PROFILES_ERROR,
+        payload: err
+    }
+}
+
+export const getAllDecideursProfilesSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_DECIDEURS_PROFILES_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetDecideursProfiles=()=>(dispatch)=>{
+    dispatch(getAllDecideursProfilesLoading());
+    const headers = {
+        // Pour athentification
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+        // pour specifier le format de reponse
+        'Content-Type': 'application/json'
+    };
+
+    axios.get( Endpoints.ENDPOINT_GET_DECIDEURS_PROFILES,
+        { headers: headers }
+    )
+        .then(res=>{
+            console.log('response =', res);
+            dispatch(getAllDecideursProfilesSuccess(res.data , dispatch))
+        })
+        .catch(err=>{
+            console.log('err =', err.response.data);
+            dispatch(getAllDecideursProfilesError(err.response.data , dispatch))
+        });
+
+}
+
+
+// ADD DECIDEUR REQUEST
+
+
+const addDecideurLoading=()=>{
+    return{
+        type : Actiontypes.POST_ADD_DECIDEUR_LOADING,
+    }
+}
+
+const addDecideurSuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile a été ajouté avec succées", "success"))
+    return{
+        type : Actiontypes.POST_ADD_DECIDEUR_SUCCESS,
+        payload : data
+    }
+}
+
+const addDecideurError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : Actiontypes.POST_ADD_DECIDEUR_ERROR,
+        paylaod : err
+
+    }
+}
+
+export const fetchAddDecideur=(newdata)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    dispatch(addDecideurLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+
+    return new Promise(((resolve, reject) => {
+        axios.post(Endpoints.ENDPOINT_POST_ADD_DECIDEUR ,newdata, options)
+            .then(res=>{
+                dispatch(addDecideurSuccess(res.response , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(addDecideurError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(addDecideurError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+
+}
+
+// UPDATE DECIDEUR PROFILE
+
+const updateDecideurDecideurLoading=(email_update)=>{
+    return{
+        type : (email_update?Actiontypes.PUT_UPDATE_DECIDEUR_EMAIL_LOADING:Actiontypes.PUT_UPDATE_DECIDEUR_PASSWORD_LOADING),
+    }
+}
+
+const updateDecideurDecideursuccess=(email_update,data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile séléctioné a été mise à jour avec succés", "success"))
+    return{
+        type : (email_update?Actiontypes.PUT_UPDATE_DECIDEUR_EMAIL_SUCCESS:Actiontypes.PUT_UPDATE_DECIDEUR_PASSWORD_SUCCESS),
+        payload : data
+    }
+}
+
+const updateDecideurError=(email_update,err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : (email_update?Actiontypes.PUT_UPDATE_DECIDEUR_EMAIL_ERROR:Actiontypes.PUT_UPDATE_DECIDEUR_PASSWORD_ERROR) ,
+        payload : err
+    }
+}
+
+export const fetchUpdateDecideur=(data,id)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    const email_update=data.hasOwnProperty("email") ;
+    dispatch(updateDecideurDecideurLoading(email_update));
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+    };
+    // let formattedCouponToPost={...couponToPost , }
+    const url = (email_update?Endpoints.ENDPOINT_PUT_UPDATE_DECIDEUR_EMAIL:Endpoints.ENDPOINT_PUT_UPDATE_DECIDEUR_PASSSWORD)+id
+    console.log('url =',url);
+    return new Promise(((resolve, reject) => {
+        axios.put( url,data, options)
+            .then(res=>{
+                console.log("success",res);
+                dispatch(updateDecideurDecideursuccess(email_update,res.data , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(updateDecideurError(email_update,err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err?.message);
+                    dispatch(updateDecideurError(email_update,err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+
+}
+
+// TOGGLE BLOCK DECIDEUR PROFILE
+
+const toggleBlockDecideurLoading=()=>{
+    return{
+        type : Actiontypes.POST_TOGGLE_BLOCK_DECIDEUR_LOADING,
+    }
+}
+
+const toggleBlockDecideursuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile séléctioné a été "+(data?.message.includes("The account is blocked")?"bloqué":"débloqué")+" avec succés", "success"))
+    return{
+        type : Actiontypes.POST_TOGGLE_BLOCK_DECIDEUR_SUCCESS,
+        payload : data
+    }
+}
+
+const toggleBlockDecideurError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : Actiontypes.POST_TOGGLE_BLOCK_DECIDEUR_ERROR,
+        payload : err
+    }
+}
+
+export const fetchToggleBlockDecideur=(email)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    dispatch(toggleBlockDecideurLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+    };
+    // let formattedCouponToPost={...couponToPost , }
+    return new Promise(((resolve, reject) => {
+        axios.patch(Endpoints.ENDPOINT_PATCH_TOGGLE_BLOCK_DECIDEUR ,{email:email}, options)
+            .then(res=>{
+                // dispatch(addPostSuccess(res.data));
+                console.log("success",res);
+                dispatch(toggleBlockDecideursuccess(res.data , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(toggleBlockDecideurError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err?.message);
+                    dispatch(toggleBlockDecideurError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+
+}
+
+// REMOVE DECIDEUR PROFILE
+
+const removeDecideurLoading=()=>{
+    return{
+        type : Actiontypes.POST_REMOVE_DECIDEUR_LOADING,
+    }
+}
+
+const removeDecideursuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile séléctioné a été supprimé avec succés", "success"))
+    return{
+        type : Actiontypes.POST_REMOVE_DECIDEUR_SUCCESS,
+        payload : data
+    }
+}
+
+const removeDecideurError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : Actiontypes.POST_REMOVE_DECIDEUR_ERROR,
+        paylaod : err
+
+    }
+}
+
+export const fetchRemoveDecideur=(email)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    dispatch(removeDecideurLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+    // let formattedCouponToPost={...couponToPost , }
+    return new Promise(((resolve, reject) => {
+        axios.delete(Endpoints.ENDPOINT_DELETE_REMOVE_DECIDEUR , {headers: {headers},data:{email : email}},options)
+            .then(res=>{
+                // dispatch(addPostSuccess(res.data));
+                dispatch(removeDecideursuccess(res.response , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(removeDecideurError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(removeDecideurError(err) , dispatch);
+                    reject(err.message);
+                }
             });
     }))
 

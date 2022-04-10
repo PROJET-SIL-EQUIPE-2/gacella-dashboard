@@ -10,8 +10,8 @@ const icons = {
 
 const pages = {
     id: 'pages',
-    title: 'Pages',
-    caption: 'Pages Caption',
+    title: 'Authentication',
+    //caption: 'Pages Caption',
     type: 'group',
     children: [
         {
@@ -45,10 +45,10 @@ const pages = {
 
             children: [
                 {
-                    id: 'Agents_de_maintenance',
-                    title: 'Agents de maintenance',
+                    id: 'decideurs_profiles',
+                    title: 'Décideurs',
                     type: 'item',
-                    url: 'Agents_de_maintenance',
+                    url: 'decideurs_profiles',
                     target: true
                 }
             ]

@@ -30,7 +30,7 @@ export const tableIcons = {
 /* Default lang for table component */
 export const tableLang = {
     body: {
-        emptyDataSourceMessage: "Pas d'enregistreent à afficher",
+        emptyDataSourceMessage: "Pas d'enregistrement à afficher",
         addTooltip: 'Ajouter',
         deleteTooltip: 'Supprimer',
         editTooltip: 'Editer',

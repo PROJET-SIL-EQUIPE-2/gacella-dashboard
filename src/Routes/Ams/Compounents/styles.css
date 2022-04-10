@@ -1,0 +1,92 @@
+#rejectDialogTextArea {
+  height: 8rem;
+  /* background: rgba(248, 235, 227, 0.5) !important; */
+  border-radius: 20px;
+}
+
+.MuiDialog-paper {
+  padding: 1rem;
+}
+
+.ProfileCont {
+  width: 500px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.linePR {
+  width: 100%;
+  display: flex;
+}
+.etatAgent {
+  width: 70px;
+  height: 30px;
+  padding-top: 2px;
+  display: block;
+  text-align: center;
+  border-radius: 30px;
+  position: relative;
+  bottom: 50px;
+  left: 35px;
+  font-weight: 500;
+}
+.etatAgentL {
+  color: #00c853;
+  background-color: #b9f6ca;
+}
+.etatAgentO {
+  color: #ffc107;
+  background-color: #fff8e1;
+}
+
+.TableDialog {
+  max-height: 350px;
+  max-width: 400px;
+  width: 500px;
+  padding: 0;
+  margin: 0;
+}
+
+.pannesR {
+  width: 500px;
+  padding: 10px;
+  color: black;
+}
+
+.linepannesR {
+  display: flex;
+  justify-content: space-between;
+}
+.profilDialogue {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.profilDialogue > div {
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.profilDialogue > div > div {
+  background-color: white;
+  padding: 25px;
+  overflow: hidden;
+  border-radius: 25px;
+}
+
+.TableDialog {
+  width: 550px;
+  max-width: 550px;
+  height: 370;
+  max-height: 370px;
+}
+
+.MuiDialog-container {
+  background-color: transparent !important;
+}

@@ -4,7 +4,8 @@ import {Route, Switch} from "react-router-dom";
 import React from "react";
 import HomeRoute from "./Routes/Home/Home.Route";
 import ContactRoute from "./Routes/Contact/Contact.Route";
-import {AccessAlarm , Adjust} from "@mui/icons-material";
+import AmsRoute from "./Routes/Ams/Ams.Route";
+//import {AccessAlarm , Adjust} from "@mui/icons-material";
 import Sidebar from "./SideBar";
 import themes from "./themes";
 import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
@@ -13,6 +14,9 @@ import NavigationScroll from "./SideBar/NavigationScroll";
 import Login from "./Routes/Login/Login.Route";
 import LocatairesSignUpRequestsRoute from "./Routes/LocatairesSignUpRequests/LocatairesSignUpRequests.Route";
 import Verrouillage from "./Routes/gestionverou/Verrouillage.Route"
+
+import DecideursProfilesGestionRoute from "./Routes/DecideursProfilesGestion/DecideursProfilesGestion.Route";
+
 import ResetPasswordRoute from "./Routes/Reset Password/resetPassword.Route";
 import {Redirect} from "react-router";
 import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
@@ -58,10 +62,12 @@ function App() {
                               <PrivateRoute exact path="/contact" component={()=><ContactRoute/>} />
                               <PrivateRoute exact path="/cars-view" component={()=><CarsViewRoute/>} />
 
+                              <PrivateRoute exact path="/decideurs_profiles" component={()=><DecideursProfilesGestionRoute/>} />
+                              <PrivateRoute exact path="/Agents_de_maintenance" component={()=><AmsRoute/>} />
+
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
                               <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
-
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
                           </Switch>

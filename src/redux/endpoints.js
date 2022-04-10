@@ -6,5 +6,10 @@ module.exports={
     ENDPOINT_POST_RESET_PASSWORD : `${baseUrlTest}/api/web_passwordReset/admin`,
     ENDPOINT_GET_LOCATAIRES_REQUESTS: `${baseUrlTest}/api/locataire/non_validated`,
     ENDPOINT_POST_ACCEPT_LOCATAIRE : `${baseUrlTest}/api/signup/locataire/validate`,
-    ENDPOINT_POST_REJECT_LOCATAIRE : `${baseUrlTest}/api/signup/locataire/reject`
+    ENDPOINT_POST_REJECT_LOCATAIRE : `${baseUrlTest}/api/signup/locataire/reject`,
+    ENDPOINT_GET_AMS : `${baseUrlTest}/api/agents/all`,
+    ENDPOINT_GET_AM : `${baseUrlTest}/api/agents/`,
+    ENDPOINT_POST_ADD_AM: `${baseUrlTest}/api/signup/agent`,
+    ENDPOINT_DELETE_REMOVE_AM: `${baseUrlTest}/api/accounts/agent`,
+    
 }

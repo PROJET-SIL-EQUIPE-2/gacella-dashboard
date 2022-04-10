@@ -1,13 +1,13 @@
-#rejectDialogTextArea{
-    height: 8rem;
-    background: rgba(248, 235, 227, 0.5) !important;
-    border-radius: 20px;
+#rejectDialogTextArea {
+  height: 8rem;
+  background: rgba(248, 235, 227, 0.5) !important;
+  border-radius: 20px;
 }
 
-.MuiDialog-paper{
-    padding: 1rem;
+.MuiDialog-paper {
+  padding: 1rem;
 }
 
-.MuiDialog-container{
-    background-color: rgba(247, 233, 226, 0.5) !important;
+.MuiDialog-container {
+  background-color: rgba(247, 233, 226, 0.5) !important;
 }

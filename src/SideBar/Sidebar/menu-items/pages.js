@@ -36,6 +36,22 @@ const pages = {
                     target: true
                 }
             ]
+        },
+        {
+            id: 'Compte_Gestion',
+            title: 'Gestion des comptes',
+            type: 'collapse',
+            icon: icons.IconKey,
+
+            children: [
+                {
+                    id: 'Agents_de_maintenance',
+                    title: 'Agents de maintenance',
+                    type: 'item',
+                    url: 'Agents_de_maintenance',
+                    target: true
+                }
+            ]
         }
     ]
 };

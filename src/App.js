@@ -4,7 +4,8 @@ import {Route, Switch} from "react-router-dom";
 import React from "react";
 import HomeRoute from "./Routes/Home/Home.Route";
 import ContactRoute from "./Routes/Contact/Contact.Route";
-import {AccessAlarm , Adjust} from "@mui/icons-material";
+import AmsRoute from "./Routes/Ams/Ams.Route";
+//import {AccessAlarm , Adjust} from "@mui/icons-material";
 import Sidebar from "./SideBar";
 import themes from "./themes";
 import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
@@ -54,9 +55,9 @@ function App() {
                               <PrivateRoute exact path="/locataires_requests" component={()=><LocatairesSignUpRequestsRoute/>} />
                               <PrivateRoute exact path="/decideurs_profiles" component={()=><DecideursProfilesGestionRoute/>} />
                               <PrivateRoute exact path="/contact" component={()=><ContactRoute/>} />
+                              <PrivateRoute exact path="/Agents_de_maintenance" component={()=><AmsRoute/>} />
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
-
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
                           </Switch>

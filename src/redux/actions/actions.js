@@ -706,3 +706,213 @@ export const closeSnackBar=()=>{
 }
 
 
+// GET ALL AMS
+
+export const getAllAMSLoading=()=>{
+    return{
+        type: Actiontypes.GET_ALL_AMS_LOADING
+    }
+}
+
+export const getAllAMSError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_ALL_AMS_ERROR,
+        payload: err
+    }
+}
+
+
+export const getAllAMSSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_ALL_AMS_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetAMS=()=>(dispatch)=>{
+    dispatch(getAllAMSLoading());
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+        'Content-Type': 'application/json'
+    };
+    axios.get( Endpoints.ENDPOINT_GET_AMS,
+        { headers: headers }
+    )
+        .then(res=>{
+            console.log('response =', res);
+            dispatch(getAllAMSSuccess(res.data , dispatch))
+        })
+        .catch(err=>{
+            console.log('err =', err.response.data);
+            dispatch(getAllAMSError(err.response.data , dispatch))
+        });
+
+}
+
+// ADD AM 
+
+
+const addAmLoading=()=>{
+    return{
+        type : Actiontypes.POST_ADD_AM_LOADING,
+    }
+}
+
+const addAmSuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile a été ajouté avec succées", "success"))
+    return{
+        type : Actiontypes.POST_ADD_AM_SUCCESS,
+        payload : data
+    }
+}
+
+const addAmError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : Actiontypes.POST_ADD_AM_ERROR,
+        paylaod : err
+
+    }
+}
+
+export const fetchAddAm=(newdata)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    dispatch(addAmLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+
+    return new Promise(((resolve, reject) => {
+        axios.post(Endpoints.ENDPOINT_POST_ADD_AM ,newdata, options)
+            .then(res=>{
+                dispatch(addAmSuccess(res.response , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(addAmError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(addAmError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+
+}
+
+// REMOVE AM
+
+const removeAmLoading=()=>{
+    return{
+        type : Actiontypes.POST_REMOVE_AM_LOADING,
+    }
+}
+
+const removeAmsuccess=(data , dispatch)=>{
+    dispatch(setSnackBarContent("Le profile séléctioné a été supprimé avec succés", "success"))
+    return{
+        type : Actiontypes.POST_REMOVE_AM_SUCCESS,
+        payload : data
+    }
+}
+
+const removeAmError=(err , dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+    return{
+        type : Actiontypes.POST_REMOVE_AM_ERROR,
+        paylaod : err
+
+    }
+}
+
+export const fetchRemoveAm=(email)=>(dispatch)=>{
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`
+    };
+    dispatch(removeAmLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+    return new Promise(((resolve, reject) => {
+        axios.delete(Endpoints.ENDPOINT_DELETE_REMOVE_AM , {headers: {headers},data:{email : email}}, options)
+            .then(res=>{
+                dispatch(removeAmsuccess(res.response , dispatch));
+                resolve();
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(removeAmError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(removeAmError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+}
+
+// GET AM
+
+export const getAMLoading=()=>{
+    return{
+        type: Actiontypes.GET_AM_LOADING
+    }
+}
+
+export const getAMError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_AM_ERROR,
+        payload: err
+    }
+}
+
+
+export const getAMSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_AM_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetAM=(id)=>(dispatch)=>{
+    dispatch(getAMLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+    return new Promise(((resolve, reject) => {
+        axios.get(Endpoints.ENDPOINT_GET_AM+id,{id:id}, options)
+            .then(res=>{
+                console.log("RESPONSE SUCCESS =", res);
+                dispatch(getAMSuccess(res.data.data , dispatch));
+                resolve('success')
+
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(getAMError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(getAMError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+}

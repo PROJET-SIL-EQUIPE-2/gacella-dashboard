@@ -38,6 +38,15 @@ const pages = {
       ],
     },
     {
+      id: 'DemandeDeverouillage',
+      title: 'Demande de déverouillage',
+      type: 'item',
+      url: 'DemandeDeverouillage',
+      icon: icons.IconDashboard,
+      breadcrumbs: false
+    }
+    ,
+    {
       id: "Compte_Gestion",
       title: "Gestion des comptes",
       type: "collapse",

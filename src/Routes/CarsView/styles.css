@@ -49,6 +49,13 @@ main {
 
 }
 
+
+div[title][aria-label] , div[title][aria-label] > img {
+        height: 50px !important;
+        width: 50px !important;
+
+}
+
 /*img[src="https://img.icons8.com/color/344/car--v1.png 2x"]{*/
 /*    height: 50px !important;*/
 /*    width: 50px !important;*/

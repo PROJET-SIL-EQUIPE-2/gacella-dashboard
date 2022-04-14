@@ -152,12 +152,12 @@ const  CarsViewRoute=()=>{
                     return(
                         <Marker position={car.position}
                             label={{
-                            text: car.name,
+                            // text: car.name,
                             // fontFamily: "Material Icons",
                             color: "#ffffff",
                             fontSize: "10px",
                             }}
-                            icon={markerIcon}
+                            icon={'https://lh3.google.com/u/0/d/1VDkBVYwMu-hau9j1SiW4YJelZ_9ZccDN=w1193-h840-iv1'}
                             onClick={()=>setInfoWindowData(car)}
                         />
                         )
@@ -183,6 +183,7 @@ const  CarsViewRoute=()=>{
                 {/*    </div></Toolbar>*/}
 
                 <Paper class={"contenaire"} style={{maxHeight: '100%'}}>
+
                     <PerfectScrollbar
                         style={{ height: '100%', maxHeight: 'calc(100vh - 1px)', overflowX: 'hidden' }}
                     >

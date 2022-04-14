@@ -29,8 +29,6 @@ let reducers= combineReducers({
     decideursProfiles : decideursProfilesModal,
     snackBarInfo : snackBarModal
     // users : usersReducer,
-
-    snackBarInfo : snackBarModal,
 });
 
 export default persistReducer(persistConfig, reducers);

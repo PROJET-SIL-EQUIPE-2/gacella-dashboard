@@ -163,26 +163,26 @@ const  CarsViewRoute=()=>{
                         )
 
                 })}
-                <Toolbar className={"filterBar"}>
-                    <h1>CARS VIEW</h1>
-                    <div className="d-flex align-items-center">
-                        <div className="col-4">
-                            <Autocomplete>
-                                <TextField className="mt-3 mb-3" id="standard-basic" label="From" variant="standard" ref={originRef} />
-                            </Autocomplete>
-                        </div>
-                        <div className="col-4">
-                            <Autocomplete>
-                                <TextField className="mt-3 mb-3" id="standard-basic" label="To" variant="standard" ref={destiantionRef} />
-                            </Autocomplete>
-                        </div>
-                        <div className="col-4">
-                            <Button onClick={()=>calculateRoute()} className="w-100" variant="contained">Calculate Route</Button>
+                {/*<Toolbar className={"filterBar"}>*/}
+                {/*    <h1>CARS VIEW</h1>*/}
+                {/*    <div className="d-flex align-items-center">*/}
+                {/*        <div className="col-4">*/}
+                {/*            <Autocomplete>*/}
+                {/*                <TextField className="mt-3 mb-3" id="standard-basic" label="From" variant="standard" ref={originRef} />*/}
+                {/*            </Autocomplete>*/}
+                {/*        </div>*/}
+                {/*        <div className="col-4">*/}
+                {/*            <Autocomplete>*/}
+                {/*                <TextField className="mt-3 mb-3" id="standard-basic" label="To" variant="standard" ref={destiantionRef} />*/}
+                {/*            </Autocomplete>*/}
+                {/*        </div>*/}
+                {/*        <div className="col-4">*/}
+                {/*            <Button onClick={()=>calculateRoute()} className="w-100" variant="contained">Calculate Route</Button>*/}
 
-                        </div>
-                    </div></Toolbar>
+                {/*        </div>*/}
+                {/*    </div></Toolbar>*/}
 
-                <Paper class={"contenaire"} style={{maxHeight: '100%', overflow: 'auto'}}>
+                <Paper class={"contenaire"} style={{maxHeight: '100%'}}>
                     <PerfectScrollbar
                         style={{ height: '100%', maxHeight: 'calc(100vh - 1px)', overflowX: 'hidden' }}
                     >

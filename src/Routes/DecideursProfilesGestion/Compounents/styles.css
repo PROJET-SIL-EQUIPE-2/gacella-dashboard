@@ -11,3 +11,11 @@
 .MuiDialog-container{
     background-color: rgba(247, 233, 226, 0.5) !important;
 }
+
+.MuiFormGroup-root{
+    width:100%;
+}
+
+.MuiDialogContent-root{
+    padding:20px 0px
+}

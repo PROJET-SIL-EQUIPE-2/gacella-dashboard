@@ -18,18 +18,17 @@ let persistConfig = {
   whitelist: ["user"],
 };
 
-let reducers = combineReducers({
-  posts: postsReducerModal,
-  templateSettings: customizationReducer,
-  user: userModal,
-  amsProfiles: amsProfilesModal,
-  amprofile: amProfileModal,
-  locatairesRequests: locatairesRequestsModal,
-  decideursProfiles: decideursProfilesModal,
-  snackBarInfo: snackBarModal,
-  // users : usersReducer,
+let reducers= combineReducers({
+    posts : postsReducerModal,
+    templateSettings : customizationReducer,
+    user : userModal,
+    amsProfiles : amsProfilesModal,
+    amprofile :amProfileModal,
+    locatairesRequests : locatairesRequestsModal,
+    decideursProfiles : decideursProfilesModal,
+    snackBarInfo : snackBarModal
+    // users : usersReducer,
 
-  snackBarInfo: snackBarModal,
 });
 
 export default persistReducer(persistConfig, reducers);

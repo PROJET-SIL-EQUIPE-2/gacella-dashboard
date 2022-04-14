@@ -11,14 +11,6 @@ const dashboard = {
     title: 'Dashboard',
     type: 'group',
     children: [
-        {
-            id: 'default',
-            title: 'Demandes de locataires',
-            type: 'item',
-            url: 'locataires_requests',
-            icon: icons.IconDashboard,
-            breadcrumbs: false
-        }
     ]
 };
 

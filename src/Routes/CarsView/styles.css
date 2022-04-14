@@ -50,6 +50,7 @@ main {
 }
 
 
+
 div[title][aria-label] , div[title][aria-label] > img {
         height: 50px !important;
         width: 50px !important;

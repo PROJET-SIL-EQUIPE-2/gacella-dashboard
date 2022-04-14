@@ -28,6 +28,7 @@ const dashboard = {
             icon: icons.IconDashboard,
             breadcrumbs: false
         }
+
     ]
 };
 

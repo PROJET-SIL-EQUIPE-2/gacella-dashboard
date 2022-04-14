@@ -22,6 +22,8 @@ import Coordonnees from "./Compounents/coordonneesList.Component";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import LocationIcon from "../gestionverou/assets/LocationIcon.png";
+import PerfectScrollbar from 'react-perfect-scrollbar';
+
 function addTestData(locatairesrequests) {
     setTimeout(() => {  console.log("World!");}, 0);
 
@@ -115,7 +117,15 @@ addTestData(locatairesrequests); // this is not updating the state of the table 
 
     const classes = useStyles();
     return (
-
+        <PerfectScrollbar
+            component="div"
+            style={{
+                placeContent:"space-between",
+                height: 'calc(100vh - 100px)',
+                paddingLeft: '16px',
+                paddingRight: '16px'
+            }}
+        >
                 <div   style={{ height: 400, width: '100%' }}>
                     <MaterialTable
                         className={classes.table}
@@ -233,7 +243,6 @@ addTestData(locatairesrequests); // this is not updating the state of the table 
                     <PermisDialog setOpen={setPermisDialog} imageSource={permisDialog} />
                     <PhotosDialog setOpen={setPhotoDialog} imageSource={photoDialog} />
                 </div>
-
-
+            </PerfectScrollbar>
     );
 }

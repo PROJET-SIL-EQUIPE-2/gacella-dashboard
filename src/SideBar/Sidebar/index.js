@@ -13,7 +13,7 @@ import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
 import MenuCard from './MenuCard';
 // import { drawerWidth } from 'store/constant';
-const drawerWidth = 260;
+const drawerWidth = 275;
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
 const Sidebar = ({ drawerOpen, drawerToggle, window  }) => {

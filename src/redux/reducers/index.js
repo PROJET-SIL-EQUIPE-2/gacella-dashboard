@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux'
-import storage from 'redux-persist/lib/storage';
+import { combineReducers } from "redux";
+import storage from "redux-persist/lib/storage";
 
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer } from "redux-persist";
 
 import postsReducerModal from "./postsReducer.Modal";
 import customizationReducer from "./customizationReducer";
@@ -10,14 +10,13 @@ import locatairesRequestsModal from "./locatairesRequests.Modal";
 import snackBarModal from "./snackBarInfo.Modal";
 import decideursProfilesModal from "./decideursProfiles.Modal";
 import amsProfilesModal from "./amsProfiles.Modal";
-import amProfileModal from './amProfile.Modal';
-
+import amProfileModal from "./amProfile.Modal";
 
 let persistConfig = {
-    key : 'root',
-    storage : storage ,
-    whitelist : ['user']
-}
+  key: "root",
+  storage: storage,
+  whitelist: ["user"],
+};
 
 let reducers= combineReducers({
     posts : postsReducerModal,
@@ -29,6 +28,7 @@ let reducers= combineReducers({
     decideursProfiles : decideursProfilesModal,
     snackBarInfo : snackBarModal
     // users : usersReducer,
+
 });
 
 export default persistReducer(persistConfig, reducers);

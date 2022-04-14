@@ -1,9 +1,11 @@
 // assets
 import { IconKey } from '@tabler/icons';
+import { IconDashboard } from '@tabler/icons';
 
 // constant
 const icons = {
-    IconKey
+    IconKey,
+    IconDashboard
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
@@ -16,11 +18,19 @@ const pages = {
     children: [
         {
             id: 'authentication',
-            title: 'Authentication',
+            title: 'Authentification',
             type: 'collapse',
             icon: icons.IconKey,
 
             children: [
+                {
+                    id: 'default',
+                    title: 'Demandes de locataires',
+                    type: 'item',
+                    url: 'locataires_requests',
+                    icon: icons.IconDashboard,
+                    breadcrumbs: false
+                },
                 {
                     id: 'login3',
                     title: 'Login',
@@ -38,6 +48,15 @@ const pages = {
             ]
         },
         {
+            id: 'DemandeDeverouillage',
+            title: 'Demande de déverouillage',
+            type: 'item',
+            url: 'DemandeDeverouillage',
+            icon: icons.IconDashboard,
+            breadcrumbs: false
+        }
+        ,
+        {
             id: 'Compte_Gestion',
             title: 'Gestion des comptes',
             type: 'collapse',
@@ -49,6 +68,13 @@ const pages = {
                     title: 'Décideurs',
                     type: 'item',
                     url: 'decideurs_profiles',
+                    target: true
+                },
+                {
+                    id: 'Agents_de_maintenance',
+                    title: 'Agents de maintenance',
+                    type: 'item',
+                    url: 'Agents_de_maintenance',
                     target: true
                 }
             ]

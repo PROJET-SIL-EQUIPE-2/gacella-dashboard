@@ -10,8 +10,8 @@ const icons = {
 
 const pages = {
     id: 'pages',
-    title: 'Pages',
-    caption: 'Pages Caption',
+    title: 'Authentication',
+    //caption: 'Pages Caption',
     type: 'group',
     children: [
         {
@@ -33,6 +33,22 @@ const pages = {
                     title: 'Register',
                     type: 'item',
                     url: '/pages/register/register3',
+                    target: true
+                }
+            ]
+        },
+        {
+            id: 'Compte_Gestion',
+            title: 'Gestion des comptes',
+            type: 'collapse',
+            icon: icons.IconKey,
+
+            children: [
+                {
+                    id: 'decideurs_profiles',
+                    title: 'Décideurs',
+                    type: 'item',
+                    url: 'decideurs_profiles',
                     target: true
                 }
             ]

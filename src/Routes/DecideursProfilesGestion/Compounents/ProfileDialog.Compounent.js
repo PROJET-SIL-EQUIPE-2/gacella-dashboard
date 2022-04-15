@@ -6,17 +6,25 @@ import {FormGroup, Input, Label} from "reactstrap";
 import './styles.css'
 import {useDispatch} from "react-redux";
 import {fetchUpdateDecideur, setSnackBarContent} from "../../../redux/actions/actions";
-import {IconButton, InputAdornment} from "@mui/material";
+import {Grid, IconButton, InputAdornment, useMediaQuery} from "@mui/material";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 //import SaveRoundedIcon from '@mui/icons-material/EditOffRounded';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
+
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import {useTheme} from "@mui/material/styles";
+
+
 
 
 
 export default function ProfileDialog({isOpen , setOpen ,profileForm, setProfileForm}) {
     const dispatch = useDispatch();
     //const [profileForm, setProfileForm] = React.useState(data);
-    console.log(profileForm);
+    //console.log(profileForm);
+
+    const theme = useTheme();
+    const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
 
     const [editable, setEditable] = React.useState({
         name:false,
@@ -68,9 +76,20 @@ export default function ProfileDialog({isOpen , setOpen ,profileForm, setProfile
 
 
     return (
-            <Dialog className="p-2" open={isOpen} onClose={handleClose}>
+            <Dialog className="p-2" fullwidth open={isOpen} onClose={handleClose}>
                 <DialogTitle style={{fontSize : "2rem"}} className="lora-700 gacela-orange">Profile</DialogTitle>
                 <DialogContent style={{marginTop : "1rem"}} className="h-100 d-flex flex-column">
+                    <PerfectScrollbar
+                        component="div"
+                        style={{
+                            placeContent:"space-between",
+                            height: 'calc(100vh - 100px)',
+                            paddingLeft: '16px',
+                            paddingRight: '16px'
+                        }}
+                    >
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
                             <FormGroup>
                                 <Label className="roboto-700" for="name">Prénom</Label>
                                 <Input defaultValue={profileForm?.name}
@@ -149,7 +168,12 @@ export default function ProfileDialog({isOpen , setOpen ,profileForm, setProfile
                                        type="password" name="confirmPassword" className="signUpInput" id="confirmPassword" placeholder="confirmer le mot de passe ..." //readOnly={!editable['password']}
                                 />
                             </FormGroup>
+                            </Grid>
+                        </Grid>
+                    </PerfectScrollbar>
                 </DialogContent>
             </Dialog>
+
+
     );
 }

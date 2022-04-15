@@ -32,10 +32,11 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 
 
-export default function DemandesSupportRoute() {
+export default function DemandeSupportCompounent() {
 
     const dispatch = useDispatch();
-    const demandeSupport = useSelector(state => state.demandeSupport);
+    const demandesSupports = useSelector(state => state.demandesSupports);
+    const [demandeId, setDemandeId] = useState(null);
 
     const  baseUrlTest = "http://localhost:3000";
 

@@ -1023,3 +1023,57 @@ export const fetchgetDemandesSupports=()=>(dispatch)=>{
         });
 
 }
+
+// GET DEMANDE DE SUPPORT
+
+export const getDemandeSupportLoading=()=>{
+  return{
+      type: Actiontypes.GET_DEMANDESUPPORT_LOADING
+  }
+}
+
+export const getDemandeSupportError=(err,dispatch)=>{
+  dispatch(setSnackBarContent(err, "error"))
+
+  return{
+      type : Actiontypes.GET_DEMANDESUPPORT_ERROR,
+      payload: err
+  }
+}
+
+
+export const getDemandeSupportSuccess=(content)=>{
+
+  return{
+      type: Actiontypes.GET_DEMANDESUPPORT_SUCCESS,
+      payload: content
+  }
+}
+
+export const fetchgetDemandeSupport=(id)=>(dispatch)=>{
+  dispatch(getDemandeSupportLoading());
+  const options = {
+      headers: { 'Content-Type': 'application/json'}
+
+  };
+  return new Promise(((resolve, reject) => {
+      axios.get(Endpoints.ENDPOINT_GET_DEMANDESUPPORT+id,{id:id}, options)
+          .then(res=>{
+              console.log("RESPONSE SUCCESS =", res);
+              dispatch(getDemandeSupportSuccess(res.data.data , dispatch));
+              resolve('success')
+
+          })
+          .catch(err=>{
+              if(err?.response?.data){
+                  console.log("RESPONSE=",err.response.data.errors[0].msg);
+                  dispatch(getDemandeSupportError(err.response.data.errors[0].msg , dispatch));
+                  reject(err.response.data);
+              }else{
+                  console.log(err.message);
+                  dispatch(getDemandeSupportError(err) , dispatch);
+                  reject(err.message);
+              }
+          });
+  }))
+}

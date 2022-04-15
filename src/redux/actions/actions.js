@@ -944,3 +944,49 @@ export const fetchgetAM=(id)=>(dispatch)=>{
             });
     }))
 }
+
+// GET ALL DEMANDES DE SUPPORTS
+
+export const getAllDemandesSupportsLoading=()=>{
+    return{
+        type: Actiontypes.GET_ALL_DEMANDESSUPPORTS_LOADING
+    }
+}
+
+export const getAllDemandesSupportsError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_ALL_DEMANDESSUPPORTS_SUCCESS,
+        payload: err
+    }
+}
+
+
+export const getAllDemandesSupportsSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_ALL_DEMANDESSUPPORTS_ERROR,
+        payload: content
+    }
+}
+
+export const fetchgetDemandesSupports=()=>(dispatch)=>{
+    dispatch(getAllDemandesSupportsLoading());
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+        'Content-Type': 'application/json'
+    };
+    axios.get( Endpoints.ENDPOINT_GET_DEMANDESSUPPORTS,
+        { headers: headers }
+    )
+        .then(res=>{
+            console.log('response =', res);
+            dispatch(getAllDemandesSupportsSuccess(res.data , dispatch))
+        })
+        .catch(err=>{
+            console.log('err =', err.response.data);
+            dispatch(getAllDemandesSupportsError(err.response.data , dispatch))
+        });
+
+}

@@ -14,4 +14,6 @@ module.exports={
     ENDPOINT_PUT_UPDATE_DECIDEUR_PASSSWORD: `${baseUrlTest}/api/web_settings/decideur/password/`,
     ENDPOINT_PATCH_TOGGLE_BLOCK_DECIDEUR: `${baseUrlTest}/api/accounts/toggle-block/decideur`,
     ENDPOINT_DELETE_REMOVE_DECIDEUR: `${baseUrlTest}/api/decideurs/delete`,
+    ENDPOINT_GET_DEMANDESSUPPORTS : `${baseUrlTest}/api/demandessupports/all`,
+    ENDPOINT_GET_DEMANDESUPPORT : `${baseUrlTest}/api/demandesupport/`,
 }

@@ -8,8 +8,8 @@ const icons = {
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
 
-const pages = {
-    id: 'pages',
+const pages = [
+    {id: 'pages',
     title: 'Authentication',
     //caption: 'Pages Caption',
     type: 'group',
@@ -54,6 +54,6 @@ const pages = {
             ]
         }
     ]
-};
+}];
 
 export default pages;

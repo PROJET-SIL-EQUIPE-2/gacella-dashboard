@@ -11,20 +11,25 @@ import {Provider} from "react-redux";
 import store from "./redux/store";
 import {createBrowserHistory} from "history";
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import WebSocketProvider from './WebSocket/webSocket';
 
 export const history = createBrowserHistory();
 ReactDOM.render(
   <React.StrictMode>
       {/*MVC*/}
-      <Provider store={store}>
-          {/*ROUTER*/}
-          {/*/posts */}
-          {/*/statistics */}
-          {/*/statistics/1*/}
-          <Router history={history}>
-                <App />
-          </Router>
-      </Provider>
+          <Provider store={store}>
+              <WebSocketProvider>
+                  {/*ROUTER*/}
+                  {/*/posts */}
+                  {/*/statistics */}
+                  {/*/statistics/1*/}
+                  <Router history={history}>
+                      <App />
+                  </Router>
+              </WebSocketProvider>
+          </Provider>
+
+
   </React.StrictMode>,
   document.getElementById('root')
 );

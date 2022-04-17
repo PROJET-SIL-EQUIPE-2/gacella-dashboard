@@ -974,3 +974,10 @@ export const fetchgetAM = (id) => (dispatch) => {
       });
   });
 };
+
+export const testWebSocket=(arg)=>{
+  return {
+    type: Actiontypes.WEBSOCKET_TEST,
+    payload : arg
+  }
+}

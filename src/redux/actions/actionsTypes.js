@@ -106,3 +106,7 @@ export const GET_AM_LOADING = "GET_AM_LOADING";
 export const GET_AM_SUCCESS = "GET_AM_SUCCESS";
 export const GET_AM_ERROR="GET_AM_ERROR";
 
+// WEBSOCKET TEST
+
+export const WEBSOCKET_TEST = 'WEBSOCKET_TEST'
+

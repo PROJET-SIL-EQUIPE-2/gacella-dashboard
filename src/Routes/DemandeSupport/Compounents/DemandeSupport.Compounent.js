@@ -32,10 +32,11 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 
 
-export default function DemandesSupportRoute() {
+export default function DemandeSupportCompounent() {
 
     const dispatch = useDispatch();
-    const demandeSupport = useSelector(state => state.demandeSupport);
+    const demandesSupports = useSelector(state => state.demandesSupports);
+    const [demandeId, setDemandeId] = useState(null);
 
     const  baseUrlTest = "http://localhost:3000";
 
@@ -76,26 +77,6 @@ const columns=[
 
     return (
                 <div   style={{ height: 400, width: '100%' }}>
-                    <Grid container spacing={2} >
-                        <Grid item xs={12}>
-
-                        </Grid>
-                        <Grid item xs={12} >
-                            <Box  style={{borderRadius : '25px', margin : '15px'}}
-                                sx={{
-                                    height: 100, p: 4 ,
-                                    backgroundColor: 'white',
-                                    '&:hover': {
-                                        backgroundColor: 'primary.light',
-                                        opacity: [0.9, 0.8, 0.7],
-                                    }, boxShadow: 1
-                                }}
-                            >
-                                <Typography variant="h2"  fontFamily={"lora"}>
-                                    Demandes de support
-                                </Typography>
-                            </Box>
-                        </Grid>
                     <Grid spacing={2} container>
                         <Grid item xs={3}>
                             <Box style={{borderRadius : '25px', margin : '0px 15px 15px 15px'}}  sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper',boxShadow: 1  }}>
@@ -150,8 +131,6 @@ const columns=[
                             options={{
                                 search: false,
                                 actionsColumnIndex: -1,
-                                detailPanelType: 'single',
-
                                 headerStyle: {
                                     color: "#9E9E9E",
                                     fontFamily: "var(--roboto-font)",
@@ -160,21 +139,8 @@ const columns=[
                                 },
                                 
                             }}
-                                onRowClick={(event, rowData, togglePanel) => togglePanel()}
-                                detailPanel={(rowData )=> {
-
-                                    return (
-
-                                        <div style={{ position:'absolute', top:'0',left:'0' ,height:'100%',width:'100%',backgroundColor: "black",zIndex:'100' }} ><button onClick={
-                                            () => {
-                                               // setOpen(false)
-                                            } }>hii</button></div>
-                                    )
-
-                                }}
                         />
                         </Grid>
-                    </Grid>
                     </Grid>
 
                 </div>

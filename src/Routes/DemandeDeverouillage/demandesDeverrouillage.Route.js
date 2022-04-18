@@ -210,7 +210,7 @@ addTestData(locatairesrequests); // this is not updating the state of the table 
                                                        actions={[rowData => ({
                                             icon:  ()=>(<Button  color="primary" style={{ borderRadius: 50 }} variant="contained">confirmer</Button>),
                                             tooltip: 'Delete User',
-                                            onClick: (event, rowData) => {setRejectDialogOpenStatus(true); setLocataireEmail(rowData.email); },
+                                           // onClick: (event, rowData) => {setRejectDialogOpenStatus(true); setLocataireEmail(rowData.email); },
                                         })]}
                                                        localization={{
                                                            header: {

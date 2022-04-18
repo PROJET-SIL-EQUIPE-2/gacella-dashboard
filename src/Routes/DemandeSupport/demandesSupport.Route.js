@@ -106,7 +106,7 @@ addTestData(locatairesrequests); // this is not updating the state of the table 
 
 
                 <div   style={{ height: 400, width: '100%' }}>
-                    <Grid spacing={2} container spacing={2} >
+                    <Grid container spacing={2} >
                         <Grid item xs={12}>
 
                         </Grid>
@@ -190,7 +190,20 @@ addTestData(locatairesrequests); // this is not updating the state of the table 
                             options={{
                                 search: false,
                                 actionsColumnIndex: -1,
+                                detailPanelType: 'single'
                             }}
+                                onRowClick={(event, rowData, togglePanel) => togglePanel()}
+                                detailPanel={(rowData )=> {
+
+                                    return (
+
+                                        <div style={{ position:'absolute', top:'0',left:'0' ,height:'100%',width:'100%',backgroundColor: "black",zIndex:'100' }} ><button onClick={
+                                            () => {
+                                               // setOpen(false)
+                                            } }>hii</button></div>
+                                    )
+
+                                }}
                         />
                         </Grid>
                     </Grid>

@@ -58,6 +58,7 @@ const ProfileSection = () => {
     const handleLogout = ()=>{
         localStorage.removeItem('gacela-token');
         localStorage.removeItem('accountType');
+        localStorage.removeItem('accountData')
         history.push('/login');
     }
 
@@ -250,7 +251,7 @@ const ProfileSection = () => {
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 0}
-                                                    onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile1')}
+                                                    onClick={(event) => handleListItemClick(event, 0, '/gestion-profile')}
                                                 >
                                                     <ListItemIcon>
                                                         <IconSettings stroke={1.5} size="1.3rem" />

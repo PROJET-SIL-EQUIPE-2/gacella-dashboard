@@ -71,7 +71,7 @@ const addPostError = (err) => {
 
 export const fetchAddPost = (postToAdd) => (dispatch) => {
   const headers = {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
   };
   dispatch(addPostLoading());
   const options = {
@@ -981,3 +981,60 @@ export const testWebSocket=(arg)=>{
     payload : arg
   }
 }
+
+// UPDATE DECIDEUR PROFILE
+
+export const updateDecideurProfilLoading = () => {
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_LOADING,
+  };
+};
+
+export const updateDecideurProfilError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_ERROR,
+    payload: err,
+  };
+};
+
+export const updateDecideurProfilSuccess = (content, dispatch)=> {
+  dispatch(setSnackBarContent("Update profile avec succées ! ", "success"));
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchupdateDecideurProfil = (id , newData) => (dispatch) => {
+  dispatch(updateDecideurProfilLoading());
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+
+    },
+  };
+  return new Promise((resolve, reject) => {
+    axios
+        // .put(Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id, newData, options)
+        .put(Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id, {email : newData.email}, options)
+        .then((res) => {
+          console.log("RESPONSE SUCCESS =", res);
+          dispatch(updateDecideurProfilSuccess(newData, dispatch));
+          resolve("success");
+        })
+        .catch((err) => {
+          if (err?.response?.data) {
+            console.log("RESPONSE=", err.response.data.errors[0].msg);
+            dispatch(updateDecideurProfilError(err.response.data.errors[0].msg, dispatch));
+            reject(err.response.data);
+          } else {
+            console.log(err.message);
+            dispatch(updateDecideurProfilError(err, dispatch));
+            reject(err.message);
+          }
+        });
+  });
+};

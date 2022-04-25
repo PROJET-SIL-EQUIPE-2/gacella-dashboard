@@ -22,6 +22,7 @@ import {Redirect} from "react-router";
 import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
 import CarsViewRoute from "./Routes/CarsView/carsView.Route";
 import LocataireDemandesDeverouillage from "./Routes/DemandeDeverouillage/demandesDeverrouillage.Route";
+import GestionProfilRoute from "./Routes/GestionProfil/gestionProfil.Route";
 
 
 function App() {
@@ -64,10 +65,14 @@ function App() {
 
                               <PrivateRoute exact path="/decideurs_profiles" component={()=><DecideursProfilesGestionRoute/>} />
                               <PrivateRoute exact path="/Agents_de_maintenance" component={()=><AmsRoute/>} />
+                              <PrivateRoute exact path="/gestion-profile" component={()=><GestionProfilRoute/>} />
+
 
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
                               <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
+
+
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
                           </Switch>

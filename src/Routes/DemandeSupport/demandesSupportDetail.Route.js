@@ -31,8 +31,8 @@ import Coordonnees from "./Compounents/coordonneesList.Component";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import {useParams} from "react-router";
-
-
+import MenuFilter from "./Compounents/MenuFilter.Component";
+import SupportMessage from "./Compounents/SupportMessage.Component";
 export default function DemandesSupportRouteDetail() {
     const data=[
         { message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', mid: 2 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
@@ -100,86 +100,12 @@ const columns=[
                         </Grid>
                     <Grid spacing={2} container>
                         <Grid item xs={3}>
-                            <Box style={{borderRadius : '25px', margin : '0px 15px 15px 15px'}}  sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper',boxShadow: 1  }}>
-                                <nav aria-label="main mailbox folders">
-                                    <List>
-                                        <ListItem >
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <img src={allIcon} />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Toutes les demandes" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <img src={waitingIcon} />
-                                                </ListItemIcon>
-                                                <ListItemText primary="En attente" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem >
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <img src={spamIcon} />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Spam" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem >
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <img src={archivedIcon} />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Archivé" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                    </List>
-                                </nav>
-                            </Box>
+                           <MenuFilter></MenuFilter>
                         </Grid>
                         <Grid item xs={9}>
-                            <MaterialTable
-
-                            Title="Demandes de Support"
-                            className={classes.table}
-                            style={{borderRadius : '25px', margin : '12px 15px 15px 15px'}}
-                            icons={tableIcons}
-                            localization={tableLang}
-                            columns={columns}
-                            data={currentSupport}
-                            // data={demandesSupports.data}
-                            options={{
-                                search: false,
-                                actionsColumnIndex: -1,
-                                detailPanelType: 'single',
-
-                                headerStyle: {
-                                    color: "#9E9E9E",
-                                    fontFamily: "var(--roboto-font)",
-                                    fontWeight: 300,
-                                    fontSize: "1.2rem",
-                                },
-
-                            }}
-                                onRowClick={(event, rowData, togglePanel) => togglePanel()}
-                                detailPanel={(rowData )=> {
-
-                                    return (
-
-                                        <div style={{ position:'absolute', top:'0',left:'0' ,height:'100%',width:'100%',backgroundColor: "black",zIndex:'100' }} ><button onClick={
-                                            () => {
-                                                //toggle current panel
-
-                                               // setOpen(false)
-                                               // this.tableRef.current.onToggleDetailPanel([0])
-                                            } }>hii</button></div>
-                                    )
-
-                                }}
-                        />
+                            <SupportMessage message={ 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran'} date={ 2 } familyName={ 'mecheri'} name ={'hadia'} email={'john@gmial.com'} object={'object of the message'} personal_photo= { 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}></SupportMessage>
                         </Grid>
+
                     </Grid>
                     </Grid>
 

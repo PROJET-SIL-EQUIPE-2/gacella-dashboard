@@ -31,7 +31,7 @@ import Coordonnees from "./Compounents/coordonneesList.Component";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import {useParams} from "react-router";
-
+import MenuFilter from "./Compounents/MenuFilter.Component";
 
 export default function DemandesSupportRoute() {
     // let {supportId} = useParams();
@@ -63,10 +63,10 @@ const columns=[
     ]
 
     const data=[
-        { message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { id: 2, message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { id: 3, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { id: 4, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
     ]
 
     const useStyles = makeStyles({
@@ -102,44 +102,7 @@ const columns=[
                         </Grid>
                     <Grid spacing={2} container>
                         <Grid item xs={3}>
-                            <Box style={{borderRadius : '25px', margin : '0px 15px 15px 15px'}}  sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper',boxShadow: 1  }}>
-                                <nav aria-label="main mailbox folders">
-                                    <List>
-                                        <ListItem >
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <img src={allIcon} />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Toutes les demandes" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem >
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <img src={waitingIcon} />
-                                                </ListItemIcon>
-                                                <ListItemText primary="En attente" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem >
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <img src={spamIcon} />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Spam" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem >
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <img src={archivedIcon} />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Archivé" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                    </List>
-                                </nav>
-                            </Box>
+                            <MenuFilter></MenuFilter>
                         </Grid>
                         <Grid item xs={9}>
                             <MaterialTable
@@ -165,9 +128,10 @@ const columns=[
                                 },
                                 
                             }}
-                                onRowClick={(event, rowData, togglePanel) => togglePanel()}
+                                onRowClick={(event, rowData, togglePanel) =>{
+                                    //togglePanel() ;
+                                    window.location.href='http://localhost:5000/DemandeSupport/'+rowData.id}}
                                 detailPanel={(rowData )=> {
-
                                     return (
 
                                         <div style={{ position:'absolute', top:'0',left:'0' ,height:'100%',width:'100%',backgroundColor: "black",zIndex:'100' }} ><button onClick={

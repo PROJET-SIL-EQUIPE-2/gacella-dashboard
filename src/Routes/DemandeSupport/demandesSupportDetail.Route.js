@@ -33,18 +33,21 @@ import Typography from "@mui/material/Typography";
 import {useParams} from "react-router";
 
 
-export default function DemandesSupportRoute() {
-    // let {supportId} = useParams();
-    // let supports = [];
-    // let [currentSupport , setCurrentSupport]=useState(supports.filter(supp=>supp.id===supportId)[0])
+export default function DemandesSupportRouteDetail() {
+    const data=[
+        { message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', mid: 2 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', mid: 3  ,Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', mid: 4 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran',  mid: 5 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'} },
+    ]
+    let {supportId} = useParams();
+    let [currentSupport , setCurrentSupport]=useState(data.filter(supp=> supp.mid===supportId )[0]); // this should display one row in the table but it's showing nothing.
+    console.log("hii",currentSupport);
     const dispatch = useDispatch();
     const demandeSupport = useSelector(state => state.demandeSupport);
 
     const  baseUrlTest = "http://localhost:3000";
 
-    useEffect(()=>{
-        dispatch(fetchgetDemandesSupports());
-    }, [])
 
 
 
@@ -62,12 +65,7 @@ const columns=[
         }
     ]
 
-    const data=[
-        { message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-    ]
+
 
     const useStyles = makeStyles({
         table: {
@@ -113,7 +111,7 @@ const columns=[
                                                 <ListItemText primary="Toutes les demandes" />
                                             </ListItemButton>
                                         </ListItem>
-                                        <ListItem >
+                                        <ListItem>
                                             <ListItemButton>
                                                 <ListItemIcon>
                                                     <img src={waitingIcon} />
@@ -150,7 +148,7 @@ const columns=[
                             icons={tableIcons}
                             localization={tableLang}
                             columns={columns}
-                            data={data}
+                            data={currentSupport}
                             // data={demandesSupports.data}
                             options={{
                                 search: false,

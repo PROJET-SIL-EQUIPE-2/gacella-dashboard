@@ -7,6 +7,7 @@ import ContactRoute from "./Routes/Contact/Contact.Route";
 import AmsRoute from "./Routes/Ams/Ams.Route";
 //import {AccessAlarm , Adjust} from "@mui/icons-material";
 import LocataireDemandesSupport from "./Routes/DemandeSupport/demandesSupport.Route"
+import LocataireDemandesSupportDetail from "./Routes/DemandeSupport/demandesSupportDetail.Route"
 import Sidebar from "./SideBar";
 import themes from "./themes";
 import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
@@ -69,7 +70,9 @@ function App() {
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
                               <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
+
                               <Route exact path="/DemandeSupport" component={()=><LocataireDemandesSupport/>} />
+                              <Route exact path="/DemandeSupport/:supportId" component={()=><LocataireDemandesSupportDetail/>} />
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
                           </Switch>

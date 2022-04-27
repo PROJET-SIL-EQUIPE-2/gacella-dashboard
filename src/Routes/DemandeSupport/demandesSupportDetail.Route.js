@@ -41,7 +41,7 @@ export default function DemandesSupportRouteDetail() {
         { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran',  mid: 5 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'} },
     ]
     let {supportId} = useParams();
-    let [currentSupport , setCurrentSupport]=useState(data.filter(supp=> supp.mid===supportId )[0]); // this should display one row in the table but it's showing nothing.
+    let [currentSupport , setCurrentSupport]=useState(data.filter(supp=> supp.mid==supportId )); // this should display one row in the table but it's showing nothing.
     console.log("hii",currentSupport);
     const dispatch = useDispatch();
     const demandeSupport = useSelector(state => state.demandeSupport);
@@ -52,7 +52,7 @@ export default function DemandesSupportRouteDetail() {
 
 
 const columns=[
-        {  field: 'infos', 
+        {  field: 'infos',
            render: rowData =>(
             <div className="d-flex align-items-center">
                 <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}}  src={rowData.Locataires.personal_photo} />
@@ -161,7 +161,7 @@ const columns=[
                                     fontWeight: 300,
                                     fontSize: "1.2rem",
                                 },
-                                
+
                             }}
                                 onRowClick={(event, rowData, togglePanel) => togglePanel()}
                                 detailPanel={(rowData )=> {

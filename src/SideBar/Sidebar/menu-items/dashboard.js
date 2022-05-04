@@ -21,10 +21,19 @@ const dashboard = {
         }
         ,
         {
-            id: 'default',
+            id: 'locataires_requests',
             title: 'Demandes de locataires',
             type: 'item',
             url: 'locataires_requests',
+            icon: icons.IconDashboard,
+            breadcrumbs: false
+        }
+        ,
+        {
+            id: 'suivi_vehicules',
+            title: 'Suivi de véhicules',
+            type: 'item',
+            url: 'suivi_vehicules',
             icon: icons.IconDashboard,
             breadcrumbs: false
         }

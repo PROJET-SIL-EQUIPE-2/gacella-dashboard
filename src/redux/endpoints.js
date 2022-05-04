@@ -22,5 +22,11 @@ module.exports={
     ENDPOINT_GET_AM : `${baseUrlTest}/api/agents/`,
     ENDPOINT_POST_ADD_AM: `${baseUrlTest}/api/signup/agent`,
     ENDPOINT_DELETE_REMOVE_AM: `${baseUrlTest}/api/accounts/agent`,
+
+    ENDPOINT_GET_ALL_VEHICULES : `${baseUrlTest}/api/vehicles/all`,
+    ENDPOINT_GET_VEHICULE : `${baseUrlTest}/api/vehicles`,
+    ENDPOINT_POST_ADD_VEHICULE: `${baseUrlTest}/api/vehicles/add`,
+    ENDPOINT_POST_ASSIGN_VEHICULE: `${baseUrlTest}/api/vehicles/assign`,
+    ENDPOINT_DELETE_REMOVE_VEHICULE: `${baseUrlTest}/api/vehicles/delete`,
 }
 

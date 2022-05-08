@@ -6,8 +6,8 @@ import HomeRoute from "./Routes/Home/Home.Route";
 import ContactRoute from "./Routes/Contact/Contact.Route";
 import AmsRoute from "./Routes/Ams/Ams.Route";
 //import {AccessAlarm , Adjust} from "@mui/icons-material";
-import LocataireDemandesSupport from "./Routes/DemandeSupport/demandesSupport.Route"
-import LocataireDemandesSupportDetail from "./Routes/DemandeSupport/demandesSupportDetail.Route"
+import LocataireDemandesSupport from "./Routes/DemandesSupportRoutes/demandesSupport.Route"
+import LocataireDemandesSupportDetail from "./Routes/DemandesSupportRoutes/demandesSupportDetail.Route"
 import Sidebar from "./SideBar";
 import themes from "./themes";
 import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
@@ -24,6 +24,7 @@ import {Redirect} from "react-router";
 import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
 import CarsViewRoute from "./Routes/CarsView/carsView.Route";
 import LocataireDemandesDeverouillage from "./Routes/DemandeDeverouillage/demandesDeverrouillage.Route";
+import SupportsSideBarCompounent from "./Routes/DemandesSupportRoutes/SideBar/supportsSideBar.Compounent";
 
 
 function App() {
@@ -71,8 +72,15 @@ function App() {
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
                               <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
 
-                              <Route exact path="/DemandeSupport" component={()=><LocataireDemandesSupport/>} />
-                              <Route exact path="/DemandeSupport/:supportId" component={()=><LocataireDemandesSupportDetail/>} />
+                              <Route  path={"/DemandeSupport"} component={()=>
+                                  <SupportsSideBarCompounent>
+                                      <Switch>
+                                          <Route exact path="/DemandeSupport" component={()=><LocataireDemandesSupport/>} />
+                                          <Route exact path="/DemandeSupport/:supportId" component={()=><LocataireDemandesSupportDetail/>} />
+                                      </Switch>
+                                  </SupportsSideBarCompounent>
+                              }  />
+
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
                           </Switch>

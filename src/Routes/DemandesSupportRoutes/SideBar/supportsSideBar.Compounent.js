@@ -33,10 +33,7 @@ const SupportSideBarCompounent =({children})=>{
                           sx={{
                               height: 100, p: 4 ,
                               backgroundColor: 'white',
-                              '&:hover': {
-                                  backgroundColor: 'primary.light',
-                                  opacity: [0.9, 0.8, 0.7],
-                              }, boxShadow: 1
+                              boxShadow: '0px 10px 27px 1px rgba(0, 0, 0, 0.05)',
                           }}
                     >
                         <Typography variant="h2"  fontFamily={"lora"}>
@@ -44,9 +41,9 @@ const SupportSideBarCompounent =({children})=>{
                         </Typography>
                     </Box>
                 </Grid>
-                <Grid spacing={2} container>
+                <Grid spacing={4} container>
                     <Grid item xs={3}>
-                        <Box style={{borderRadius : '25px', margin : '0px 15px 15px 15px'}}  sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper',boxShadow: 1  }}>
+                        <Box style={{borderRadius : '25px', margin : '0px 15px 15px 30px'}}  sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper',boxShadow: '2px 10px 27px 1px rgba(0, 0, 0, 0.05)'  }}>
                             <nav aria-label="main mailbox folders">
                                 <List>
                                     <ListItem  >

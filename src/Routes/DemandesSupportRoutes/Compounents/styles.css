@@ -11,3 +11,8 @@
 .MuiDialog-container{
     background-color: rgba(247, 233, 226, 0.5) !important;
 }
+.MuiCardHeader-action{
+    margin-left: auto;
+
+background-color: #00c853
+}

@@ -4,7 +4,8 @@ import React, { createContext } from 'react'
 import io from 'socket.io-client';
 import { WS_BASE } from './config';
 import { useDispatch } from 'react-redux';
-import {testWebSocket} from "../redux/actions/actions"
+import {observeAllCarsData, observeCarData, testWebSocket} from "../redux/actions/actions"
+import {observeUtilAllCars, observeUtilTest} from "./Utils";
 
 const WebSocketContext = createContext(null)
 
@@ -28,10 +29,11 @@ export default ({ children }) => {
     if (!socket) {
         socket = io.connect(WS_BASE)
 
-        socket.on("event://get-message", (msg) => {
-            const payload = JSON.parse(msg);
-            dispatch(testWebSocket(payload));
-        })
+        observeUtilTest(socket, dispatch);
+        observeUtilAllCars(socket, dispatch);
+        observeCarData(socket, dispatch);
+
+
 
         ws = {
             socket: socket,

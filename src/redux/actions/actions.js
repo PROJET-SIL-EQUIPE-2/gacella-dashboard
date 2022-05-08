@@ -975,10 +975,26 @@ export const fetchgetAM = (id) => (dispatch) => {
   });
 };
 
+// WEBSOCKET STUFF
 export const testWebSocket=(arg)=>{
   return {
     type: Actiontypes.WEBSOCKET_TEST,
     payload : arg
+  }
+}
+// GET ALL THE CARS FOR CARS VIEW
+export const observeAllCarsData=(carsArr)=>{
+  return{
+    type : Actiontypes.WEBSOCKET_FETCH_ALL_CARS,
+    payload : carsArr
+  }
+}
+
+// OBSERVE CAR DATA CHANGE
+export const observeCarData=(carData)=>{
+  return{
+    type : Actiontypes.WEBSOCKET_OBSERVE_CAR_DATA,
+    payload : carData
   }
 }
 

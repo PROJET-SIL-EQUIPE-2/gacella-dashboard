@@ -132,7 +132,7 @@ const  SuiviVehiculesRoute=()=>{
     return(
         ( vehicules.loading || vehicules.error)
             ?(<div   style={{ width: '100%' }}>
-                <Grid container spacing={1} >
+                <Grid container spacing={1}  direction="row" justifyContent="center" alignItems="flex-start">
                     <Grid item xs={12} >
                         <Box style={{borderRadius : '25px', margin : '15px'}}
                              sx={{height: 100, p: 4 , backgroundColor: 'white', boxShadow: 3}}>
@@ -141,9 +141,11 @@ const  SuiviVehiculesRoute=()=>{
                             </div>
                         </Box>
                     </Grid>
-                    <Grid item xs={12} >
-                        <CircularProgress color="primary" />
-                    </Grid>
+                        <Grid item xs={12} >
+                            <Box sx={{ display: 'flex' , justifyContent: "center"}}>
+                                <CircularProgress color="primary" />
+                            </Box>
+                        </Grid>
                 </Grid>
             </div>)
             : (<div   style={{ width: '100%' }}>

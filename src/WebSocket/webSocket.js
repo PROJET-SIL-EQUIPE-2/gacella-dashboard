@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import { WS_BASE } from './config';
 import { useDispatch } from 'react-redux';
 import {observeAllCarsData, observeCarData, testWebSocket} from "../redux/actions/actions"
-import {observeUtilAllCars, observeUtilTest} from "./Utils";
+import {observeUtilAllCars, observeUtilCarData, observeUtilTest} from "./Utils";
 
 const WebSocketContext = createContext(null)
 
@@ -27,11 +27,12 @@ export default ({ children }) => {
     }
 
     if (!socket) {
+        console.log("TRYING TO CONNECT TO THE SOCKET")
         socket = io.connect(WS_BASE)
 
         observeUtilTest(socket, dispatch);
         observeUtilAllCars(socket, dispatch);
-        observeCarData(socket, dispatch);
+        observeUtilCarData(socket, dispatch);
 
 
 

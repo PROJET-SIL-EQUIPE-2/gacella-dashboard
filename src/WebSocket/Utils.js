@@ -1,4 +1,4 @@
-import {observeAllCarsData, testWebSocket} from "../redux/actions/actions";
+import {observeAllCarsData, observeCarData, testWebSocket} from "../redux/actions/actions";
 
 export const  observeUtilTest=(socket , dispatch)=>{
     socket.on("event://get-message", (msg) => {
@@ -11,16 +11,17 @@ export const  observeUtilTest=(socket , dispatch)=>{
 
 export const  observeUtilAllCars=(socket , dispatch)=>{
     socket.on("fetch_cars_data" , (allCarsArr)=>{
-        const payload= JSON.parse(allCarsArr)
-        dispatch(observeAllCarsData(payload));
+        console.log("SSOCKET ALL CARS ARR =", allCarsArr);
+        // const payload= JSON.parse(allCarsArr)
+        dispatch(observeAllCarsData(allCarsArr));
     })
 }
 
 // OBSERVE CAR DATA
 export const observeUtilCarData=(socket , dispatch)=>{
-    socket.on("fetch_car_data" , (allCarsArr)=>{
-        const payload= JSON.parse(allCarsArr)
-        dispatch(observeAllCarsData(payload));
+    socket.on("fetch_car_data" , (car)=>{
+        // const payload= JSON.parse(allCarsArr)
+        dispatch(observeCarData(car));
     })
 }
 

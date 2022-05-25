@@ -789,7 +789,7 @@ export const getAllAMSSuccess = (content) => {
 };
 
 export const fetchgetAMS = () => (dispatch) => {
-  dispatch(getAllAMSLoading());
+  dispatch(getAllAMSLoading()); // loading=true
   const headers = {
     Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
     "Content-Type": "application/json",

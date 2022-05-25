@@ -23,6 +23,7 @@ import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
 import CarsViewRoute from "./Routes/CarsView/carsView.Route";
 import LocataireDemandesDeverouillage from "./Routes/DemandeDeverouillage/demandesDeverrouillage.Route";
 import GestionProfilRoute from "./Routes/GestionProfil/gestionProfil.Route";
+import ReportsLists from "./Routes/Graphs/ReportsLists";
 
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
                               <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
-
+                              <PrivateRoute exact path="/ReportsLists" component={()=><ReportsLists/>} />
 
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}

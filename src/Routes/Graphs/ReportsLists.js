@@ -170,7 +170,7 @@ export default function ReportsLists() {
                                 return (
                                     <div>
                                         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
-                                            <Viewer fileUrl="http://www.africau.edu/images/default/sample.pdf"/>
+                                            <Viewer fileUrl="http://www.atlantic.edu/_files/pdf/academics/syllabi/cism160-syllabus.pdf"/>
                                         </Worker>
                                     </div>
                                 )

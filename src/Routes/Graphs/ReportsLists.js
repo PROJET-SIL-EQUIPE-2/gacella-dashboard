@@ -172,7 +172,6 @@ export default function ReportsLists() {
                                         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
                                             <Viewer fileUrl="http://www.africau.edu/images/default/sample.pdf"/>
                                         </Worker>
-
                                     </div>
                                 )
 

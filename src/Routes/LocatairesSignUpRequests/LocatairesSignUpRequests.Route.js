@@ -162,6 +162,7 @@ export default function LocatairesSignUpRequestsRoute() {
           },
         }}
       />
+
       <RejectDialog
         isOpen={isRejectDialogopen}
         setOpen={setRejectDialogOpenStatus}

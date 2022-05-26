@@ -1,0 +1,59 @@
+
+.parametresLabel {
+    color: #C0C0C0 !important;
+    font-size: 1.3rem;
+}
+.profile-name {
+    color: rgba(0, 0, 0, 0.65) !important;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.profile-content {
+    color: rgba(0, 0, 0, 0.22) !important;
+    font-size: 0.6rem;
+}
+.profile-avatar{
+    height: 75px !important;
+    width: 75px !important;
+}
+
+.profile-avatar-principal{
+    height: 95px !important;
+    width: 95px !important;
+}
+
+
+.searchInput{
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.MissionArrTr td{
+    vertical-align: middle !important;
+}
+
+.MissionArrDescription{
+    font-size: 0.6rem;
+    color : rgba(0,0,0 , 0.65) !important;
+}
+
+.MissionArrClient , .MissionArrStartMission{
+    color : rgba(0,0,0 , 0.65) !important;
+    font-weight: lighter;
+}
+.MissionArrHead{
+    font-weight: normal !important;
+}
+
+#rebonjour{
+    font-size: 2.5rem;
+    line-height: normal;
+}
+
+#afterRebonjour{
+    color: rgba(0 , 0 , 0 , 0.22);
+    font-size: 1rem;
+
+
+}
+

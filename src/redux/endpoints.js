@@ -22,5 +22,9 @@ module.exports={
     ENDPOINT_GET_AM : `${baseUrlTest}/api/agents/`,
     ENDPOINT_POST_ADD_AM: `${baseUrlTest}/api/signup/agent`,
     ENDPOINT_DELETE_REMOVE_AM: `${baseUrlTest}/api/accounts/agent`,
+
+    ENDPOINT_PUT_DECIDEUR_PROFIL : `${baseUrlTest}/api/web_settings/decideur/email/`,
+
+    ENDPOINT_GET_REPORTS_LISTS : `${baseUrlTest}/api/reportsLists`
 }
 

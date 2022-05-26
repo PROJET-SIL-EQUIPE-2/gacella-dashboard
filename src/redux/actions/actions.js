@@ -71,7 +71,7 @@ const addPostError = (err) => {
 
 export const fetchAddPost = (postToAdd) => (dispatch) => {
   const headers = {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
   };
   dispatch(addPostLoading());
   const options = {
@@ -789,7 +789,7 @@ export const getAllAMSSuccess = (content) => {
 };
 
 export const fetchgetAMS = () => (dispatch) => {
-  dispatch(getAllAMSLoading());
+  dispatch(getAllAMSLoading()); // loading=true
   const headers = {
     Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
     "Content-Type": "application/json",
@@ -973,4 +973,136 @@ export const fetchgetAM = (id) => (dispatch) => {
         }
       });
   });
+};
+
+// WEBSOCKET STUFF
+export const testWebSocket=(arg)=>{
+  return {
+    type: Actiontypes.WEBSOCKET_TEST,
+    payload : arg
+  }
+}
+// GET ALL THE CARS FOR CARS VIEW
+export const observeAllCarsData=(carsArr)=>{
+  return{
+    type : Actiontypes.WEBSOCKET_FETCH_ALL_CARS,
+    payload : carsArr
+  }
+}
+
+// OBSERVE CAR DATA CHANGE
+export const observeCarData=(carData)=>{
+  return{
+    type : Actiontypes.WEBSOCKET_OBSERVE_CAR_DATA,
+    payload : carData
+  }
+}
+
+// UPDATE DECIDEUR PROFILE
+
+export const updateDecideurProfilLoading = () => {
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_LOADING,
+  };
+};
+
+export const updateDecideurProfilError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_ERROR,
+    payload: err,
+  };
+};
+
+export const updateDecideurProfilSuccess = (content, dispatch)=> {
+  dispatch(setSnackBarContent("Update profile avec succées ! ", "success"));
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchupdateDecideurProfil = (id , newData) => (dispatch) => {
+  dispatch(updateDecideurProfilLoading());
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+
+    },
+  };
+  return new Promise((resolve, reject) => {
+    axios
+        // .put(Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id, newData, options)
+        .put(Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id, {email : newData.email}, options)
+        .then((res) => {
+          console.log("RESPONSE SUCCESS =", res);
+          dispatch(updateDecideurProfilSuccess(newData, dispatch));
+          resolve("success");
+        })
+        .catch((err) => {
+          if (err?.response?.data) {
+            console.log("RESPONSE=", err.response.data.errors[0].msg);
+            dispatch(updateDecideurProfilError(err.response.data.errors[0].msg, dispatch));
+            reject(err.response.data);
+          } else {
+            console.log(err.message);
+            dispatch(updateDecideurProfilError(err, dispatch));
+            reject(err.message);
+          }
+        });
+  });
+};
+
+
+export const getReportsListsLoading = () => {
+  console.log("LOADING LOCATAIRES !");
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_LOADING,
+  };
+};
+
+export const getReportsListsError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_ERROR,
+    payload: err,
+  };
+};
+
+export const getReportsListsSuccess= (content) => {
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_SUCCESS,
+    payload: content,
+  };
+};
+
+// TODO : use this method in the statistics page
+export const fetchgetReportsLists = () => (dispatch) => {
+  dispatch(getReportsListsLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+      .get(Endpoints.ENDPOINT_GET_REPORTS_LISTS, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        let newResponse = res.data.map((locataire) => {
+          return { ...locataire, ...locataire.locataire };
+        });
+        console.log("NEW response =", newResponse);
+        dispatch(getReportsListsSuccess(newResponse, dispatch));
+      })
+      .catch((err) => {
+        console.log("err =", err.response.data);
+        dispatch(getReportsListsSuccess(err.response.data, dispatch));
+      });
 };

@@ -11,6 +11,7 @@
   --gacela-blue-link : #2196F3;
   --gacela-grayEA : #EAEFF5;
   --gacela-gray9E : #9E9E9E;
+  --gacela-redF5 :  #F5D6D6;
   --size-big : 25px;
   --size-medium : 13px;
   --lora-font : 'Lora', serif;
@@ -20,6 +21,15 @@
 .hoverable:hover{
   cursor: pointer;
 }
+.--gacela-redF5{
+  color: var(--gacela-redF5) !important; ;
+}
+
+.--gacela-redF5-bg{
+  background-color: var(--gacela-redF5) !important; ;
+
+}
+
 .--gacela-orangeFA{
   color: var(--gacela-orangeFA) !important; ;
 }

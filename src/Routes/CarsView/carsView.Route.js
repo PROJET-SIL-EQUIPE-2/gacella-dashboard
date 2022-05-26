@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import {GoogleMap, useJsApiLoader , Marker , Autocomplete , DirectionsRenderer , InfoWindow } from "@react-google-maps/api";
 import {Backdrop, Button, CircularProgress, TextField, Toolbar} from "@mui/material";
 import {ElectricCar} from "@mui/icons-material";
@@ -9,9 +9,8 @@ import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import CarteVehicule from "../gestionverou/Compounents/Card";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import  { WebSocketContext } from '../../WebSocket/webSocket';
 
-const centerPos = {lat : 48.8584  , lng: 2.2945}
-const Marker2Pos = {lat : 48.8570  , lng: 2.2930}
 
 const cars=[{
     name : 'V-12D4',
@@ -81,7 +80,8 @@ const  CarsViewRoute=()=>{
         googleMapsApiKey : "AIzaSyDwCTYOj2SWL6bt2rz_k8_bcXirZtJNB3g",
         libraries: ['places']
     })
-    console.log(process.env);
+    const websocket = useContext(WebSocketContext);
+
     if(!isLoaded){
         return(
             <Backdrop

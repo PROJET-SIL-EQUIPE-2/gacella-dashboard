@@ -1054,3 +1054,55 @@ export const fetchupdateDecideurProfil = (id , newData) => (dispatch) => {
         });
   });
 };
+
+
+export const getReportsListsLoading = () => {
+  console.log("LOADING LOCATAIRES !");
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_LOADING,
+  };
+};
+
+export const getReportsListsError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_ERROR,
+    payload: err,
+  };
+};
+
+export const getReportsListsSuccess= (content) => {
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_SUCCESS,
+    payload: content,
+  };
+};
+
+// TODO : use this method in the statistics page
+export const fetchgetReportsLists = () => (dispatch) => {
+  dispatch(getReportsListsLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+      .get(Endpoints.ENDPOINT_GET_REPORTS_LISTS, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        let newResponse = res.data.map((locataire) => {
+          return { ...locataire, ...locataire.locataire };
+        });
+        console.log("NEW response =", newResponse);
+        dispatch(getReportsListsSuccess(newResponse, dispatch));
+      })
+      .catch((err) => {
+        console.log("err =", err.response.data);
+        dispatch(getReportsListsSuccess(err.response.data, dispatch));
+      });
+};

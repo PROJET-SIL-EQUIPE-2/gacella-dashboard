@@ -47,7 +47,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Nom"
-          defaultValue={props.Userinfos.nom}
+          defaultValue={props.Userinfos.name}
           variant="filled"
           fullWidth
         />
@@ -62,7 +62,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Prenom"
-          defaultValue={props.Userinfos.prenom}
+          defaultValue={props.Userinfos.family_name}
           variant="filled"
           fullWidth
         />
@@ -77,7 +77,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Adresse mail"
-          defaultValue={props.Userinfos.mail}
+          defaultValue={props.Userinfos.email}
           variant="filled"
           fullWidth
         />
@@ -92,7 +92,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Numero De Telephone"
-          defaultValue={props.Userinfos.tel}
+          defaultValue={props.Userinfos.phone_number}
           variant="filled"
           fullWidth
         />
@@ -107,7 +107,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Mot De Passe"
-          defaultValue={props.Userinfos.mdp}
+          defaultValue="entrez un nouveau mot de passe "
           variant="filled"
           fullWidth
         />

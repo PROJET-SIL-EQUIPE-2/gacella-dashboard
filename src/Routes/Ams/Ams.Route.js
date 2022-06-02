@@ -23,7 +23,9 @@ export default function AmsRoute() {
   const [amEmail, setAmEmail] = useState(null);
   const dispatch = useDispatch();
   const am = useSelector((state) => state.amsProfiles);
+  const agent = useSelector((state) => state.amprofile);
 
+  const [currentagentdata, setCurrentAgentData] = useState(null);
   const baseUrlTest = "http://localhost:3000";
 
   useEffect(() => {
@@ -61,7 +63,10 @@ export default function AmsRoute() {
           onClick={() => {
             /**/
             setAmProfileDialogOpenStatus(true);
-            dispatch(fetchgetAM(rowData.agent_id));
+            dispatch(fetchgetAM(2));
+            setCurrentAgentData((os) => {
+              return rowData;
+            });
           }}
           style={{ height: "40px", width: "40px" }}
           src={profileIcon}
@@ -99,22 +104,6 @@ export default function AmsRoute() {
       },
     },
   ];
-  const data = [
-    {
-      name: "Mehmet",
-      surname: "Baran",
-      birthYear: 1987,
-      birthCity: 63,
-      imageUrl: "https://avatars0.githubusercontent.com/u/7895451?s=460&v=4",
-    },
-    {
-      name: "Zerya Betül",
-      surname: "Baran",
-      birthYear: 2017,
-      birthCity: 34,
-      imageUrl: "https://avatars0.githubusercontent.com/u/7895451?s=460&v=4",
-    },
-  ];
 
   return (
     <div className="bg-white" style={{ height: 400, width: "100%" }}>
@@ -124,7 +113,7 @@ export default function AmsRoute() {
         localization={tableLang}
         title="Gestions des comptes des agents de maintenance"
         columns={columns}
-        data={data}
+        data={am.data}
         actions={actions}
         options={{
           search: false,
@@ -148,6 +137,7 @@ export default function AmsRoute() {
       <ProfileDialog
         isOpen={isAmProfileDialogopen}
         setOpen={setAmProfileDialogOpenStatus}
+        amdata={currentagentdata}
       />
       <ConfirmDialog
         isOpen={isConfirmDialogopen}

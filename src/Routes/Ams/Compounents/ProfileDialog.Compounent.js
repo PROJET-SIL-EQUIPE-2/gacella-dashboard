@@ -16,23 +16,14 @@ import TotalePannes from "./TotalPannes.Compounent";
 import Tasks from "./Tasksalt.Compounent";
 import { makeStyles } from "@material-ui/core/styles";
 
-export default function ProfileDialog({ isOpen, setOpen, amId }) {
+export default function ProfileDialog({ isOpen, setOpen, amdata }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  console.log("AAAAAAAAAAAAAAAAA" + JSON.stringify(amdata));
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  // replace with reel data
-  const Userinfos = {
-    nom: "nom",
-    prenom: "prenom",
-    mail: "mail@gmail.com",
-    tel: "0721548631",
-    mdp: "Mot de passe",
-    libre: true,
   };
 
   // replace with reel data
@@ -172,7 +163,7 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
         >
           <div className="profilDialogue" /* style={{ width: 100 }} */>
             <div>
-              <ProfileView Userinfos={Userinfos} />
+              <ProfileView Userinfos={amdata} />
               <TotalePannes nbpannes="250" />
             </div>
             <div className="tables">

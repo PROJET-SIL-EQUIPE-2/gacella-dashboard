@@ -14,7 +14,7 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import PersonIcon from "@mui/icons-material/Person";
 
-export default function AgentProfileView(props) {
+export default function LocataireProfileView(props) {
   const flexContainer = {
     display: "flex",
     flexDirection: "column",
@@ -50,7 +50,7 @@ export default function AgentProfileView(props) {
                 primary={[<span className="roboto-700">Nom</span>]}
                 secondary={[
                   <span className="lora-400">
-                    {props.respo?.family_name} {props.respo?.name}
+                    {props.locataire?.family_name} {props.locataire?.name}
                   </span>,
                 ]}
               />
@@ -65,7 +65,7 @@ export default function AgentProfileView(props) {
             <ListItemText
               primary={[<span className="roboto-700">Email</span>]}
               secondary={[
-                <span className="lora-400">{props.respo?.email}</span>,
+                <span className="lora-400">{props.locataire?.email}</span>,
               ]}
             />
           </ListItem>
@@ -78,7 +78,9 @@ export default function AgentProfileView(props) {
             <ListItemText
               primary={[<span className="roboto-700">Téléphone</span>]}
               secondary={[
-                <span className="lora-400">{props.respo?.phone_number}</span>,
+                <span className="lora-400">
+                  {props.locataire?.phone_number}
+                </span>,
               ]}
             />
           </ListItem>

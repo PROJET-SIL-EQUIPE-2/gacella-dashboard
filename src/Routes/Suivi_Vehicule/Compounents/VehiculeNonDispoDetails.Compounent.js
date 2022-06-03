@@ -2,6 +2,7 @@ import * as React from "react";
 import "./styles.css";
 import ProfileView from "./AgentProfileView.Compoument";
 import VehiculeView from "./VehiculeDetailsView.Compounent";
+import RealTimeVehiculeData from "./RealTimeVehiculeData.compounent";
 import LocataireProfileView from "./locataireProfileView.Compounent";
 import { makeStyles } from "@material-ui/core/styles";
 import { Backdrop } from "@mui/material";
@@ -10,20 +11,20 @@ export default function VehiculeNonDispoDetails({ isOpen, setOpen, vehicule }) {
   const handleClose = () => {
     setOpen({ isOpen: false, vehicule: null });
   };
+  // replace with reel data
 
   const data = {
-    name: "locataire",
+    name: "loc_",
     family_name: "test",
     phone_number: "3333333",
     email: "loc@mail.com",
   };
-  // replace with reel data
-  const AMInfos = {
-    agent_id: 1,
-    email: "agent1@nexcode.dz",
-    phone_number: "0721548631",
-    family_name: "agent1_nom",
-    name: "agent1_prenom",
+  const real_time_data = {
+    temperature: 50,
+    speed: 30,
+    charge: 200,
+    lat: 35,
+    long: 60,
   };
 
   const useStyles = makeStyles({
@@ -51,15 +52,25 @@ export default function VehiculeNonDispoDetails({ isOpen, setOpen, vehicule }) {
         open={isOpen}
         onClick={handleClose}
       >
-        <div
-          className="d-flex justify-content-around"
-          style={{ minWidth: "fit-content", width: "100%", margin: "1%" }}
-        >
-          <VehiculeView Vehicule={vehicule} />
-          <LocataireProfileView locataire={data} />
-          <ProfileView respo={vehicule?.AgentsMaintenance} />
+        <div className="contnondispo">
+          <div
+            className="d-flex justify-content-around"
+            style={{ minWidth: "fit-content", width: "100%", margin: "1%" }}
+          >
+            <VehiculeView Vehicule={vehicule} />
+            <LocataireProfileView locataire={data} />
 
-          <ff />
+            <ff />
+          </div>
+          <div
+            className="d-flex justify-content-around"
+            style={{ minWidth: "fit-content", width: "100%", margin: "1%" }}
+          >
+            <ProfileView respo={vehicule?.AgentsMaintenance} />
+            <RealTimeVehiculeData real_time_data={real_time_data} />
+
+            <ff />
+          </div>
         </div>
       </Backdrop>
     </div>

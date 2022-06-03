@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
-export default function BasicTable(props) {
+export default function DiffVehicules(props) {
   const useStyles = makeStyles((theme) => ({
     paper: {
       height: 300,
@@ -67,7 +67,7 @@ export default function BasicTable(props) {
                     <TableCell component="th" scope="row">
                       {index + 1}
                     </TableCell>
-                    <TableCell align="center">{row.id}</TableCell>
+                    <TableCell align="center">{row.vehicule_id}</TableCell>
                     <TableCell align="center">{row.etat}</TableCell>
                     <TableCell align="center">
                       <InsertLinkIcon

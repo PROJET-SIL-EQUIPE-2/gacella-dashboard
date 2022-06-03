@@ -28,53 +28,13 @@ export default function ProfileDialog({ isOpen, setOpen, amdata }) {
 
   // replace with reel data
 
-  // replace with reel data
-  const tachesData = [
-    {
-      tache: "V-12D54V-12D54V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-  ];
+  const tachesData = amdata.data.Task;
+
+  let nbpannes = 0;
+  tachesData?.map((el) => {
+    if (el.progress == 100) nbpannes++;
+  });
+
   let CarsData = amdata.data.Vehicules;
 
   const useStyles = makeStyles({
@@ -115,7 +75,7 @@ export default function ProfileDialog({ isOpen, setOpen, amdata }) {
           <div className="profilDialogue" /* style={{ width: 100 }} */>
             <div>
               <ProfileView Userinfos={amdata} />
-              <TotalePannes nbpannes="250" />
+              <TotalePannes nbpannes={nbpannes} />
             </div>
             <div className="tables">
               <DiffVehicules CarsData={CarsData} />

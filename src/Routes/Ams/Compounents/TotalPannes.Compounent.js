@@ -15,7 +15,7 @@ export default function TotalePannes(props) {
         />
       </div>
 
-      <p>Le nombre totale de pannes réparées</p>
+      <p>Le nombre totale de taches effectueés </p>
     </div>
   );
 }

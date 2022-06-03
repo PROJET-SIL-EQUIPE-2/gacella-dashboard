@@ -70,8 +70,8 @@ export default function Tasks(props) {
                     <TableCell component="th" scope="row">
                       {index + 1}
                     </TableCell>
-                    <TableCell align="center">{row.tache}</TableCell>
-                    <TableCell align="center">{row.progres}</TableCell>
+                    <TableCell align="center">{row.description}</TableCell>
+                    <TableCell align="center">{row.progress} %</TableCell>
                   </TableRow>
                 ))
               : ""}

@@ -25,6 +25,7 @@ import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
 import CarsViewRoute from "./Routes/CarsView/carsView.Route";
 import LocataireDemandesDeverouillage from "./Routes/DemandeDeverouillage/demandesDeverrouillage.Route";
 import SupportsSideBarCompounent from "./Routes/DemandesSupportRoutes/SideBar/supportsSideBar.Compounent";
+import Statistiques from "./Routes/Statistiques/statistiques.Route";
 
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
                                       </Switch>
                                   </SupportsSideBarCompounent>
                               }  />
+                              <Route exact path="/dashboard" component={()=><Statistiques/>} />
 
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}

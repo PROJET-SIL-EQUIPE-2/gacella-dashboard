@@ -1,0 +1,10 @@
+.statsicons {
+    width: 20%;
+
+}
+Card{
+    boxShadow: '0px 10px 27px 1px rgba(0, 0, 0, 0.05)';
+}
+.rightaligned{
+    align-self:flex-end;
+}

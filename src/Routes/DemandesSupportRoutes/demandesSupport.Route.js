@@ -23,7 +23,7 @@ import waitingIcon from "./assets/waitingIcon.png"
 import './styles.css';
 import {useState , useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchgetDemandesSupports} from "../../redux/actions/actions";
+import {fetchgetDemandesSupports,fetchgetValidatedLocataires} from "../../redux/actions/actions";
 import { makeStyles } from '@material-ui/core/styles';
 import {Button, Card} from "reactstrap";
 import {createTheme} from "@mui/material/styles";
@@ -51,23 +51,58 @@ var i=0;
     // let supports = [];
     // let [currentSupport , setCurrentSupport]=useState(supports.filter(supp=>supp.id===supportId)[0])
     const dispatch = useDispatch();
-    const demandeSupport = useSelector(state => state.demandeSupport);
-
+    const demandeSupport = useSelector(state => state.demandesSupports);
+    const validateslocataires= useSelector(state => state.validatedLocataires);
+    const [loaded,setLoaded]=useState(0);
+console.log("hhhhh",demandeSupport.data)
+    console.log("h22222222",validateslocataires.data[1]);
     const  baseUrlTest = "http://localhost:3000";
-
-    useEffect(()=>{
+    const data=[
+        { demande_id: 2, message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
+        { demande_id: 3, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran this text is made longer to show text clamp where overflow text is clipped out', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
+        { demande_id: 4, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
+        { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
+        { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
+        { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
+    ];
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    const [result ,setResult] =useState(data);
+    const [loc, setLoc] = useState(0);
+    const [sup, setSup] = useState(0);
+    useEffect(async () => {
         dispatch(fetchgetDemandesSupports());
-    }, [])
+        dispatch(fetchgetValidatedLocataires());
+        await sleep(1000);
+        setLoc(1);
+    },[] );
 
+    useEffect(async () => {
 
+        // waits for 1000ms
+        console.log("hello", sup, " ", loc);
 
+        const b = validateslocataires.data;
+        console.log("bbbb", b);
+        const aa = demandeSupport.data;
+
+        console.log("aaaaaaa", aa);
+        const bMap = validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map);
+        setResult( demandeSupport.data.supports.map((item) => (Object.assign({
+            Locataires: validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map).get(item.locataire_id),
+
+        }, item))));
+        console.log("oneupon a time ", result);
+
+    }, [loc]);
 const columns=[
         {  field: 'infos',
            render: rowData =>(
             <div className="d-flex align-items-center">
                 <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}}  src={rowData.Locataires.personal_photo} />
                 <div className="pl-2 flex-column">
-                    <div className="roboto-500 gacela-black21"> {rowData.Locataires.familyName} {rowData.Locataires.name} </div>
+                    <div className="roboto-500 gacela-black21"> {rowData.Locataires[1]} {rowData.id} {rowData.Locataires[0]} </div>
                     <div className="roboto-500 gacela-gray9E pt-2 line-clamp"> {rowData.message}</div>
                 </div>
             </div>
@@ -75,14 +110,7 @@ const columns=[
         }
     ]
 
-    const data=[
-        { id: 2, message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { id: 3, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran this text is made longer to show text clamp where overflow text is clipped out', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { id: 4, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-    ]
+
 
     const useStyles = makeStyles({
         table: {
@@ -107,7 +135,7 @@ const columns=[
                             icons={tableIcons}
                             localization={tableLang}
                             columns={columns}
-                            data={data}
+                            data={result}
                             // data={demandesSupports.data}
                             options={{
                                 search: false,
@@ -132,7 +160,8 @@ const columns=[
                             }}
                                 onRowClick={(event, rowData, togglePanel) =>{
                                     //togglePanel() ;
-                                    history.push('/DemandeSupport/'+rowData.id)
+                                    console.log("console ",rowData.demande_id);
+                                    history.push('/DemandeSupport/'+rowData.demande_id);
 
                                 }}
 

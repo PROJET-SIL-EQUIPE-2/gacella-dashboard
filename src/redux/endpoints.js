@@ -15,11 +15,12 @@ module.exports={
     ENDPOINT_PUT_UPDATE_DECIDEUR_PASSSWORD: `${baseUrlTest}/api/web_settings/decideur/password/`,
     ENDPOINT_PATCH_TOGGLE_BLOCK_DECIDEUR: `${baseUrlTest}/api/accounts/toggle-block/decideur`,
     ENDPOINT_DELETE_REMOVE_DECIDEUR: `${baseUrlTest}/api/decideurs/delete`,
-    ENDPOINT_GET_DEMANDESSUPPORTS : `${baseUrlTest}/api/demandessupports/all`,
+    ENDPOINT_GET_DEMANDESSUPPORTS : `${baseUrlTest}/api/supports`,
     ENDPOINT_GET_DEMANDESUPPORT : `${baseUrlTest}/api/demandesupport/`,
 
     ENDPOINT_GET_AMS : `${baseUrlTest}/api/agents/all`,
     ENDPOINT_GET_AM : `${baseUrlTest}/api/agents/`,
     ENDPOINT_POST_ADD_AM: `${baseUrlTest}/api/signup/agent`,
     ENDPOINT_DELETE_REMOVE_AM: `${baseUrlTest}/api/accounts/agent`,
+    ENDPOINT_GET_VALIDATESLOCATAIRES: `${baseUrlTest}/api/locataire/validated`,
 }

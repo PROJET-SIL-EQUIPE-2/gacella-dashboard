@@ -1,6 +1,7 @@
 import * as Actiontypes from "./actionsTypes";
 import * as Endpoints from "../endpoints";
 import axios from "axios";
+import {GET_VALIDATED_LOCATAIRES_LOADING} from "./actionsTypes";
 
 // TEMPLATE GET METHOD
 export const getAllPostsLoading = () => {
@@ -990,7 +991,7 @@ export const getAllDemandesSupportsError=(err,dispatch)=>{
     dispatch(setSnackBarContent(err, "error"))
 
     return{
-        type : Actiontypes.GET_ALL_DEMANDESSUPPORTS_SUCCESS,
+        type : Actiontypes.GET_ALL_DEMANDESSUPPORTS_ERROR,
         payload: err
     }
 }
@@ -999,7 +1000,7 @@ export const getAllDemandesSupportsError=(err,dispatch)=>{
 export const getAllDemandesSupportsSuccess=(content)=>{
 
     return{
-        type: Actiontypes.GET_ALL_DEMANDESSUPPORTS_ERROR,
+        type: Actiontypes.GET_ALL_DEMANDESSUPPORTS_SUCCESS,
         payload: content
     }
 }
@@ -1076,4 +1077,50 @@ export const fetchgetDemandeSupport=(id)=>(dispatch)=>{
               }
           });
   }))
+}
+
+// GET ALL VALIDATED LOCATAIRES
+
+export const getAllValidatedLocatairesLoading=()=>{
+  return{
+    type: Actiontypes.GET_VALIDATED_LOCATAIRES_LOADING
+  }
+}
+
+export const getAllValidatedLocatairesError=(err,dispatch)=>{
+  dispatch(setSnackBarContent(err, "error"))
+
+  return{
+    type : Actiontypes.GET_VALIDATED_LOCATAIRES_ERROR,
+    payload: err
+  }
+}
+
+
+export const getAllValidatedLocatairesSuccess=(content)=>{
+
+  return{
+    type: Actiontypes.GET_VALIDATED_LOCATAIRES_SUCCESS,
+    payload: content
+  }
+}
+
+export const fetchgetValidatedLocataires=()=>(dispatch)=>{
+  dispatch(getAllValidatedLocatairesLoading());
+  const headers = {
+    'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+    'Content-Type': 'application/json'
+  };
+  axios.get( Endpoints.ENDPOINT_GET_VALIDATESLOCATAIRES,
+      { headers: headers }
+  )
+      .then(res=>{
+        console.log('response =', res);
+        dispatch(getAllValidatedLocatairesSuccess(res , dispatch))
+      })
+      .catch(err=>{
+        console.log('err =', err.response.data);
+        dispatch(getAllValidatedLocatairesError(err.response.data , dispatch))
+      });
+
 }

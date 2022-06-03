@@ -38,21 +38,35 @@ export default function DemandesSupportRouteDetail() {
 
 
     const data=[
-        { message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', mid: 2 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', mid: 3  ,Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', mid: 4 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
-        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran',  mid: 5 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'} },
+        { message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran',object:" h ", date: 2,mid: 2 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran',object:" h ",date: 2, mid: 3  ,Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran',object:" h ",date: 2, mid: 4 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'}},
+        { message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran',date: 2, object:" h ", mid: 5 , Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,familyName : 'mecheri',name :'hadia'} },
     ]
     let {supportId} = useParams();
-    let [currentSupport , setCurrentSupport]=useState(data.filter(supp=> supp.mid==supportId )[0]); // this should display one row in the table but it's showing nothing.
-    console.log("hii",currentSupport.mid);
-    const dispatch = useDispatch();
+
     const demandeSupport = useSelector(state => state.demandeSupport);
+    const demandeSupport1 = useSelector(state => state.demandesSupports);
+    const locataires = useSelector(state => state.validatedLocataires);
+    console.log(" saaaaaa ",locataires);
+    let [currentSupport , setCurrentSupport]=useState(data.filter(supp=> supp.mid==supportId )[0]); // this should display one row in the table but it's showing nothing.
+    const found = locataires.data.find(element => element.id===currentSupport.locataire_id);
+
+    let [currentLocataire , setCurrentLocataire]=useState(found); // this should display one row in the table but it's showing nothing.
+
+    useEffect(()=>{
+        setCurrentSupport(demandeSupport1.data.supports.filter(supp=> supp.demande_id==supportId )[0]);
+        // setCurrentLocataire(locataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map).get(currentSupport.locataire_id))
+        setCurrentLocataire(found);
+        },[]);
+    console.log(demandeSupport1);
+
+    console.log("hii",currentSupport.demande_id);
+    console.log("hii",currentSupport.demande_id);
+
+    const dispatch = useDispatch();
 
     const  baseUrlTest = "http://localhost:3000";
-
-
-
 
 const columns=[
         {  field: 'infos',
@@ -68,8 +82,6 @@ const columns=[
         }
     ]
 
-
-
     const useStyles = makeStyles({
         table: {
             width: 400,
@@ -80,7 +92,6 @@ const columns=[
     const classes = useStyles();
     return (
 
-
                 <div   style={{ height: 400, width: '100%' }}>
                     <Grid container spacing={2} >
                         {/*<Grid item xs={12}>*/}
@@ -90,7 +101,7 @@ const columns=[
                     <Grid spacing={2} container>
 
                         <Grid item xs={12}>
-                            <SupportMessage message={ 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran'} date={ 2 } familyName={ 'mecheri'} name ={'hadia'} email={'john@gmial.com'} object={'object of the message'} personal_photo= { 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}></SupportMessage>
+                            <SupportMessage message={ 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran'} date={ 2 } familyName={ currentLocataire.family_name} name ={currentLocataire.name} email={currentLocataire.email} object={currentSupport.type_support} personal_photo= { 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}></SupportMessage>
                         </Grid>
 
                     </Grid>

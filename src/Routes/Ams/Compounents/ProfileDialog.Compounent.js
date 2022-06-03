@@ -11,72 +11,22 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchRejectLocataire } from "../../../redux/actions/actions";
 import ProfileView from "./ProfileView.Compoument";
-import CustomizedTables from "./DifferentsVehicules.Compounent";
+import DiffVehicules from "./DifferentsVehicules.Compounent";
 import TotalePannes from "./TotalPannes.Compounent";
 import Tasks from "./Tasksalt.Compounent";
 import { makeStyles } from "@material-ui/core/styles";
+// import { useDispatch, useSelector } from "react-redux";
 
 export default function ProfileDialog({ isOpen, setOpen, amdata }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  console.log("AAAAAAAAAAAAAAAAA" + JSON.stringify(amdata));
 
   const handleClose = () => {
     setOpen(false);
   };
 
   // replace with reel data
-  const CarsData = [
-    {
-      id: "V-12D54",
-      etat: "réservé",
-    },
-    {
-      id: "V-1FF54",
-      etat: "diponible",
-    },
-    {
-      id: "V-1R454",
-      etat: "réservé",
-    },
-    {
-      id: "V-1S024",
-      etat: "diponible",
-    },
-    {
-      id: "V-12D54",
-      etat: "réservé",
-    },
-    {
-      id: "V-1FF54",
-      etat: "diponible",
-    },
-    {
-      id: "V-1R454",
-      etat: "réservé",
-    },
-    {
-      id: "V-1S024",
-      etat: "diponible",
-    },
-    {
-      id: "V-12D54",
-      etat: "réservé",
-    },
-    {
-      id: "V-1FF54",
-      etat: "diponible",
-    },
-    {
-      id: "V-1R454",
-      etat: "réservé",
-    },
-    {
-      id: "V-1S024",
-      etat: "diponible",
-    },
-  ];
 
   // replace with reel data
   const tachesData = [
@@ -125,6 +75,7 @@ export default function ProfileDialog({ isOpen, setOpen, amdata }) {
       progres: "25%",
     },
   ];
+  let CarsData = amdata.data.Vehicules;
 
   const useStyles = makeStyles({
     diagstyle: {
@@ -167,7 +118,7 @@ export default function ProfileDialog({ isOpen, setOpen, amdata }) {
               <TotalePannes nbpannes="250" />
             </div>
             <div className="tables">
-              <CustomizedTables CarsData={CarsData} />
+              <DiffVehicules CarsData={CarsData} />
               <Tasks tachesData={tachesData} />
             </div>
           </div>

@@ -23,15 +23,22 @@ export default function AmsRoute() {
   const [amEmail, setAmEmail] = useState(null);
   const dispatch = useDispatch();
   const am = useSelector((state) => state.amsProfiles);
-  const agent = useSelector((state) => state.amprofile);
 
   const [currentagentdata, setCurrentAgentData] = useState(null);
   const baseUrlTest = "http://localhost:3000";
+
+  const agent = useSelector((state) => state.amprofile);
+  useEffect(() => {
+    dispatch(fetchgetAM(amId));
+  }, [amId]);
 
   useEffect(() => {
     dispatch(fetchgetAMS());
   }, []);
 
+  function timeout(num) {
+    return new Promise((res) => setTimeout(res, num));
+  }
   const columns = [
     {
       title: "Nom Complet",
@@ -62,11 +69,10 @@ export default function AmsRoute() {
           className="hoverable"
           onClick={() => {
             /**/
-            setAmProfileDialogOpenStatus(true);
-            dispatch(fetchgetAM(2));
-            setCurrentAgentData((os) => {
-              return rowData;
-            });
+            setAmId(rowData.agent_id);
+            setTimeout(() => {
+              setAmProfileDialogOpenStatus(true);
+            }, 1);
           }}
           style={{ height: "40px", width: "40px" }}
           src={profileIcon}
@@ -137,7 +143,7 @@ export default function AmsRoute() {
       <ProfileDialog
         isOpen={isAmProfileDialogopen}
         setOpen={setAmProfileDialogOpenStatus}
-        amdata={currentagentdata}
+        amdata={agent}
       />
       <ConfirmDialog
         isOpen={isConfirmDialogopen}

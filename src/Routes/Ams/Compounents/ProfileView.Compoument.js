@@ -34,12 +34,12 @@ export default function ProfileView(props) {
       />
       <label
         className={
-          props.Userinfos.libre
+          props.Userinfos.data.libre
             ? "etatAgent etatAgentL"
             : "etatAgent etatAgentO"
         }
       >
-        {props.Userinfos.libre ? "libre" : "occupé"}
+        {props.Userinfos.data.libre ? "libre" : "occupé"}
       </label>
       <div className="linePR">
         <TextField
@@ -47,7 +47,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Nom"
-          defaultValue={props.Userinfos.name}
+          defaultValue={props.Userinfos.data.name}
           variant="filled"
           fullWidth
         />
@@ -62,7 +62,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Prenom"
-          defaultValue={props.Userinfos.family_name}
+          defaultValue={props.Userinfos.data.family_name}
           variant="filled"
           fullWidth
         />
@@ -77,7 +77,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Adresse mail"
-          defaultValue={props.Userinfos.email}
+          defaultValue={props.Userinfos.data.email}
           variant="filled"
           fullWidth
         />
@@ -92,7 +92,7 @@ export default function ProfileView(props) {
           inputProps={inputProps}
           id="filled-read-only-input"
           label="Numero De Telephone"
-          defaultValue={props.Userinfos.phone_number}
+          defaultValue={props.Userinfos.data.phone_number}
           variant="filled"
           fullWidth
         />

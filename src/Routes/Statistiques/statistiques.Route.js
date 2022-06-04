@@ -158,58 +158,65 @@ export default function Statistiques() {
                 <App2 />
             </Grid>
             <Grid item xs={4}>
-                <Stack spacing={2}>
+                {/*<Stack spacing={2}>*/}
 
-                <Card>
-                    <CardContent>
-                        <List style={flexContainer} >
-                            <ListItem> <img className={"statsicons"} src={deverouillageIcon}/></ListItem>
-                            <ListItem> <Typography variant="h5" fontFamily={"lora"} > 100 </Typography></ListItem>
-                        </List>
-                        <Typography  >
-                            pannes résolus
-                        </Typography>
-                    </CardContent>
-                </Card>
+                {/*<Card>*/}
+                {/*    <CardContent>*/}
+                {/*        <List style={flexContainer} >*/}
+                {/*            <ListItem> <img className={"statsicons"} src={deverouillageIcon}/></ListItem>*/}
+                {/*            <ListItem> <Typography variant="h5" fontFamily={"lora"} > 100 </Typography></ListItem>*/}
+                {/*        </List>*/}
+                {/*        <Typography  >*/}
+                {/*            pannes résolus*/}
+                {/*        </Typography>*/}
+                {/*    </CardContent>*/}
+                {/*</Card>*/}
 
-                <Card>
-                    <CardContent>
-                        <List style={flexContainer} >
-                            <ListItem> <img className={"statsicons"} src={inscriptionIcon}/></ListItem>
-                            <ListItem> <Typography variant="h5" fontFamily={"lora"} > 100 </Typography></ListItem>
-                        </List>
-                        <Typography  >
-                            pannes résolus
-                        </Typography>
-                    </CardContent>
-                </Card>
+                {/*<Card>*/}
+                {/*    <CardContent>*/}
+                {/*        <List style={flexContainer} >*/}
+                {/*            <ListItem> <img className={"statsicons"} src={inscriptionIcon}/></ListItem>*/}
+                {/*            <ListItem> <Typography variant="h5" fontFamily={"lora"} > 100 </Typography></ListItem>*/}
+                {/*        </List>*/}
+                {/*        <Typography  >*/}
+                {/*            pannes résolus*/}
+                {/*        </Typography>*/}
+                {/*    </CardContent>*/}
+                {/*</Card>*/}
 
-                        <Card>
-                            <CardContent>
-                                <List style={flexContainer} >
-                                    <ListItem> <img className={"statsicons"} src={demandesSupportIcon}/></ListItem>
-                                    <ListItem> <Typography variant="h5" fontFamily={"lora"}> 100 </Typography></ListItem>
-                                </List>
-                                <Typography >
-                                    pannes résolus
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                {/*        <Card>*/}
+                {/*            <CardContent>*/}
+                {/*                <List style={flexContainer} >*/}
+                {/*                    <ListItem> <img className={"statsicons"} src={demandesSupportIcon}/></ListItem>*/}
+                {/*                    <ListItem> <Typography variant="h5" fontFamily={"lora"}> 100 </Typography></ListItem>*/}
+                {/*                </List>*/}
+                {/*                <Typography >*/}
+                {/*                    pannes résolus*/}
+                {/*                </Typography>*/}
+                {/*            </CardContent>*/}
+                {/*        </Card>*/}
 
-                        <Card>
-                            <CardContent>
-                                <List style={flexContainer} >
-                                    <ListItem> <img className={"statsicons"} src={pannesresolusIcon}/></ListItem>
-                                    <ListItem> <Typography variant="h5" fontFamily={"lora"}> 100 </Typography></ListItem>
-                                </List>
-                                <Typography   fontFamily={"lora"}>
-                                    pannes résolus
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                {/*        <Card>*/}
+                {/*            <CardContent>*/}
+                {/*                <List style={flexContainer} >*/}
+                {/*                    <ListItem> <img className={"statsicons"} src={pannesresolusIcon}/></ListItem>*/}
+                {/*                    <ListItem> <Typography variant="h5" fontFamily={"lora"}> 100 </Typography></ListItem>*/}
+                {/*                </List>*/}
+                {/*                <Typography   fontFamily={"lora"}>*/}
+                {/*                    pannes résolus*/}
+                {/*                </Typography>*/}
+                {/*            </CardContent>*/}
+                {/*        </Card>*/}
 
-                </Stack>
+                {/*</Stack>*/}
                 <Stack>
+                    <numberscard Icon={pannesresolusIcon}/>
+                    <numberscard Icon={pannesresolusIcon}/>
+                    <numberscard Icon={pannesresolusIcon}/>
+                    <numberscard Icon={pannesresolusIcon}/>
+                    <numberscard Icon={pannesresolusIcon}/>
+                    <numberscard Icon={pannesresolusIcon}/>
+                    <numberscard Icon={pannesresolusIcon}/>
                     <numberscard Icon={pannesresolusIcon}/>
                     <numberscard Icon={pannesresolusIcon}/>
                     <numberscard Icon={pannesresolusIcon}/></Stack>

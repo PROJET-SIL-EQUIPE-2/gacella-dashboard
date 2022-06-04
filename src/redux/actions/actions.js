@@ -1,7 +1,11 @@
 import * as Actiontypes from "./actionsTypes";
 import * as Endpoints from "../endpoints";
 import axios from "axios";
-import {GET_VALIDATED_LOCATAIRES_LOADING} from "./actionsTypes";
+import {
+  GET_ALL_REPLYDEMANDESSUPPORTS_LOADING,
+  GET_VALIDATED_LOCATAIRES_LOADING,
+  POST_REPLY_SUPPORT_LOADING
+} from "./actionsTypes";
 
 // TEMPLATE GET METHOD
 export const getAllPostsLoading = () => {
@@ -1124,3 +1128,97 @@ export const fetchgetValidatedLocataires=()=>(dispatch)=>{
       });
 
 }
+
+
+// ReplySupport
+
+const ReplySupportLoading = () => {
+  return {
+    type: Actiontypes.POST_REPLY_SUPPORT_LOADING,
+  };
+};
+
+const ReplySupportSuccess = (post) => {
+  return {
+    type: Actiontypes.POST_REPLY_SUPPORT_SUCCESS,
+    payload: post,
+  };
+};
+
+const ReplySupportError = (err) => {
+  return {
+    type: Actiontypes.POST_REPLY_SUPPORT_ERROR,
+    paylaod: err,
+  };
+};
+
+export const fetchReplySupport = (idSupport,locataire_id,reply,admin_id) => (dispatch) => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  dispatch(ReplySupportLoading());
+  const options = {
+    headers: { ...headers, "Content-Type": "application/json" },
+  };
+  // let formattedCouponToPost={...couponToPost , }
+  console.log("question To post =");
+  return new Promise((resolve, reject) => {
+    axios
+        .post(Endpoints.ENDPOINT_GET_REPLYSUPPORT+2,{ "locataire_id": locataire_id, "admin_id": admin_id, "message": reply }, options)
+        .then((res) => {
+          // dispatch(addPostSuccess(res.data));
+          dispatch(ReplySupportSuccess(""));
+          resolve();
+        })
+        .catch((err) => {
+          console.log("ERROR OBJECT = ", err);
+          dispatch(ReplySupportError(err.response.data.message));
+          reject(err.message);
+        });
+  });
+};
+
+// GET REPLIES TO SUPPORTS
+export const getRepliesSupportLoading = () => {
+  return {
+    // declancher un signal
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_LOADING,
+  };
+};
+
+export const getRepliesSupportError = (err) => {
+  return {
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_ERROR,
+    payload: err,
+  };
+};
+
+export const getRepliesSupportSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchgetRepliesSupport = (id) => (dispatch) => {
+  dispatch(getRepliesSupportLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+      .get(Endpoints.ENDPOINT_GET_REPLYSUPPORT+id, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        dispatch(getRepliesSupportSuccess(res.data));
+      })
+      .catch((err) => {
+        console.log("err");
+        dispatch(getRepliesSupportError(err.response.data.message));
+      });
+};

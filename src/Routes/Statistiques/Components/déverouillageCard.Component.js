@@ -8,7 +8,7 @@ import LocationIcon from "../../gestionverou/assets/LocationIcon.png";
 import SpeedIcon from "../../gestionverou/assets/SpeedIcon.png";
 import TemperatureIcon from "../../gestionverou/assets/TemperatureIcon.png";
 import ProfileIcon from "../../gestionverou/assets/ProfileIcon.png";
-import Card from "@mui/material/Card";
+import {Card} from "@mui/material";
 import pannesresolusIcon from "../assets/pannesresolusIcon.png";
 export default function numberscard({props}) {
     const flexContainer = {

@@ -14,6 +14,7 @@ import amProfileModal from './amProfile.Modal';
 import demandesSupportsModal from './demandesSupports.Modal';
 import demandeSupportModal from './demandeSupport.Modal';
 import validatedLocatairesModal from "./validatedLocataires.Modal";
+import replySupports from "./repyDemandeSupports";
 
 
 let persistConfig = {
@@ -34,6 +35,7 @@ let reducers= combineReducers({
     decideursProfiles : decideursProfilesModal,
     snackBarInfo : snackBarModal,
     validatedLocataires : validatedLocatairesModal,
+    replysupports : replySupports,
     // users : usersReducer,
 
 });

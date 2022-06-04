@@ -17,6 +17,7 @@ module.exports={
     ENDPOINT_DELETE_REMOVE_DECIDEUR: `${baseUrlTest}/api/decideurs/delete`,
     ENDPOINT_GET_DEMANDESSUPPORTS : `${baseUrlTest}/api/supports`,
     ENDPOINT_GET_DEMANDESUPPORT : `${baseUrlTest}/api/demandesupport/`,
+    ENDPOINT_GET_REPLYSUPPORT: `${baseUrlTest}/api/supports/reply/`,
 
     ENDPOINT_GET_AMS : `${baseUrlTest}/api/agents/all`,
     ENDPOINT_GET_AM : `${baseUrlTest}/api/agents/`,

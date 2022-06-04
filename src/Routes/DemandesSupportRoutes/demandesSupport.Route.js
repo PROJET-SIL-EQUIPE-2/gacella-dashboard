@@ -45,8 +45,10 @@ export default function DemandesSupportRoute() {
 var i=0;
     const location = useLocation();
     const pathName= location.pathname;
-    const filterType=query.get("filter")
-    console.log("FILTER TYPE =", filterType)
+    const filterType=query.get("filter");
+
+    console.log("FILTER TYPE =", filterType);
+
     // let {supportId} = useParams();
     // let supports = [];
     // let [currentSupport , setCurrentSupport]=useState(supports.filter(supp=>supp.id===supportId)[0])
@@ -54,6 +56,7 @@ var i=0;
     const demandeSupport = useSelector(state => state.demandesSupports);
     const validateslocataires= useSelector(state => state.validatedLocataires);
     const [loaded,setLoaded]=useState(0);
+
 console.log("hhhhh",demandeSupport.data)
     console.log("h22222222",validateslocataires.data[1]);
     const  baseUrlTest = "http://localhost:3000";
@@ -74,12 +77,14 @@ console.log("hhhhh",demandeSupport.data)
     useEffect(async () => {
         dispatch(fetchgetDemandesSupports());
         dispatch(fetchgetValidatedLocataires());
-        await sleep(1000);
+
         setLoc(1);
     },[] );
 
-    useEffect(async () => {
 
+
+    useEffect( async () => {
+        await sleep(20);
         // waits for 1000ms
         console.log("hello", sup, " ", loc);
 
@@ -89,13 +94,28 @@ console.log("hhhhh",demandeSupport.data)
 
         console.log("aaaaaaa", aa);
         const bMap = validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map);
-        setResult( demandeSupport.data.supports.map((item) => (Object.assign({
+        setResult(demandeSupport.data.supports.map((item) => (Object.assign({
             Locataires: validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map).get(item.locataire_id),
 
         }, item))));
         console.log("oneupon a time ", result);
 
     }, [loc]);
+    useEffect(async () => {
+        await sleep(80);
+
+        switch (filterType) {
+            case 'pending':
+                setResult(demandeSupport.data.supports.map((item) => (Object.assign({
+                    Locataires: validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map).get(item.locataire_id),
+
+                }, item))).filter(supp => supp.read === false));
+                console.log("filtering ", result.filter(supp => supp.read == false));
+                break;
+            default:
+                break;
+        }
+    }, [filterType] );
 const columns=[
         {  field: 'infos',
            render: rowData =>(
@@ -150,7 +170,6 @@ const columns=[
                                     fontWeight: 300,
                                     fontSize: "1.2rem",
                                 },
-
                             }}
                             components={{
                                 Header: props => (

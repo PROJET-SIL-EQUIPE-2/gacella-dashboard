@@ -22,7 +22,11 @@ import {
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 
 const defaultTheme = createMuiTheme();
-
+export let [valuer,setValue]=[0,0];
+export const getvaluer = () =>{
+    console.log("been here ", valuer);
+    return valuer;
+}
 Object.assign(defaultTheme, {
     overrides: {
         MUIRichTextEditor: {
@@ -166,7 +170,7 @@ const Staff = ({ person }) => {
     );
 };
 
-export default function TextEditor() {
+export function TextEditor({dispatch,id_admin,id_demande}) {
     const users = [
         {
             name: "Karla Lopez",
@@ -285,12 +289,19 @@ export default function TextEditor() {
     const handleTagButton = (anchor) => {
         setAnchorEl(anchor);
     };
+    [valuer, setValue] = useState('')
 
+    const onEditorChange = event => {
+        const plainText = event.getCurrentContent().getPlainText() // for plain text
+        const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
+        rteContent && setValue(JSON.stringify(rteContent)) // store your rteContent to state
+        console.log("vtextttttexetx ",valuer);
+    }
     return (
         <div>
             <MuiThemeProvider theme={defaultTheme}>
                 <MUIRichTextEditor
-                    label="Type something here..."
+                    label="Tapez votre réponse ..."
                     onSave={save}
                     defaultValue={tempEditor}
                     inlineToolbar={true}
@@ -302,7 +313,7 @@ export default function TextEditor() {
                         "bulletList",
                         "numberList",
                     ]}
-                    onChange={(data) => handleComment(data)}
+                    onChange={onEditorChange}
                     customControls={[
                         {
                             name: "custom-tag",

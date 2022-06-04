@@ -70,14 +70,7 @@ const SupportSideBarCompounent =({children})=>{
                                             <ListItemText primary="Spam" />
                                         </ListItemButton>
                                     </ListItem>
-                                    <ListItem >
-                                        <ListItemButton  onClick={()=>history.push("/DemandeSupport?filter=archived")} selected={filterType==='archived'}>
-                                            <ListItemIcon>
-                                                <img src={archivedIcon} />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Archivé" />
-                                        </ListItemButton>
-                                    </ListItem>
+
                                 </List>
                             </nav>
                         </Box>

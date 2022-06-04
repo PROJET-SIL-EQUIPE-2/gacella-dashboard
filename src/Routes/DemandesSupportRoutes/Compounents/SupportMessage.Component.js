@@ -14,7 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {Box, createTheme, Divider, Grid, List, TextField} from "@mui/material";
+import {Box, createTheme, Divider, Grid, List, Stack, TextField} from "@mui/material";
 import backIcon from '../assets/backIcon.png';
 import replyIcon from '../assets/replyIcon.png';
 import ReplyIcon from '@mui/icons-material/Reply';
@@ -22,11 +22,15 @@ import {ThemeProvider} from "@emotion/react";
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import MUIRichTextEditor from "mui-rte";
-import TextEditor from "./TextEditor.Component";
+import {TextEditor,getvaluer} from "./TextEditor.Component";
 import {Button} from "reactstrap";
 import {ListItem} from "@mui/material";
 import {history} from "../../../index";
-
+import { makeStyles } from '@material-ui/core';
+import {fetchAddAm, fetchReplySupport} from "../../../redux/actions/actions";
+import {useDispatch} from "react-redux";
+import {useState} from "react";
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 const save = (data) => {
     console.log(data);
 };
@@ -51,7 +55,25 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard(props) {
     const [expanded, setExpanded] = React.useState(false);
+    const Test = ({stations}) => (
+        <>
+            {
+                stations.map(station => (<ListItem>
 
+                        <IconButton aria-label="share">
+                            <ThemeProvider theme={theme}>
+                                <DoneRoundedIcon color={'ic'}/>
+                            </ThemeProvider>
+                        </IconButton>
+                        <Stack>
+
+                <Typography >{station.message}</Typography>
+                            <Divider ></Divider>
+                        </Stack>
+                </ListItem>
+            ))}
+        </>
+    );
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -68,7 +90,19 @@ export default function RecipeReviewCard(props) {
 
         },
     });
+    let myRef = React.createRef();
+    const dispatch = useDispatch();
+    const submitreply = (id1,id2,message,admin)=>{
 
+        dispatch(fetchReplySupport(id1,id2,message,admin))
+
+
+            .then(()=>{
+                console.log(" inserted value ");
+            })
+    }
+
+    console.log("tttttttttttttttttttttt",getvaluer());
     return (
         <Card sx={{ boxShadow: '0px 10px 27px 1px rgba(0, 0, 0, 0.05)', margin: "25px" ,borderRadius : '25px'}}>
             <CardHeader
@@ -95,19 +129,16 @@ export default function RecipeReviewCard(props) {
                 </Box>
                     }
 
-                title="user name"
-                subheader="email@email.com"
+                title={props.familyName + " " +props.name}
+                subheader={props.email}
             />
             <Divider />
 
             <CardContent>
                 <Typography variant="h4" gutterBottom component="div" color="text.primary">
-                    h4. Heading
+                   Type de demande : {props.object}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
                     {props.message}
                 </Typography>
             </CardContent>
@@ -137,6 +168,7 @@ export default function RecipeReviewCard(props) {
                     </ThemeProvider>
                 </IconButton>
 
+
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
@@ -162,13 +194,16 @@ export default function RecipeReviewCard(props) {
                     {/*    stirring, until mussels have opened and rice is just tender, 5 to 7*/}
                     {/*    minutes more. (Discard any mussels that don&apos;t open.)*/}
                     {/*</Typography>*/}
+                        <Test stations={props.stations}></Test>
+
 
                     <List >
 <ListItem>
                         <TextEditor sx={{ margin : '20px'}} />
 
 </ListItem>
-                        <Divider light />
+
+
                         <ListItem  style={{display:'flex', margin:'25px 0px 0px 0px ', justifyContent:'flex-end'}}>
                             <Button style={{boxShadow:'0 0 0 0.2rem rgba(0,123,255,.5)'
                             }}
@@ -176,6 +211,13 @@ export default function RecipeReviewCard(props) {
                                 variant="outlined"
                                 color='transparent'
                                 size="medium"
+                                    onClick={() => {
+                                         submitreply(2, props.locataire_id, "heeeeeeey", 1)
+                                        const node = myRef.current;
+                                        console.log("nodedneonde",getvaluer("").blocks);
+                                    }}
+
+
                                 >Envoyer</Button>
                         </ListItem>
                     </List>

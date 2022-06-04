@@ -12,20 +12,20 @@ export default function VehiculeNonDispoDetails({ isOpen, setOpen, vehicule }) {
     setOpen({ isOpen: false, vehicule: null });
   };
   // replace with reel data
-
   const data = {
     name: "loc_",
     family_name: "test",
     phone_number: "3333333",
     email: "loc@mail.com",
   };
-  const real_time_data = {
-    temperature: 50,
-    speed: 30,
-    charge: 200,
-    lat: 35,
-    long: 60,
-  };
+  const real_time_data = vehicule?.VehiculesStatus[0];
+  // {
+  //   temperature: 50,
+  //   speed: 30,
+  //   charge: 200,
+  //   lat: 35,
+  //   long: 60,
+  // };
 
   const useStyles = makeStyles({
     dialogStyle: {

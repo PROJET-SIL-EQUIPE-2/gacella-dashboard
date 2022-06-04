@@ -46,7 +46,7 @@ export default function RealTimeVehiculeData(props) {
             <ListItemText
               primary={[<span className="roboto-700">temperature</span>]}
               secondary={[
-                <span className="lora-400">{data.temperature + "°"}</span>,
+                <span className="lora-400">{data?.temperature + "°"}</span>,
               ]}
             />
           </ListItem>
@@ -60,7 +60,7 @@ export default function RealTimeVehiculeData(props) {
               <ListItemText
                 primary={[<span className="roboto-700">vitesse</span>]}
                 secondary={[
-                  <span className="lora-400">{data.speed + "Km/H"}</span>,
+                  <span className="lora-400">{data?.speed + "Km/H"}</span>,
                 ]}
               />
             </ListItem>
@@ -73,7 +73,7 @@ export default function RealTimeVehiculeData(props) {
               <ListItemText
                 primary={[<span className="roboto-700">charge</span>]}
                 secondary={[
-                  <span className="lora-400">{data.charge + "Kg"}</span>,
+                  <span className="lora-400">{data?.charge + "Kg"}</span>,
                 ]}
               />
             </ListItem>
@@ -91,7 +91,7 @@ export default function RealTimeVehiculeData(props) {
                 ]}
                 secondary={[
                   <span className="lora-400">
-                    {data.long + "," + data.lat}
+                    {data?.long + "," + data?.lat}
                   </span>,
                 ]}
               />

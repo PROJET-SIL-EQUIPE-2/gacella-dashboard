@@ -1,4 +1,5 @@
 # Getting Started with Create React App
+![FireShot Capture 001 - React App - localhost](https://user-images.githubusercontent.com/49080592/172024865-14a796db-c062-45b3-a889-43556683888d.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

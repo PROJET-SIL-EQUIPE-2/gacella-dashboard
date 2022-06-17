@@ -27,9 +27,9 @@ import {Button} from "reactstrap";
 import {ListItem} from "@mui/material";
 import {history} from "../../../index";
 import { makeStyles } from '@material-ui/core';
-import {fetchAddAm, fetchReplySupport} from "../../../redux/actions/actions";
-import {useDispatch} from "react-redux";
-import {useState} from "react";
+import {fetchAddAm, fetchgetRepliesSupport, fetchReplySupport} from "../../../redux/actions/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 const save = (data) => {
     console.log(data);
@@ -92,6 +92,15 @@ export default function RecipeReviewCard(props) {
     });
     let myRef = React.createRef();
     const dispatch = useDispatch();
+    const replies=useSelector(state => state.replysupports);
+
+    useEffect(()=> {
+        dispatch(fetchgetRepliesSupport(props.supportId));
+    },[]);
+
+
+
+
     const submitreply = (id1,id2,message,admin)=>{
 
         dispatch(fetchReplySupport(id1,id2,message,admin))
@@ -100,6 +109,11 @@ export default function RecipeReviewCard(props) {
             .then(()=>{
                 console.log(" inserted value ");
             })
+    }
+    const [st,setst]=useState(0);
+    const [mes,setmes]=useState("");
+    let callbackFunction = (childData) => {
+        setmes(childData);
     }
 
     console.log("tttttttttttttttttttttt",getvaluer());
@@ -194,12 +208,12 @@ export default function RecipeReviewCard(props) {
                     {/*    stirring, until mussels have opened and rice is just tender, 5 to 7*/}
                     {/*    minutes more. (Discard any mussels that don&apos;t open.)*/}
                     {/*</Typography>*/}
-                        <Test stations={props.stations}></Test>
+                        <Test parentCallback = {callbackFunction} stations={props.stations}></Test>
 
 
                     <List >
 <ListItem>
-                        <TextEditor sx={{ margin : '20px'}} />
+                        <TextEditor demande_id={props.supportId} sx={{ margin : '20px'}} />
 
 </ListItem>
 
@@ -212,8 +226,9 @@ export default function RecipeReviewCard(props) {
                                 color='transparent'
                                 size="medium"
                                     onClick={() => {
-                                         submitreply(2, props.locataire_id, "heeeeeeey", 1)
+                                        submitreply(2, props.locataire_id, mes, 1)
                                         const node = myRef.current;
+                                        setst(1);
                                         console.log("nodedneonde",getvaluer("").blocks);
                                     }}
 

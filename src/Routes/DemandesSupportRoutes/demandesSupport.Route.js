@@ -56,7 +56,8 @@ var i=0;
     const demandeSupport = useSelector(state => state.demandesSupports);
     const validateslocataires= useSelector(state => state.validatedLocataires);
     const [loaded,setLoaded]=useState(0);
-
+    const bMap = validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map);
+    console.log("bitmap",bMap.get(1));
 console.log("hhhhh",demandeSupport.data)
     console.log("h22222222",validateslocataires.data[1]);
     const  baseUrlTest = "http://localhost:3000";
@@ -67,35 +68,49 @@ console.log("hhhhh",demandeSupport.data)
         { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
         { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
         { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
+
+
+
     ];
+
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
     const [result ,setResult] =useState(data);
+    console.log("oneupon a time  first", result);
     const [loc, setLoc] = useState(0);
     const [sup, setSup] = useState(0);
-    useEffect(async () => {
+    useEffect( async () => {
         dispatch(fetchgetDemandesSupports());
         dispatch(fetchgetValidatedLocataires());
-
+        console.log("___--------________---------",demandeSupport);
+      //  await sleep(50);
         setLoc(1);
+
     },[] );
 
 
 
-    useEffect( async () => {
-        await sleep(20);
+    useEffect(   async () => {
+
+       await sleep(20);
         // waits for 1000ms
         console.log("hello", sup, " ", loc);
 
         const b = validateslocataires.data;
         console.log("bbbb", b);
-        const aa = demandeSupport.data;
+        const aa = demandeSupport.data.supports;
 
         console.log("aaaaaaa", aa);
-        const bMap = validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map);
+        // setResult(demandeSupport.data.supports.map((item) => (Object.assign({
+        //     Locataires: validateslocataires.data.reduce((map, item) => map.set(item.id, { name: item.name, family_name: item.family_name,email: item.email}), new Map).get(item.locataire_id),
+        //
+        // }, item))));
+        const locatairesNames=validateslocataires.data.reduce((map, item) => map.set(item.id, item.name), new Map);
+        const locatairesFamilyNames= validateslocataires.data.reduce((map, item) => map.set(item.id, item.family_name), new Map)
         setResult(demandeSupport.data.supports.map((item) => (Object.assign({
-            Locataires: validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map).get(item.locataire_id),
+            locataireName: locatairesNames.get(item.locataire_id),
+            locataireFamilyName: locatairesFamilyNames.get(item.locataire_id),
 
         }, item))));
         console.log("oneupon a time ", result);
@@ -120,9 +135,9 @@ const columns=[
         {  field: 'infos',
            render: rowData =>(
             <div className="d-flex align-items-center">
-                <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}}  src={rowData.Locataires.personal_photo} />
+                <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}}   />
                 <div className="pl-2 flex-column">
-                    <div className="roboto-500 gacela-black21"> {rowData.Locataires[1]} {rowData.id} {rowData.Locataires[0]} </div>
+                    <div className="roboto-500 gacela-black21"> {rowData.locataireFamilyName} {rowData.locataireName}  </div>
                     <div className="roboto-500 gacela-gray9E pt-2 line-clamp"> {rowData.message}</div>
                 </div>
             </div>
@@ -179,7 +194,7 @@ const columns=[
                             }}
                                 onRowClick={(event, rowData, togglePanel) =>{
                                     //togglePanel() ;
-                                    console.log("console ",rowData.demande_id);
+                                    console.log("console ",rowData.locataireName);
                                     history.push('/DemandeSupport/'+rowData.demande_id);
 
                                 }}

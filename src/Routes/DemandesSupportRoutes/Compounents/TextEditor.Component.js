@@ -20,6 +20,8 @@ import {
     makeStyles
 } from "@material-ui/core/styles";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import {useLocation} from "react-router-dom";
+import {history} from "../../../index";
 
 const defaultTheme = createMuiTheme();
 export let [valuer,setValue]=[0,0];
@@ -27,6 +29,12 @@ export const getvaluer = () =>{
     console.log("been here ", valuer);
     return valuer;
 }
+function useQuery() {
+    const { search } = useLocation();
+
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
 Object.assign(defaultTheme, {
     overrides: {
         MUIRichTextEditor: {
@@ -170,7 +178,10 @@ const Staff = ({ person }) => {
     );
 };
 
-export function TextEditor({dispatch,id_admin,id_demande}) {
+export function TextEditor(props) {
+    let query = useQuery();
+    const location = useLocation();
+
     const users = [
         {
             name: "Karla Lopez",

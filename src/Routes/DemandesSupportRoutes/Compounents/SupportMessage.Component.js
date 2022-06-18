@@ -159,9 +159,13 @@ export default function RecipeReviewCard(props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing >
-                <Typography color={'text.secondary'}>
+                {!props.date && <Typography color={'text.secondary'}>
                     September 14, 2016
-                </Typography>
+                </Typography>}
+                {props.date && <Typography color={'text.secondary'}>
+                    {new Date(props.date).toLocaleDateString() }
+                </Typography>}
+
 
                 <ExpandMore
                 expand={expanded}

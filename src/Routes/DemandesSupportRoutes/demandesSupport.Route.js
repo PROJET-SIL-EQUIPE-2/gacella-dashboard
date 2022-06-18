@@ -59,8 +59,8 @@ var i=0;
     const [loc, setLoc] = useState(0);
     const [sup, setSup] = useState(0);
     useEffect( async () => {
-        dispatch(fetchgetDemandesSupports());
-        dispatch(fetchgetValidatedLocataires());
+        await dispatch(fetchgetDemandesSupports());
+        await dispatch(fetchgetValidatedLocataires());
       //  await sleep(50);
         setLoc(1);
 
@@ -70,7 +70,7 @@ var i=0;
 
     useEffect(   async () => {
 
-       await sleep(20);
+//       await sleep(0);
         // waits for 1000ms
 
         const b = validateslocataires.data;
@@ -92,12 +92,15 @@ var i=0;
 
     }, [loc]);
     useEffect(async () => {
-        await sleep(0);
+        await sleep(100);
+        const locatairesNames=validateslocataires.data.reduce((map, item) => map.set(item.id, item.name), new Map);
+        const locatairesFamilyNames= validateslocataires.data.reduce((map, item) => map.set(item.id, item.family_name), new Map)
 
         switch (filterType) {
             case 'pending':
                 setResult(demandeSupport.data.supports.map((item) => (Object.assign({
-                    Locataires: validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map).get(item.locataire_id),
+                    locataireName: locatairesNames.get(item.locataire_id),
+                    locataireFamilyName: locatairesFamilyNames.get(item.locataire_id),
 
                 }, item))).filter(supp => supp.read === false));
                 break;
@@ -109,7 +112,7 @@ const columns=[
         {  field: 'infos',
            render: rowData =>(
             <div className="d-flex align-items-center">
-                <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}}   />
+                <Avatar style={{width : "50px" , height : "50px" , borderRadius : "25px"}} src={'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}   />
                 <div className="pl-2 flex-column">
                     <div className="roboto-500 gacela-black21"> {rowData.locataireFamilyName} {rowData.locataireName}  </div>
                     <div className="roboto-500 gacela-gray9E pt-2 line-clamp"> {rowData.message}</div>

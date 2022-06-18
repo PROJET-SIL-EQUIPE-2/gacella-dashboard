@@ -105,7 +105,7 @@ const columns=[
                         {/*</Grid>*/}
                     <Grid spacing={2} container>
                         <Grid item xs={12}>
-                            <SupportMessage  supportId={currentSupport.demande_id} stations={replies.data} dispatch={dispatch} locataire_id={currentLocataire.id} demande_id={currentSupport.demande_id} message={currentSupport.message} date={ 2 } familyName={ currentLocataire.family_name} name={currentLocataire.name} email={currentLocataire.email} object={currentSupport.type_support} personal_photo= { 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}></SupportMessage>
+                            <SupportMessage  supportId={currentSupport.demande_id} stations={replies.data} dispatch={dispatch} locataire_id={currentLocataire.id} demande_id={currentSupport.demande_id} message={currentSupport.message} date={ currentSupport.date_demande } familyName={ currentLocataire.family_name} name={currentLocataire.name} email={currentLocataire.email} object={currentSupport.type_support} personal_photo= { 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}></SupportMessage>
 
                         </Grid>
                     </Grid>

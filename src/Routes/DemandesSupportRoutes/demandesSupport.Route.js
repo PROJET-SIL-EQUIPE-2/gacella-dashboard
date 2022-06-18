@@ -14,25 +14,13 @@ import {
     Paper
 } from '@mui/material';
 
-import allIcon from "./assets/allIcon.png";
-import spamIcon from "./assets/spamIcon.png";
-import archivedIcon from "./assets/archivedIcon.png";
-
 import {tableLang , tableIcons} from '../../ui-component/ReactTablesWidget/Widget'
-import waitingIcon from "./assets/waitingIcon.png"
 import './styles.css';
 import {useState , useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchgetDemandesSupports,fetchgetValidatedLocataires} from "../../redux/actions/actions";
 import { makeStyles } from '@material-ui/core/styles';
-import {Button, Card} from "reactstrap";
-import {createTheme} from "@mui/material/styles";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import {useParams} from "react-router";
 import {useLocation} from "react-router-dom";
-import MenuFilter from "./Compounents/MenuFilter.Component";
-import { ThemeProvider } from '@material-ui/styles';
 import {history} from "../../index";
 function useQuery() {
     const { search } = useLocation();
@@ -46,20 +34,11 @@ var i=0;
     const location = useLocation();
     const pathName= location.pathname;
     const filterType=query.get("filter");
-
-    console.log("FILTER TYPE =", filterType);
-
-    // let {supportId} = useParams();
-    // let supports = [];
-    // let [currentSupport , setCurrentSupport]=useState(supports.filter(supp=>supp.id===supportId)[0])
     const dispatch = useDispatch();
     const demandeSupport = useSelector(state => state.demandesSupports);
     const validateslocataires= useSelector(state => state.validatedLocataires);
     const [loaded,setLoaded]=useState(0);
     const bMap = validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map);
-    console.log("bitmap",bMap.get(1));
-console.log("hhhhh",demandeSupport.data)
-    console.log("h22222222",validateslocataires.data[1]);
     const  baseUrlTest = "http://localhost:3000";
     const data=[
         { demande_id: 2, message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
@@ -77,13 +56,11 @@ console.log("hhhhh",demandeSupport.data)
         return new Promise(resolve => setTimeout(resolve, ms));
     }
     const [result ,setResult] =useState(data);
-    console.log("oneupon a time  first", result);
     const [loc, setLoc] = useState(0);
     const [sup, setSup] = useState(0);
     useEffect( async () => {
         dispatch(fetchgetDemandesSupports());
         dispatch(fetchgetValidatedLocataires());
-        console.log("___--------________---------",demandeSupport);
       //  await sleep(50);
         setLoc(1);
 
@@ -95,13 +72,12 @@ console.log("hhhhh",demandeSupport.data)
 
        await sleep(20);
         // waits for 1000ms
-        console.log("hello", sup, " ", loc);
 
         const b = validateslocataires.data;
-        console.log("bbbb", b);
+
         const aa = demandeSupport.data.supports;
 
-        console.log("aaaaaaa", aa);
+
         // setResult(demandeSupport.data.supports.map((item) => (Object.assign({
         //     Locataires: validateslocataires.data.reduce((map, item) => map.set(item.id, { name: item.name, family_name: item.family_name,email: item.email}), new Map).get(item.locataire_id),
         //
@@ -113,11 +89,10 @@ console.log("hhhhh",demandeSupport.data)
             locataireFamilyName: locatairesFamilyNames.get(item.locataire_id),
 
         }, item))));
-        console.log("oneupon a time ", result);
 
     }, [loc]);
     useEffect(async () => {
-        await sleep(80);
+        await sleep(0);
 
         switch (filterType) {
             case 'pending':
@@ -125,7 +100,6 @@ console.log("hhhhh",demandeSupport.data)
                     Locataires: validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map).get(item.locataire_id),
 
                 }, item))).filter(supp => supp.read === false));
-                console.log("filtering ", result.filter(supp => supp.read == false));
                 break;
             default:
                 break;
@@ -194,7 +168,6 @@ const columns=[
                             }}
                                 onRowClick={(event, rowData, togglePanel) =>{
                                     //togglePanel() ;
-                                    console.log("console ",rowData.locataireName);
                                     history.push('/DemandeSupport/'+rowData.demande_id);
 
                                 }}

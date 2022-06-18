@@ -1164,7 +1164,7 @@ export const fetchReplySupport = (idSupport,locataire_id,reply,admin_id) => (dis
   console.log("question To post =");
   return new Promise((resolve, reject) => {
     axios
-        .post(Endpoints.ENDPOINT_GET_REPLYSUPPORT+2,{ "locataire_id": locataire_id, "admin_id": admin_id, "message": reply }, options)
+        .post(Endpoints.ENDPOINT_GET_REPLYSUPPORT+idSupport,{ "locataire_id": locataire_id, "admin_id": admin_id, "message": reply }, options)
         .then((res) => {
           // dispatch(addPostSuccess(res.data));
           dispatch(ReplySupportSuccess(""));

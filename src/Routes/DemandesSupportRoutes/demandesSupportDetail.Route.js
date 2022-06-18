@@ -50,26 +50,25 @@ export default function DemandesSupportRouteDetail() {
     ]
     let {supportId} = useParams();
     const replies=useSelector(state => state.replysupports);
-    console.log("réponsessss ",replies);
     const demandeSupport = useSelector(state => state.demandeSupport);
     const demandeSupport1 = useSelector(state => state.demandesSupports);
     const locataires = useSelector(state => state.validatedLocataires);
-    console.log(" saaaaaa ",locataires);
-    let [currentSupport , setCurrentSupport]=useState(demandeSupport1.data.supports.filter(supp => supp.demande_id == supportId)[0]); // this should display one row in the table but it's showing nothing.
+    let [currentSupport , setCurrentSupport]=useState(demandeSupport1.data.supports.filter(supp => supp.demande_id == supportId)[0]);
     const found = locataires.data.filter(element => element.id==currentSupport.locataire_id);
-console.log("found",found[0]);
 
-    let [currentLocataire , setCurrentLocataire]=useState( locataires.data.filter(element => element.id==currentSupport.locataire_id)[0]); // this should display one row in the table but it's showing nothing.
+    let [currentLocataire , setCurrentLocataire]=useState( locataires.data.filter(element => element.id==currentSupport.locataire_id)[0]);
 
-    console.log("lcoataaireee ",currentLocataire);
+
+
+
+
+
     useEffect(()=> {
-        console.log("IIOIOIOIIOIOIOIOIO",supportId);
         dispatch(fetchgetRepliesSupport(supportId));
         dispatch(fetchgetDemandesSupports());
         dispatch(fetchgetValidatedLocataires());
         // const promise=Promise.resolve(found);
         // promise.then(function(val){
-        //     console.log("inside promise ",val);
         //     setCurrentLocataire(val);
         // });
         // setCurrentLocataire(locataires.data.filter(element => element.id==currentSupport.locataire_id));
@@ -77,10 +76,7 @@ console.log("found",found[0]);
          // setCurrentLocataire(locataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map).get(currentSupport.locataire_id))
        // setCurrentLocataire(found);
     },[]);
-    console.log(demandeSupport1);
-    console.log("hii",currentSupport);
-    console.log("hii",currentSupport.demande_id);
-    console.log("jejeje",currentLocataire);
+
     const  baseUrlTest = "http://localhost:3000";
 const columns=[
         {  field: 'infos',
@@ -109,7 +105,7 @@ const columns=[
                         {/*</Grid>*/}
                     <Grid spacing={2} container>
                         <Grid item xs={12}>
-                            <SupportMessage supportId={currentSupport.demande_id} stations={replies.data} dispatch={dispatch} locataire_id={currentLocataire.id} demande_id={currentSupport.demande_id} message={currentSupport.message} date={ 2 } familyName={ currentLocataire.family_name} name={currentLocataire.name} email={currentLocataire.email} object={currentSupport.type_support} personal_photo= { 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}></SupportMessage>
+                            <SupportMessage  supportId={currentSupport.demande_id} stations={replies.data} dispatch={dispatch} locataire_id={currentLocataire.id} demande_id={currentSupport.demande_id} message={currentSupport.message} date={ 2 } familyName={ currentLocataire.family_name} name={currentLocataire.name} email={currentLocataire.email} object={currentSupport.type_support} personal_photo= { 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}></SupportMessage>
 
                         </Grid>
                     </Grid>

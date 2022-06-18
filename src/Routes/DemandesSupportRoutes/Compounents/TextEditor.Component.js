@@ -26,7 +26,6 @@ import {history} from "../../../index";
 const defaultTheme = createMuiTheme();
 export let [valuer,setValue]=[0,0];
 export const getvaluer = () =>{
-    console.log("been here ", valuer);
     return valuer;
 }
 function useQuery() {
@@ -306,7 +305,7 @@ export function TextEditor(props) {
         const plainText = event.getCurrentContent().getPlainText() // for plain text
         const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
         rteContent && setValue(JSON.stringify(rteContent)) // store your rteContent to state
-        console.log("vtextttttexetx ",valuer);
+        props.fun(plainText);
     }
     return (
         <div>

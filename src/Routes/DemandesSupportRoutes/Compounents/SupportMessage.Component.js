@@ -111,12 +111,14 @@ export default function RecipeReviewCard(props) {
             })
     }
     const [st,setst]=useState(0);
-    const [mes,setmes]=useState("");
-    let callbackFunction = (childData) => {
-        setmes(childData);
+    const [mes,setMes]=useState("");
+    function updateMessage(message) {
+        setMes(message);
+    }
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    console.log("tttttttttttttttttttttt",getvaluer());
     return (
         <Card sx={{ boxShadow: '0px 10px 27px 1px rgba(0, 0, 0, 0.05)', margin: "25px" ,borderRadius : '25px'}}>
             <CardHeader
@@ -208,12 +210,12 @@ export default function RecipeReviewCard(props) {
                     {/*    stirring, until mussels have opened and rice is just tender, 5 to 7*/}
                     {/*    minutes more. (Discard any mussels that don&apos;t open.)*/}
                     {/*</Typography>*/}
-                        <Test parentCallback = {callbackFunction} stations={props.stations}></Test>
+                        <Test  stations={props.stations}></Test>
 
 
                     <List >
 <ListItem>
-                        <TextEditor demande_id={props.supportId} sx={{ margin : '20px'}} />
+                        <TextEditor fun={updateMessage} demande_id={props.supportId} sx={{ margin : '20px'}} />
 
 </ListItem>
 
@@ -225,11 +227,11 @@ export default function RecipeReviewCard(props) {
                                 variant="outlined"
                                 color='transparent'
                                 size="medium"
-                                    onClick={() => {
-                                        submitreply(2, props.locataire_id, mes, 1)
-                                        const node = myRef.current;
-                                        setst(1);
-                                        console.log("nodedneonde",getvaluer("").blocks);
+                                    onClick={async () => {
+                                        await submitreply(props.supportId, props.locataire_id, mes, 1);
+
+                                        dispatch(fetchgetRepliesSupport(props.supportId));
+
                                     }}
 
 

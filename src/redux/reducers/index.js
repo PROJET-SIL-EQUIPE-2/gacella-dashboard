@@ -12,7 +12,7 @@ import decideursProfilesModal from "./decideursProfiles.Modal";
 import amsProfilesModal from "./amsProfiles.Modal";
 import amProfileModal from "./amProfile.Modal";
 import vehiculesModal from "./vehicules.Modal";
-import regionsStatsModal from "./vehicules.Modal";
+import regionsStatsModal from "./regions.Modal";
 
 let persistConfig = {
   key: "root",

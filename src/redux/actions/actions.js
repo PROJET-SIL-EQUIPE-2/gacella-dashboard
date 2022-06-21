@@ -976,7 +976,7 @@ export const fetchgetAM = (id) => (dispatch) => {
 };
 
 
-// GET ALL DECIDEURS PROFILES
+// GET ALL VEHICULES PROFILES
 
 export const getAllVehiculesLoading = () => {
   return {
@@ -1093,4 +1093,50 @@ export const fetchAddVehicule = (newVehicule,respo) => (dispatch) => {
         });
     })
 
+};
+
+
+// GET ALL REGIONS PROFILES
+
+export const getAllRegionsLoading = () => {
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_LOADING,
+  };
+};
+
+export const getAllRegionsError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_ERROR,
+    payload: err,
+  };
+};
+
+export const getAllRegionsSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchgetAllRegions = () => (dispatch) => {
+  dispatch(getAllRegionsLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+
+  axios
+      .get(Endpoints.ENDPOINT_GET_ALL_REGIONS, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        dispatch(getAllRegionsSuccess(res.data, dispatch));
+      })
+      .catch((err) => {
+        console.log("err =", err.response.data);
+        dispatch(getAllRegionsError(err.response.data, dispatch));
+      });
 };

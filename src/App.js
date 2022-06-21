@@ -23,6 +23,7 @@ import SnackBarCompounent from "./ui-component/SnackBar/snackBar.Compounent";
 import CarsViewRoute from "./Routes/CarsView/carsView.Route";
 import LocataireDemandesDeverouillage from "./Routes/DemandeDeverouillage/demandesDeverrouillage.Route";
 import SuiviDeVehicules from "./Routes/Suivi_Vehicule/SuiviVehicules.Route";
+import Statistics from "./Routes/Statistics/Statistics.Route";
 
 
 function App() {
@@ -71,6 +72,8 @@ function App() {
                               <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
 
                               <PrivateRoute exact path="/suivi_vehicules" component={()=><SuiviDeVehicules/>} />
+
+                              <PrivateRoute exact path="/statistics" component={()=><Statistics/>} />
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
                           </Switch>

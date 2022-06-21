@@ -28,5 +28,7 @@ module.exports={
     ENDPOINT_POST_ADD_VEHICULE: `${baseUrlTest}/api/vehicles/add`,
     ENDPOINT_POST_ASSIGN_VEHICULE: `${baseUrlTest}/api/vehicles/assign`,
     ENDPOINT_DELETE_REMOVE_VEHICULE: `${baseUrlTest}/api/vehicles/delete`,
+
+    ENDPOINT_GET_ALL_REGIONS : `${baseUrlTest}/api/stats/rental`,
 }
 

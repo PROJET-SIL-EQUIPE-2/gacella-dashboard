@@ -24,6 +24,8 @@ import CarsViewRoute from "./Routes/CarsView/carsView.Route";
 import LocataireDemandesDeverouillage from "./Routes/DemandeDeverouillage/demandesDeverrouillage.Route";
 import GestionProfilRoute from "./Routes/GestionProfil/gestionProfil.Route";
 import ReportsLists from "./Routes/Graphs/ReportsLists";
+import SuiviDeVehicules from "./Routes/Suivi_Vehicule/SuiviVehicules.Route";
+import Statistics from "./Routes/Statistics/Statistics.Route";
 
 
 function App() {
@@ -74,6 +76,10 @@ function App() {
                               <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
                               <PrivateRoute exact path="/ReportsLists" component={()=><ReportsLists/>} />
 
+
+                              <PrivateRoute exact path="/suivi_vehicules" component={()=><SuiviDeVehicules/>} />
+
+                              <PrivateRoute exact path="/statistics" component={()=><Statistics/>} />
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
                           </Switch>

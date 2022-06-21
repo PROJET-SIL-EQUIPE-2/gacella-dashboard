@@ -13,6 +13,8 @@ import amsProfilesModal from "./amsProfiles.Modal";
 import amProfileModal from "./amProfile.Modal";
 import carsViewReducerModal from "./carsView.Modal";
 import reportsListsModal from "./reportsLists.Modal";
+import vehiculesModal from "./vehicules.Modal";
+import regionsStatsModal from "./regions.Modal";
 
 let persistConfig = {
   key: "root",
@@ -28,6 +30,8 @@ let reducers= combineReducers({
     amprofile :amProfileModal,
     locatairesRequests : locatairesRequestsModal,
     decideursProfiles : decideursProfilesModal,
+    vehiculesInfos : vehiculesModal,
+    regionsStats : regionsStatsModal,
     snackBarInfo : snackBarModal,
     carsViewReducer : carsViewReducerModal,
     reportsLists : reportsListsModal

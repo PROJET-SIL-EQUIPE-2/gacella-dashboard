@@ -1106,3 +1106,169 @@ export const fetchgetReportsLists = () => (dispatch) => {
         dispatch(getReportsListsSuccess(err.response.data, dispatch));
       });
 };
+
+
+// GET ALL VEHICULES PROFILES
+
+export const getAllVehiculesLoading = () => {
+  return {
+    type: Actiontypes.GET_ALL_VEHICULES_LOADING,
+  };
+};
+
+export const getAllVehiculesError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_ALL_VEHICULES_ERROR,
+    payload: err,
+  };
+};
+
+export const getAllVehiculesSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_ALL_VEHICULES_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchgetAllVehicules = () => (dispatch) => {
+  dispatch(getAllVehiculesLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+
+  axios
+      .get(Endpoints.ENDPOINT_GET_ALL_VEHICULES, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        dispatch(getAllVehiculesSuccess(res.data, dispatch));
+      })
+      .catch((err) => {
+        console.log("err =", err.response.data);
+        dispatch(getAllVehiculesError(err.response.data, dispatch));
+      });
+};
+
+//ADD VEHICULES
+
+const addVehiculeLoading = () => {
+  return {
+    type: Actiontypes.POST_ADD_VEHICULE_LOADING,
+  };
+};
+
+const addVehiculeSuccess = (data, dispatch) => {
+  dispatch(
+      setSnackBarContent("Le véhicule a été ajouté avec succées", "success")
+  );
+  return {
+    type: Actiontypes.POST_ADD_VEHICULE_SUCCESS,
+    payload: data,
+  };
+};
+
+const addVehiculeError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+  return {
+    type: Actiontypes.POST_ADD_VEHICULE_ERROR,
+    paylaod: err,
+  };
+};
+
+export const fetchAddVehicule = (newVehicule,respo) => (dispatch) => {
+  dispatch(addVehiculeLoading());
+  const options = {
+    headers: { "Content-Type": "application/json" },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios.post(Endpoints.ENDPOINT_POST_ADD_VEHICULE, newVehicule, options)
+        .then((res) => {
+
+          new Promise((resolv, rejec) => {
+            axios.post(Endpoints.ENDPOINT_POST_ASSIGN_VEHICULE, {
+              matricule: newVehicule['matricule'],
+              email: respo
+            }, options)
+                .then((res) => {
+                  dispatch(addVehiculeSuccess(res.response, dispatch));
+                  resolv();
+                })
+                .catch((err) => {
+                  if (err?.response?.data) {
+                    console.log("RESPONSE=", err.response.data.errors[0].msg);
+                    dispatch(addVehiculeError(err.response.data.errors[0].msg, dispatch));
+                    rejec(err.response.data);
+                  } else {
+                    console.log(err.message);
+                    dispatch(addVehiculeError(err), dispatch);
+                    rejec(err.message);
+                  }
+                });
+          }).then(r =>{resolve();})
+        })
+        .catch((err) => {
+          if (err?.response?.data) {
+            console.log("RESPONSE=", err.response.data.errors[0].msg);
+            dispatch(addVehiculeError(err.response.data.errors[0].msg, dispatch));
+            reject(err.response.data);
+          }
+          else {
+            console.log(err.message);
+            dispatch(addVehiculeError(err), dispatch);
+            reject(err.message);
+          }
+        });
+    })
+
+};
+
+
+// GET ALL REGIONS PROFILES
+
+export const getAllRegionsLoading = () => {
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_LOADING,
+  };
+};
+
+export const getAllRegionsError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_ERROR,
+    payload: err,
+  };
+};
+
+export const getAllRegionsSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchgetAllRegions = () => (dispatch) => {
+  dispatch(getAllRegionsLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+
+  axios
+      .get(Endpoints.ENDPOINT_GET_ALL_REGIONS, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        dispatch(getAllRegionsSuccess(res.data, dispatch));
+      })
+      .catch((err) => {
+        console.log("err =", err.response.data);
+        dispatch(getAllRegionsError(err.response.data, dispatch));
+      });
+};

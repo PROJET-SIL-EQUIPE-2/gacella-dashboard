@@ -5,7 +5,7 @@ import {tableLang , tableIcons} from '../../ui-component/ReactTablesWidget/Widge
 import LinkIcon from "./assets/LinkIcon.png"
 import RemoveIcon from "./assets/RemoveIcon.png";
 import AddIcon from "./assets/AddUserIcon.png";
-import './styles.css';
+import "./styles.css";
 import ProfileDialog from "./Compounents/ProfileDialog.Compounent";
 import ConfirmDialog from "./Compounents/ConfirmDialog.Compounent";
 import SignUpDialog from "./Compounents/SignUpDialog.Compounent";
@@ -113,7 +113,7 @@ export default function DecideursProfilesGestionRoute() {
                         title="Gestions des comptes des décideurs"
                         columns={columns}
                         actions={actions}
-                        data={decideursProfiles.data.allDecideurs}//{data}//{decideursProfiles.data}
+                        data={decideursProfiles.data}//{data}//{decideursProfiles.data}
                         options={{
 
                             search:false,

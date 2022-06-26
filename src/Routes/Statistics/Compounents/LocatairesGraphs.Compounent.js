@@ -81,8 +81,8 @@ export default function LocatairesGraphs() {
   };
 
   return locs.loading || locs.error ? (
-    <p>test</p>
-  ) : (
+    <p>{locs.loading ? "Loading ..." : locs.error}</p>
+  ) :  (enattente || accepte || rejete ) ? (
     <div
       className="bg-white"
       style={{
@@ -99,5 +99,10 @@ export default function LocatairesGraphs() {
         width="100%"
       />
     </div>
-  );
+  ): (
+          <div  className="bg-white d-flex flex-column justify-content-center align-items-center" style={{minWidth:"45%" , width:"fit-content" , margin:"15px" , borderRadius:"25px" , fontSize : "20px" , paddingTop : "2.5rem" , paddingBottom : "2.5rem"}}>
+            <div className="roboto-700">Demandes Locataires</div>
+            <div >La table de statistique est vide pour l'instant</div>
+          </div>
+  )
 }

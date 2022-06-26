@@ -44,6 +44,14 @@ const dashboard = {
             url: 'suivi_vehicules',
             icon: icons.IconDashboard,
             breadcrumbs: false
+        },{
+            id : "reports_lists",
+            title: 'Liste des Rapports',
+            type: 'item',
+            url: 'reports_lists',
+            icon: icons.IconDashboard,
+
+
         }
 
     ]

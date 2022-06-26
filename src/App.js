@@ -74,7 +74,7 @@ function App() {
                               <Route exact path="/login" component={()=><Login/>} />
                               <Route exact path="/login/reset-password" component={()=><ResetPasswordRoute/>} />
                               <Route exact path="/DemandeDeverouillage" component={()=><LocataireDemandesDeverouillage/>} />
-                              <PrivateRoute exact path="/ReportsLists" component={()=><ReportsLists/>} />
+                              <PrivateRoute exact path="/reports_lists" component={()=><ReportsLists/>} />
 
 
                               <PrivateRoute exact path="/suivi_vehicules" component={()=><SuiviDeVehicules/>} />

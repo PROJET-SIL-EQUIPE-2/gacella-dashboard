@@ -78,13 +78,18 @@ export default function RegionsGraph(){
                     </Box>
                 </div>
             )
-            : (
+            :  regions.data.length ? (
                 <div className="bg-white" style={{minWidth:"45%" , width:"fit-content" , margin:"15px" , borderRadius:"25px"}}>
                     <Chart options={graph.options}
                            series={graph.series}
                            type="donut"
                            width="100%"
                     />
+                </div>
+            ) : (
+                <div className="bg-white d-flex flex-column justify-content-center align-items-center" style={{minWidth:"45%" , width:"fit-content" , margin:"15px" , borderRadius:"25px" , fontSize : "20px"}}>
+                    <div className="roboto-700">Le taux d'utilisation par région</div>
+                    <div >La table de statistique est vide pour l'instant</div>
                 </div>
             )
     );

@@ -21,9 +21,9 @@ export default function LocatairesGraphs() {
 
   const datalocs = locs.data.data?.data;
   datalocs?.map((x) => {
-    if (x.DemandesInscription.etat_demande == "PENDING") enattente++;
-    if (x.DemandesInscription.etat_demande == "VALIDATED") accepte++;
-    if (x.DemandesInscription.etat_demande == "REJECTED") rejete++;
+    if (x.DemandesInscription?.etat_demande == "PENDING") enattente++;
+    if (x.DemandesInscription?.etat_demande == "VALIDATED") accepte++;
+    if (x.DemandesInscription?.etat_demande == "REJECTED") rejete++;
   });
 
   const graph = {

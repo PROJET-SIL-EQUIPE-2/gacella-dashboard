@@ -6,6 +6,8 @@ import HomeRoute from "./Routes/Home/Home.Route";
 import ContactRoute from "./Routes/Contact/Contact.Route";
 import AmsRoute from "./Routes/Ams/Ams.Route";
 //import {AccessAlarm , Adjust} from "@mui/icons-material";
+import LocataireDemandesSupport from "./Routes/DemandesSupportRoutes/demandesSupport.Route"
+import LocataireDemandesSupportDetail from "./Routes/DemandesSupportRoutes/demandesSupportDetail.Route"
 import Sidebar from "./SideBar";
 import themes from "./themes";
 import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
@@ -26,6 +28,8 @@ import GestionProfilRoute from "./Routes/GestionProfil/gestionProfil.Route";
 import ReportsLists from "./Routes/Graphs/ReportsLists";
 import SuiviDeVehicules from "./Routes/Suivi_Vehicule/SuiviVehicules.Route";
 import Statistics from "./Routes/Statistics/Statistics.Route";
+import SupportsSideBarCompounent from "./Routes/DemandesSupportRoutes/SideBar/supportsSideBar.Compounent";
+import Statistiques from "./Routes/Statistiques/statistiques.Route";
 
 
 function App() {
@@ -47,7 +51,7 @@ function App() {
                         />
                     )
                 }
-            />
+       />
         );
     }
 
@@ -80,6 +84,17 @@ function App() {
                               <PrivateRoute exact path="/suivi_vehicules" component={()=><SuiviDeVehicules/>} />
 
                               <PrivateRoute exact path="/statistics" component={()=><Statistics/>} />
+
+                              <Route  path={"/DemandeSupport"} component={()=>
+                                  <SupportsSideBarCompounent>
+                                      <Switch>
+                                          <Route exact path="/DemandeSupport" component={()=><LocataireDemandesSupport/>} />
+                                          <Route exact path="/DemandeSupport/:supportId" component={()=><LocataireDemandesSupportDetail/>} />
+                                      </Switch>
+                                  </SupportsSideBarCompounent>
+                              }  />
+                              <Route exact path="/dashboard" component={()=><Statistiques/>} />
+
 
                               {/*<Route exact path="/newpath" component={()=><Contact/>} />*/}
                           </Switch>

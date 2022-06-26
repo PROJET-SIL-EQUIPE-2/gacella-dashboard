@@ -10,12 +10,19 @@ import locatairesRequestsModal from "./locatairesRequests.Modal";
 import snackBarModal from "./snackBarInfo.Modal";
 import decideursProfilesModal from "./decideursProfiles.Modal";
 import amsProfilesModal from "./amsProfiles.Modal";
-import amProfileModal from "./amProfile.Modal";
 import carsViewReducerModal from "./carsView.Modal";
 import reportsListsModal from "./reportsLists.Modal";
 import vehiculesModal from "./vehicules.Modal";
 import regionsStatsModal from "./regions.Modal";
 import alllocatairesModal from "./alllocataires.Modal";
+import amProfileModal from './amProfile.Modal';
+import demandesSupportsModal from './demandesSupports.Modal';
+import demandeSupportModal from './demandeSupport.Modal';
+import validatedLocatairesModal from "./validatedLocataires.Modal";
+import replySupports from "./repyDemandeSupports";
+import ReservationsEnCoursModal from "./ReservationsEnCours.Modal";
+import currentVehicleInReservation from "./currentVehicleInReservation.Modal";
+
 
 let persistConfig = {
   key: "root",
@@ -38,6 +45,16 @@ let reducers = combineReducers({
   carsViewReducer: carsViewReducerModal,
   reportsLists: reportsListsModal,
   // users : usersReducer,
+
+
+    demandesSupports :demandesSupportsModal,
+    demandeSupport:demandeSupportModal,
+    validatedLocataires : validatedLocatairesModal,
+    replysupports : replySupports,
+    reservationsencours : ReservationsEnCoursModal,
+    currentvehicle : currentVehicleInReservation,
+    // users : usersReducer,
+
 });
 
 export default persistReducer(persistConfig, reducers);

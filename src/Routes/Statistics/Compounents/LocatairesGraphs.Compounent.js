@@ -9,18 +9,18 @@ export default function LocatairesGraphs() {
   const dispatch = useDispatch();
   const locs = useSelector((state) => state.alllocataires);
 
-  useEffect(() => {
-    dispatch(fetchgetLocataires());
-  }, []);
-
-  const datalocs = locs.data.data.data;
-  console.log(JSON.stringify(locs.data.data.data) + "AAAAAAAAAAAAAAAA");
-
   let accepte = 0;
   let enattente = 0;
   let rejete = 0;
+  useEffect(() => {
+    dispatch(fetchgetLocataires());
+  }, []);
+  //   setTimeout(function () {}, 1000);
+  //   const datalocs = locs.data.data.data;
+  console.log(JSON.stringify(locs) + "AAAAAAAAAAAAAAAA");
 
-  datalocs.map((x) => {
+  const datalocs = locs.data.data?.data;
+  datalocs?.map((x) => {
     if (x.DemandesInscription.etat_demande == "PENDING") enattente++;
     if (x.DemandesInscription.etat_demande == "VALIDATED") accepte++;
     if (x.DemandesInscription.etat_demande == "REJECTED") rejete++;
@@ -80,7 +80,9 @@ export default function LocatairesGraphs() {
     },
   };
 
-  return (
+  return locs.loading || locs.error ? (
+    <p>test</p>
+  ) : (
     <div
       className="bg-white"
       style={{

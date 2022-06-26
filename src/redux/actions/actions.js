@@ -1,6 +1,12 @@
 import * as Actiontypes from "./actionsTypes";
 import * as Endpoints from "../endpoints";
 import axios from "axios";
+import {
+  ENDPOINT_GET_RESERVATIONS_EN_COURS_LOADING, ENDPOINT_GET_VEHICLE_ID_LOADING, ENDPOINT_GET_VEHICLE_ID_SUCCESS,
+  GET_ALL_REPLYDEMANDESSUPPORTS_LOADING,
+  GET_VALIDATED_LOCATAIRES_LOADING,
+  POST_REPLY_SUPPORT_LOADING
+} from "./actionsTypes";
 
 // TEMPLATE GET METHOD
 export const getAllPostsLoading = () => {
@@ -974,52 +980,390 @@ export const fetchRemoveAm = (email) => (dispatch) => {
 
 // GET AM
 
-export const getAMLoading = () => {
+export const getAMLoading=()=>{
+    return{
+        type: Actiontypes.GET_AM_LOADING
+    }
+}
+
+export const getAMError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_AM_ERROR,
+        payload: err
+    }
+}
+
+
+export const getAMSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_AM_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetAM=(id)=>(dispatch)=>{
+    dispatch(getAMLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+    return new Promise(((resolve, reject) => {
+        axios.get(Endpoints.ENDPOINT_GET_AM+id,{id:id}, options)
+            .then(res=>{
+                console.log("RESPONSE SUCCESS =", res);
+                dispatch(getAMSuccess(res.data.data , dispatch));
+                resolve('success')
+
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(getAMError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(getAMError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+}
+
+// GET ALL DEMANDES DE SUPPORTS
+
+export const getAllDemandesSupportsLoading=()=>{
+    return{
+        type: Actiontypes.GET_ALL_DEMANDESSUPPORTS_LOADING
+    }
+}
+
+export const getAllDemandesSupportsError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_ALL_DEMANDESSUPPORTS_ERROR,
+        payload: err
+    }
+}
+
+
+export const getAllDemandesSupportsSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_ALL_DEMANDESSUPPORTS_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetDemandesSupports=()=>(dispatch)=>{
+    dispatch(getAllDemandesSupportsLoading());
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+        'Content-Type': 'application/json'
+    };
+    axios.get( Endpoints.ENDPOINT_GET_DEMANDESSUPPORTS,
+        { headers: headers }
+    )
+        .then(res=>{
+            console.log('response =', res);
+            dispatch(getAllDemandesSupportsSuccess(res.data , dispatch))
+        })
+        .catch(err=>{
+            console.log('err =', err.response.data);
+            dispatch(getAllDemandesSupportsError(err.response.data , dispatch))
+        });
+
+}
+
+// GET DEMANDE DE SUPPORT
+
+export const getDemandeSupportLoading=()=>{
+  return{
+      type: Actiontypes.GET_DEMANDESUPPORT_LOADING
+  }
+}
+
+export const getDemandeSupportError=(err,dispatch)=>{
+  dispatch(setSnackBarContent(err, "error"))
+
+  return{
+      type : Actiontypes.GET_DEMANDESUPPORT_ERROR,
+      payload: err
+  }
+}
+
+
+export const getDemandeSupportSuccess=(content)=>{
+
+  return{
+      type: Actiontypes.GET_DEMANDESUPPORT_SUCCESS,
+      payload: content
+  }
+}
+
+export const fetchgetDemandeSupport=(id)=>(dispatch)=>{
+  dispatch(getDemandeSupportLoading());
+  const options = {
+      headers: { 'Content-Type': 'application/json'}
+
+  };
+  return new Promise(((resolve, reject) => {
+      axios.get(Endpoints.ENDPOINT_GET_DEMANDESUPPORT+id,{id:id}, options)
+          .then(res=>{
+              console.log("RESPONSE SUCCESS =", res);
+              dispatch(getDemandeSupportSuccess(res.data.data , dispatch));
+              resolve('success')
+
+          })
+          .catch(err=>{
+              if(err?.response?.data){
+                  console.log("RESPONSE=",err.response.data.errors[0].msg);
+                  dispatch(getDemandeSupportError(err.response.data.errors[0].msg , dispatch));
+                  reject(err.response.data);
+              }else{
+                  console.log(err.message);
+                  dispatch(getDemandeSupportError(err) , dispatch);
+                  reject(err.message);
+              }
+          });
+  }))
+}
+
+// GET ALL VALIDATED LOCATAIRES
+
+export const getAllValidatedLocatairesLoading=()=>{
+  return{
+    type: Actiontypes.GET_VALIDATED_LOCATAIRES_LOADING
+  }
+}
+
+export const getAllValidatedLocatairesError=(err,dispatch)=>{
+  dispatch(setSnackBarContent(err, "error"))
+
+  return{
+    type : Actiontypes.GET_VALIDATED_LOCATAIRES_ERROR,
+    payload: err
+  }
+}
+
+
+export const getAllValidatedLocatairesSuccess=(content)=>{
+
+  return{
+    type: Actiontypes.GET_VALIDATED_LOCATAIRES_SUCCESS,
+    payload: content
+  }
+}
+
+export const fetchgetValidatedLocataires=()=>(dispatch)=>{
+  dispatch(getAllValidatedLocatairesLoading());
+  const headers = {
+    'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+    'Content-Type': 'application/json'
+  };
+  axios.get( Endpoints.ENDPOINT_GET_VALIDATESLOCATAIRES,
+      { headers: headers }
+  )
+      .then(res=>{
+        console.log('response =', res);
+        dispatch(getAllValidatedLocatairesSuccess(res , dispatch))
+      })
+      .catch(err=>{
+        console.log('err =', err.response.data);
+        dispatch(getAllValidatedLocatairesError(err.response.data , dispatch))
+      });
+
+}
+
+
+// ReplySupport
+
+const ReplySupportLoading = () => {
   return {
-    type: Actiontypes.GET_AM_LOADING,
+    type: Actiontypes.POST_REPLY_SUPPORT_LOADING,
   };
 };
 
-export const getAMError = (err, dispatch) => {
-  dispatch(setSnackBarContent(err, "error"));
-
+const ReplySupportSuccess = (post) => {
   return {
-    type: Actiontypes.GET_AM_ERROR,
+    type: Actiontypes.POST_REPLY_SUPPORT_SUCCESS,
+    payload: post,
+  };
+};
+
+const ReplySupportError = (err) => {
+  return {
+    type: Actiontypes.POST_REPLY_SUPPORT_ERROR,
+    paylaod: err,
+  };
+};
+
+export const fetchReplySupport = (idSupport,locataire_id,reply,admin_id) => (dispatch) => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  dispatch(ReplySupportLoading());
+  const options = {
+    headers: { ...headers, "Content-Type": "application/json" },
+  };
+  // let formattedCouponToPost={...couponToPost , }
+  console.log("question To post =");
+  return new Promise((resolve, reject) => {
+    axios
+        .post(Endpoints.ENDPOINT_GET_REPLYSUPPORT+idSupport,{ "locataire_id": locataire_id, "admin_id": admin_id, "message": reply }, options)
+        .then((res) => {
+          // dispatch(addPostSuccess(res.data));
+          dispatch(ReplySupportSuccess(""));
+          resolve();
+        })
+        .catch((err) => {
+          console.log("ERROR OBJECT = ", err);
+          dispatch(ReplySupportError(err.response.data.message));
+          reject(err.message);
+        });
+  });
+};
+
+// GET REPLIES TO SUPPORTS
+export const getRepliesSupportLoading = () => {
+  return {
+    // declancher un signal
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_LOADING,
+  };
+};
+
+export const getRepliesSupportError = (err) => {
+  return {
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_ERROR,
     payload: err,
   };
 };
 
-export const getAMSuccess = (content) => {
+export const getRepliesSupportSuccess = (content) => {
   return {
-    type: Actiontypes.GET_AM_SUCCESS,
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_SUCCESS,
     payload: content,
   };
 };
 
-export const fetchgetAM = (id) => (dispatch) => {
-  dispatch(getAMLoading());
-  const options = {
-    headers: { "Content-Type": "application/json" },
+export const fetchgetRepliesSupport = (id) => (dispatch) => {
+  dispatch(getRepliesSupportLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
   };
-  return new Promise((resolve, reject) => {
-    axios
-      .get(Endpoints.ENDPOINT_GET_AM + id, { id: id }, options)
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+      .get(Endpoints.ENDPOINT_GET_REPLYSUPPORT+id, { headers: headers })
       .then((res) => {
-        console.log("RESPONSE SUCCESS =", res);
-        dispatch(getAMSuccess(res.data.data, dispatch));
-        resolve("success");
+        console.log("response =", res);
+        dispatch(getRepliesSupportSuccess(res.data));
       })
       .catch((err) => {
-        if (err?.response?.data) {
-          console.log("RESPONSE=", err.response.data.errors[0].msg);
-          dispatch(getAMError(err.response.data.errors[0].msg, dispatch));
-          reject(err.response.data);
-        } else {
-          console.log(err.message);
-          dispatch(getAMError(err), dispatch);
-          reject(err.message);
-        }
+        console.log("err");
+        dispatch(getRepliesSupportError(err.response.data.message));
       });
+};
+
+
+// GET RESERVATIONS EN COURS
+export const getReservationEncoursLoading = () => {
+  return {
+    // declancher un signal
+    type: Actiontypes.ENDPOINT_GET_RESERVATIONS_EN_COURS_LOADING,
+  };
+};
+
+export const getReservationEncoursError = (err) => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_RESERVATIONS_EN_COURS_ERROR,
+    payload: err,
+  };
+};
+
+export const getReservationEncoursSuccess = (content) => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_RESERVATIONS_EN_COURS_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchgetReservationEncours = () => (dispatch) => {
+  dispatch(getReservationEncoursLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+      .get(Endpoints.ENDPOINT_GET_RESERVATIONS_EN_COURS, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        dispatch(getReservationEncoursSuccess(res.data));
+      })
+      .catch((err) => {
+        console.log("err");
+        dispatch(getReservationEncoursError(err.response.data.message));
+      });
+};
+
+
+// ReplySupport
+
+const VehicleByIdLoading = () => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_VEHICLE_ID_LOADING,
+  };
+};
+
+const VehicleByIdSuccess = (post) => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_VEHICLE_ID_SUCCESS,
+    payload: post,
+  };
+};
+
+const VehicleByIdError = (err) => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_VEHICLE_ID_ERROR,
+    paylaod: err,
+  };
+};
+
+export const fetchVehicleById = (idVehicle) => (dispatch) => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  dispatch(VehicleByIdLoading());
+  const options = {
+    headers: { ...headers, "Content-Type": "application/json" },
+  };
+  // let formattedCouponToPost={...couponToPost , }
+  console.log("question To post = __________________",Endpoints.ENDPOINT_GET_VEHICLE_BY_ID+idVehicle);
+  return new Promise((resolve, reject) => {
+    axios
+        .get(Endpoints.ENDPOINT_GET_VEHICLE_BY_ID+'/all',{ headers: headers })
+        .then((res) => {
+          console.log("response =", res);
+          dispatch(VehicleByIdSuccess(res.data));
+        })
+
+        .catch((err) => {
+          console.log("ERROR OBJECT = ", err);
+          dispatch(VehicleByIdError(err.response.data.message));
+          reject(err.message);
+        });
   });
 };
 

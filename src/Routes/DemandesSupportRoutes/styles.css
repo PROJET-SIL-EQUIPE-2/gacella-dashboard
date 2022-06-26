@@ -1,0 +1,16 @@
+table {
+    width: 100%;
+}
+
+mat-header-cell, mat-cell {
+    justify-content: center;
+}
+.MuiTableRow-root:hover {
+    background: #F7E9E2 !important
+}
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

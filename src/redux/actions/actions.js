@@ -280,6 +280,54 @@ export const fetchgetLocatairesRequests = () => (dispatch) => {
     });
 };
 
+// GET ALL LOC
+export const getAllLocatairesLoading = () => {
+  console.log("LOADING LOCATAIRES !");
+  return {
+    type: Actiontypes.GET_LOC_ALL_LOADING,
+  };
+};
+
+export const getAllLocatairesError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_LOC_ALL_ERROR,
+    payload: err,
+  };
+};
+
+export const getAllLocatairesSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_LOC_ALL_SUCESS,
+    payload: content,
+  };
+};
+export const fetchgetLocataires = () => (dispatch) => {
+  dispatch(getAllLocatairesLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+    .get(Endpoints.ENDPOINT_GET_ALL_LOCATAIRES, { headers: headers })
+    .then((res) => {
+      console.log("response =", res);
+      let newResponse = res.data;
+      console.log("NEW response =", newResponse);
+      dispatch(getAllLocatairesSuccess(newResponse, dispatch));
+    })
+    .catch((err) => {
+      console.log("err =", err.response.data);
+      dispatch(getAllLocatairesError(err.response.data, dispatch));
+    });
+};
+
 export const fetchgetDeverouillageRequests = () => (dispatch) => {
   dispatch(getAllLocatairesRequestsLoading());
   const headers = {
@@ -976,27 +1024,27 @@ export const fetchgetAM = (id) => (dispatch) => {
 };
 
 // WEBSOCKET STUFF
-export const testWebSocket=(arg)=>{
+export const testWebSocket = (arg) => {
   return {
     type: Actiontypes.WEBSOCKET_TEST,
-    payload : arg
-  }
-}
+    payload: arg,
+  };
+};
 // GET ALL THE CARS FOR CARS VIEW
-export const observeAllCarsData=(carsArr)=>{
-  return{
-    type : Actiontypes.WEBSOCKET_FETCH_ALL_CARS,
-    payload : carsArr
-  }
-}
+export const observeAllCarsData = (carsArr) => {
+  return {
+    type: Actiontypes.WEBSOCKET_FETCH_ALL_CARS,
+    payload: carsArr,
+  };
+};
 
 // OBSERVE CAR DATA CHANGE
-export const observeCarData=(carData)=>{
-  return{
-    type : Actiontypes.WEBSOCKET_OBSERVE_CAR_DATA,
-    payload : carData
-  }
-}
+export const observeCarData = (carData) => {
+  return {
+    type: Actiontypes.WEBSOCKET_OBSERVE_CAR_DATA,
+    payload: carData,
+  };
+};
 
 // UPDATE DECIDEUR PROFILE
 
@@ -1015,7 +1063,7 @@ export const updateDecideurProfilError = (err, dispatch) => {
   };
 };
 
-export const updateDecideurProfilSuccess = (content, dispatch)=> {
+export const updateDecideurProfilSuccess = (content, dispatch) => {
   dispatch(setSnackBarContent("Update profile avec succées ! ", "success"));
   return {
     type: Actiontypes.UPDATE_DECIDEUR_PROFIL_SUCCESS,
@@ -1023,38 +1071,42 @@ export const updateDecideurProfilSuccess = (content, dispatch)=> {
   };
 };
 
-export const fetchupdateDecideurProfil = (id , newData) => (dispatch) => {
+export const fetchupdateDecideurProfil = (id, newData) => (dispatch) => {
   dispatch(updateDecideurProfilLoading());
   const options = {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
-
     },
   };
   return new Promise((resolve, reject) => {
     axios
-        // .put(Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id, newData, options)
-        .put(Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id, {email : newData.email}, options)
-        .then((res) => {
-          console.log("RESPONSE SUCCESS =", res);
-          dispatch(updateDecideurProfilSuccess(newData, dispatch));
-          resolve("success");
-        })
-        .catch((err) => {
-          if (err?.response?.data) {
-            console.log("RESPONSE=", err.response.data.errors[0].msg);
-            dispatch(updateDecideurProfilError(err.response.data.errors[0].msg, dispatch));
-            reject(err.response.data);
-          } else {
-            console.log(err.message);
-            dispatch(updateDecideurProfilError(err, dispatch));
-            reject(err.message);
-          }
-        });
+      // .put(Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id, newData, options)
+      .put(
+        Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id,
+        { email: newData.email },
+        options
+      )
+      .then((res) => {
+        console.log("RESPONSE SUCCESS =", res);
+        dispatch(updateDecideurProfilSuccess(newData, dispatch));
+        resolve("success");
+      })
+      .catch((err) => {
+        if (err?.response?.data) {
+          console.log("RESPONSE=", err.response.data.errors[0].msg);
+          dispatch(
+            updateDecideurProfilError(err.response.data.errors[0].msg, dispatch)
+          );
+          reject(err.response.data);
+        } else {
+          console.log(err.message);
+          dispatch(updateDecideurProfilError(err, dispatch));
+          reject(err.message);
+        }
+      });
   });
 };
-
 
 export const getReportsListsLoading = () => {
   console.log("LOADING LOCATAIRES !");
@@ -1072,7 +1124,7 @@ export const getReportsListsError = (err, dispatch) => {
   };
 };
 
-export const getReportsListsSuccess= (content) => {
+export const getReportsListsSuccess = (content) => {
   return {
     type: Actiontypes.GET_REPORTS_LISTS_SUCCESS,
     payload: content,
@@ -1092,21 +1144,20 @@ export const fetchgetReportsLists = () => (dispatch) => {
   //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
   // };
   axios
-      .get(Endpoints.ENDPOINT_GET_REPORTS_LISTS, { headers: headers })
-      .then((res) => {
-        console.log("response =", res);
-        let newResponse = res.data.map((locataire) => {
-          return { ...locataire, ...locataire.locataire };
-        });
-        console.log("NEW response =", newResponse);
-        dispatch(getReportsListsSuccess(newResponse, dispatch));
-      })
-      .catch((err) => {
-        console.log("err =", err.response.data);
-        dispatch(getReportsListsSuccess(err.response.data, dispatch));
+    .get(Endpoints.ENDPOINT_GET_REPORTS_LISTS, { headers: headers })
+    .then((res) => {
+      console.log("response =", res);
+      let newResponse = res.data.map((locataire) => {
+        return { ...locataire, ...locataire.locataire };
       });
+      console.log("NEW response =", newResponse);
+      dispatch(getReportsListsSuccess(newResponse, dispatch));
+    })
+    .catch((err) => {
+      console.log("err =", err.response.data);
+      dispatch(getReportsListsSuccess(err.response.data, dispatch));
+    });
 };
-
 
 // GET ALL VEHICULES PROFILES
 
@@ -1142,15 +1193,15 @@ export const fetchgetAllVehicules = () => (dispatch) => {
   };
 
   axios
-      .get(Endpoints.ENDPOINT_GET_ALL_VEHICULES, { headers: headers })
-      .then((res) => {
-        console.log("response =", res);
-        dispatch(getAllVehiculesSuccess(res.data, dispatch));
-      })
-      .catch((err) => {
-        console.log("err =", err.response.data);
-        dispatch(getAllVehiculesError(err.response.data, dispatch));
-      });
+    .get(Endpoints.ENDPOINT_GET_ALL_VEHICULES, { headers: headers })
+    .then((res) => {
+      console.log("response =", res);
+      dispatch(getAllVehiculesSuccess(res.data, dispatch));
+    })
+    .catch((err) => {
+      console.log("err =", err.response.data);
+      dispatch(getAllVehiculesError(err.response.data, dispatch));
+    });
 };
 
 //ADD VEHICULES
@@ -1163,7 +1214,7 @@ const addVehiculeLoading = () => {
 
 const addVehiculeSuccess = (data, dispatch) => {
   dispatch(
-      setSnackBarContent("Le véhicule a été ajouté avec succées", "success")
+    setSnackBarContent("Le véhicule a été ajouté avec succées", "success")
   );
   return {
     type: Actiontypes.POST_ADD_VEHICULE_SUCCESS,
@@ -1179,54 +1230,60 @@ const addVehiculeError = (err, dispatch) => {
   };
 };
 
-export const fetchAddVehicule = (newVehicule,respo) => (dispatch) => {
+export const fetchAddVehicule = (newVehicule, respo) => (dispatch) => {
   dispatch(addVehiculeLoading());
   const options = {
     headers: { "Content-Type": "application/json" },
   };
 
   return new Promise((resolve, reject) => {
-    axios.post(Endpoints.ENDPOINT_POST_ADD_VEHICULE, newVehicule, options)
-        .then((res) => {
-
-          new Promise((resolv, rejec) => {
-            axios.post(Endpoints.ENDPOINT_POST_ASSIGN_VEHICULE, {
-              matricule: newVehicule['matricule'],
-              email: respo
-            }, options)
-                .then((res) => {
-                  dispatch(addVehiculeSuccess(res.response, dispatch));
-                  resolv();
-                })
-                .catch((err) => {
-                  if (err?.response?.data) {
-                    console.log("RESPONSE=", err.response.data.errors[0].msg);
-                    dispatch(addVehiculeError(err.response.data.errors[0].msg, dispatch));
-                    rejec(err.response.data);
-                  } else {
-                    console.log(err.message);
-                    dispatch(addVehiculeError(err), dispatch);
-                    rejec(err.message);
-                  }
-                });
-          }).then(r =>{resolve();})
-        })
-        .catch((err) => {
-          if (err?.response?.data) {
-            console.log("RESPONSE=", err.response.data.errors[0].msg);
-            dispatch(addVehiculeError(err.response.data.errors[0].msg, dispatch));
-            reject(err.response.data);
-          }
-          else {
-            console.log(err.message);
-            dispatch(addVehiculeError(err), dispatch);
-            reject(err.message);
-          }
+    axios
+      .post(Endpoints.ENDPOINT_POST_ADD_VEHICULE, newVehicule, options)
+      .then((res) => {
+        new Promise((resolv, rejec) => {
+          axios
+            .post(
+              Endpoints.ENDPOINT_POST_ASSIGN_VEHICULE,
+              {
+                matricule: newVehicule["matricule"],
+                email: respo,
+              },
+              options
+            )
+            .then((res) => {
+              dispatch(addVehiculeSuccess(res.response, dispatch));
+              resolv();
+            })
+            .catch((err) => {
+              if (err?.response?.data) {
+                console.log("RESPONSE=", err.response.data.errors[0].msg);
+                dispatch(
+                  addVehiculeError(err.response.data.errors[0].msg, dispatch)
+                );
+                rejec(err.response.data);
+              } else {
+                console.log(err.message);
+                dispatch(addVehiculeError(err), dispatch);
+                rejec(err.message);
+              }
+            });
+        }).then((r) => {
+          resolve();
         });
-    })
-
+      })
+      .catch((err) => {
+        if (err?.response?.data) {
+          console.log("RESPONSE=", err.response.data.errors[0].msg);
+          dispatch(addVehiculeError(err.response.data.errors[0].msg, dispatch));
+          reject(err.response.data);
+        } else {
+          console.log(err.message);
+          dispatch(addVehiculeError(err), dispatch);
+          reject(err.message);
+        }
+      });
+  });
 };
-
 
 // GET ALL REGIONS PROFILES
 
@@ -1262,13 +1319,13 @@ export const fetchgetAllRegions = () => (dispatch) => {
   };
 
   axios
-      .get(Endpoints.ENDPOINT_GET_ALL_REGIONS, { headers: headers })
-      .then((res) => {
-        console.log("response =", res);
-        dispatch(getAllRegionsSuccess(res.data, dispatch));
-      })
-      .catch((err) => {
-        console.log("err =", err.response.data);
-        dispatch(getAllRegionsError(err.response.data, dispatch));
-      });
+    .get(Endpoints.ENDPOINT_GET_ALL_REGIONS, { headers: headers })
+    .then((res) => {
+      console.log("response =", res);
+      dispatch(getAllRegionsSuccess(res.data, dispatch));
+    })
+    .catch((err) => {
+      console.log("err =", err.response.data);
+      dispatch(getAllRegionsError(err.response.data, dispatch));
+    });
 };

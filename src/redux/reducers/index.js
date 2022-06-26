@@ -15,6 +15,7 @@ import carsViewReducerModal from "./carsView.Modal";
 import reportsListsModal from "./reportsLists.Modal";
 import vehiculesModal from "./vehicules.Modal";
 import regionsStatsModal from "./regions.Modal";
+import alllocatairesModal from "./alllocataires.Modal";
 
 let persistConfig = {
   key: "root",
@@ -22,21 +23,21 @@ let persistConfig = {
   whitelist: ["user"],
 };
 
-let reducers= combineReducers({
-    posts : postsReducerModal,
-    templateSettings : customizationReducer,
-    user : userModal,
-    amsProfiles : amsProfilesModal,
-    amprofile :amProfileModal,
-    locatairesRequests : locatairesRequestsModal,
-    decideursProfiles : decideursProfilesModal,
-    vehiculesInfos : vehiculesModal,
-    regionsStats : regionsStatsModal,
-    snackBarInfo : snackBarModal,
-    carsViewReducer : carsViewReducerModal,
-    reportsLists : reportsListsModal
-    // users : usersReducer,
-
+let reducers = combineReducers({
+  alllocataires: alllocatairesModal,
+  posts: postsReducerModal,
+  templateSettings: customizationReducer,
+  user: userModal,
+  amsProfiles: amsProfilesModal,
+  amprofile: amProfileModal,
+  locatairesRequests: locatairesRequestsModal,
+  decideursProfiles: decideursProfilesModal,
+  vehiculesInfos: vehiculesModal,
+  regionsStats: regionsStatsModal,
+  snackBarInfo: snackBarModal,
+  carsViewReducer: carsViewReducerModal,
+  reportsLists: reportsListsModal,
+  // users : usersReducer,
 });
 
 export default persistReducer(persistConfig, reducers);

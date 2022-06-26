@@ -62,14 +62,7 @@ const SupportSideBarCompounent =({children})=>{
                                             <ListItemText primary="En attente" />
                                         </ListItemButton>
                                     </ListItem>
-                                    <ListItem >
-                                        <ListItemButton  onClick={()=>history.push("/DemandeSupport?filter=spam")} selected={filterType==='spam'}>
-                                            <ListItemIcon>
-                                                <img src={spamIcon} />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Spam" />
-                                        </ListItemButton>
-                                    </ListItem>
+
 
                                 </List>
                             </nav>

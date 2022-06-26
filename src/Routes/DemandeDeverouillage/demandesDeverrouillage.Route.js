@@ -12,7 +12,12 @@ import './Compounents/rejectDialog.Compounent';
 import RejectDialog from "./Compounents/rejectDialog.Compounent";
 import {useState , useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAcceptLocataire, fetchgetLocatairesRequests, fetchgetDeverouillageRequests} from "../../redux/actions/actions";
+import {
+    fetchAcceptLocataire,
+    fetchgetLocatairesRequests,
+    fetchgetDeverouillageRequests,
+    fetchgetReservationEncours, fetchVehicleById, fetchgetValidatedLocataires
+} from "../../redux/actions/actions";
 import PermisDialog from "./Compounents/permisDialog.Compounent";
 import PhotosDialog from "./Compounents/photosDialog.Compounent";
 import { makeStyles } from '@material-ui/core/styles';
@@ -49,22 +54,44 @@ function addTestData(locatairesrequests) {
 export default function LocataireDemandesDeverouillage() {
     const [isRejectDialogopen, setRejectDialogOpenStatus] = useState(false);
     const dispatch = useDispatch();
+    const vehicules=useSelector(state => state.currentvehicle);
+
+    const reservationencours=useSelector(state => state.reservationsencours);
     const locatairesrequests = useSelector(state => state.locatairesRequests);
     const [permisDialog, setPermisDialog] = useState(null);
     const [photoDialog, setPhotoDialog] = useState(null);
     const [locataireEmail, setLocataireEmail] = useState(null);
-
+    const validateslocataires=useSelector(state => state.validatedLocataires)
     const  baseUrlTest = "http://localhost:3000";
     //associate new row to each row in locatairesrequests.data
+    let [res,setResult]=useState(null);
 
 
 
+    useEffect(async () => {
+        await dispatch(fetchgetReservationEncours());
+        await dispatch(fetchVehicleById(0));
+        await dispatch(fetchgetValidatedLocataires());
 
+        //await dispatch(fetchgetDeverouillageRequests());
 
-    useEffect(()=>{
-        dispatch(fetchgetDeverouillageRequests());
-    }, [])
-addTestData(locatairesrequests); // this is not updating the state of the table ( random data added to the locataires in db )
+    }, []);
+    useEffect( () => {
+        const locatairesNames =  validateslocataires.data.reduce((map, item) => map.set(item.id, item.name), new Map);
+        const locatairesFamilyNames =  validateslocataires.data.reduce((map, item) => map.set(item.id, item.family_name), new Map)
+        const locatairesemails =  validateslocataires.data.reduce((map, item) => map.set(item.id, item.email), new Map)
+        const vehiculesMatricules =  vehicules.data.reduce((map, item) => map.set(item.vehicule_id, item.matricule), new Map)
+        setResult(reservationencours.data.map((item) => (Object.assign({
+            name: locatairesNames.get(item.locataire_id),
+            FamilyName: locatairesFamilyNames.get(item.locataire_id),
+            email: locatairesemails.get(item.locataire_id),
+            id: vehiculesMatricules.get(item.vehicule_id)
+        }, item))));
+        console.log("reussss", res);
+    },[])
+    console.log("reussss",res);
+
+    addTestData(locatairesrequests); // this is not updating the state of the table ( random data added to the locataires in db )
     const columns=[
         { title: 'Locataire', field: 'imageUrl', render: rowData =>(
             <div className="d-flex align-items-center">
@@ -88,26 +115,6 @@ addTestData(locatairesrequests); // this is not updating the state of the table 
         { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34, imageUrl: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' },
     ]
 
-    const actions=[
-            rowData=>({
-                icon: ()=> (<img   src={CheckIcon}/>),
-                tooltip: "Accepter La demande",
-                onClick: (event, rowData) =>{
-                    dispatch(fetchAcceptLocataire(rowData.email))
-                        .then(()=>{
-                            setTimeout(()=>{
-                                window.location.reload(false);
-                            },1500)
-                        })
-
-                }
-            }),
-            rowData => ({
-            icon:  ()=>(<img src={DeleteIcon}/>),
-            tooltip: 'Refuser La demandez',
-            onClick: (event, rowData) => {setRejectDialogOpenStatus(true); setLocataireEmail(rowData.email); },
-        })
-    ]
     const useStyles = makeStyles({
         table: {
             width: 400,
@@ -135,7 +142,7 @@ addTestData(locatairesrequests); // this is not updating the state of the table 
                         title="Demandes de déverrouillage"
                         columns={columns}
                         data={locatairesrequests.data}
-                        actions={actions}
+
                         options={{
                             search: false,
                             actionsColumnIndex: -1,
@@ -163,7 +170,13 @@ addTestData(locatairesrequests); // this is not updating the state of the table 
                                 render: rowData => {
                                     return (
                                         <MaterialTable style={{margin : '0 10%  5% 10% '  }}
-                                            columns={[
+                                                       onRowClick={(event, rowData) => {
+                                                           // Get your id from rowData and use with link.
+                                                           window.open(`mysite.com/product/${rowData.id}`, "_blank")
+                                                           dispatch(fetchVehicleById(1));
+                                                           event.stopPropagation();
+                                                       }}
+                                                       columns={[
                                                 { title: 'Identité', field: 'identité',
                                                     render: (rowData) => {
                                                         const button = (

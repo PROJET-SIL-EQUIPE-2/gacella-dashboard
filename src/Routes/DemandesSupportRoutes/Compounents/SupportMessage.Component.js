@@ -177,11 +177,7 @@ export default function RecipeReviewCard(props) {
                         <ReplyIcon color={'ic'}/>
                     </ThemeProvider>
             </ExpandMore>
-                <IconButton aria-label="add to favorites">
-                    <ThemeProvider  theme={theme}>
-                        <ReportGmailerrorredOutlinedIcon color={'ic'}/>
-                    </ThemeProvider>
-                </IconButton>
+
                 <IconButton aria-label="share">
                     <ThemeProvider theme={theme}>
                         <DeleteOutlineOutlinedIcon color={'ic'}/>

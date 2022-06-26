@@ -15,6 +15,8 @@ import demandesSupportsModal from './demandesSupports.Modal';
 import demandeSupportModal from './demandeSupport.Modal';
 import validatedLocatairesModal from "./validatedLocataires.Modal";
 import replySupports from "./repyDemandeSupports";
+import ReservationsEnCoursModal from "./ReservationsEnCours.Modal";
+import currentVehicleInReservation from "./currentVehicleInReservation.Modal";
 
 
 let persistConfig = {
@@ -36,6 +38,8 @@ let reducers= combineReducers({
     snackBarInfo : snackBarModal,
     validatedLocataires : validatedLocatairesModal,
     replysupports : replySupports,
+    reservationsencours : ReservationsEnCoursModal,
+    currentvehicle : currentVehicleInReservation,
     // users : usersReducer,
 
 });

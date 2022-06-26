@@ -24,4 +24,10 @@ module.exports={
     ENDPOINT_POST_ADD_AM: `${baseUrlTest}/api/signup/agent`,
     ENDPOINT_DELETE_REMOVE_AM: `${baseUrlTest}/api/accounts/agent`,
     ENDPOINT_GET_VALIDATESLOCATAIRES: `${baseUrlTest}/api/locataire/validated`,
+
+
+    ENDPOINT_GET_RESERVATIONS_EN_COURS: `${baseUrlTest}/api/reservations/encours`,
+    ENDPOINT_GET_RESERVATIONS_COMPLETED:`${baseUrlTest}/api/reservations/completed`,
+
+    ENDPOINT_GET_VEHICLE_BY_ID: `${baseUrlTest}/api/vehicles/`
 }

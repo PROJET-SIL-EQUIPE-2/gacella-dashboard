@@ -22,6 +22,7 @@ import {fetchgetDemandesSupports,fetchgetValidatedLocataires} from "../../redux/
 import { makeStyles } from '@material-ui/core/styles';
 import {useLocation} from "react-router-dom";
 import {history} from "../../index";
+import CircularProgress from "@mui/material/CircularProgress";
 function useQuery() {
     const { search } = useLocation();
 
@@ -55,7 +56,7 @@ var i=0;
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
-    const [result ,setResult] =useState(data);
+    let [result ,setResult] =useState(data);
     const [loc, setLoc] = useState(0);
     const [sup, setSup] = useState(0);
     useEffect( async () => {
@@ -91,6 +92,8 @@ var i=0;
         }, item))));
 
     }, [loc]);
+
+
     useEffect(async () => {
         await sleep(100);
         const locatairesNames=validateslocataires.data.reduce((map, item) => map.set(item.id, item.name), new Map);
@@ -140,6 +143,8 @@ const columns=[
                     <Grid spacing={2} container>
 
                         <Grid item xs={12}>
+                            <>{ (!demandeSupport.loading && !demandeSupport.error && result!=null)   ?
+
                             <MaterialTable
                             Title="Demandes de Support"
                             className={classes.table}
@@ -175,7 +180,9 @@ const columns=[
 
                                 }}
 
-                            />
+                            /> : <Box sx={{ display: 'flex' ,justifyContent: "center"}}>
+                                    <CircularProgress />
+                                </Box> }</>
                         </Grid>
                     </Grid>
                 </div>

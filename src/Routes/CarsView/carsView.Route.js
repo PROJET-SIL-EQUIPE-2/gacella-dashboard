@@ -10,63 +10,65 @@ import List from "@mui/material/List";
 import CarteVehicule from "../gestionverou/Compounents/Card";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import  { WebSocketContext } from '../../WebSocket/webSocket';
+import {useSelector} from "react-redux";
 
 
-const cars=[{
-    name : 'V-12D4',
-    position : {
-        lat : 48.5584,
-        lng: 2.2945
-    },
-    speed : '75',
-    heat : '55',
-    AM : {
-        fullName : 'Metidji Sid Ahmed',
-        email : 'is_metidji@esi.dz'
-    }
-
-}, {
-    name : 'V-12D5',
-    position : {
-        lat : 48.8570,
-        lng: 2.2730
-    },
-    speed : '20',
-    heat : '20',
-    AM : {
-        fullName : 'Youcef belaili',
-        email : 'iy_belaili@esi.dz'
-    }
-},{
-    name : 'V-12D6',
-    position : {
-        lat : 48.7570,
-        lng: 2.2330
-    },
-    speed : '35K',
-    heat : '40',
-    AM : {
-        fullName : 'Joe Goldberg',
-        email : 'ij_goldberg@esi.dz'
-    }
-} ,{
-    name : 'V-12D7',
-    position : {
-        lat : 48.7230,
-        lng: 2.2550
-    },
-    speed : '45',
-    heat : '65',
-    AM : {
-        fullName : 'Eren Yeager',
-        email : 'ie_yeager@esi.dz'
-    }
-}
- ]
+// const cars=[{
+//     name : 'V-12D4',
+//     position : {
+//         lat : 48.5584,
+//         lng: 2.2945
+//     },
+//     speed : '75',
+//     heat : '55',
+//     AM : {
+//         fullName : 'Metidji Sid Ahmed',
+//         email : 'is_metidji@esi.dz'
+//     }
+//
+// }, {
+//     name : 'V-12D5',
+//     position : {
+//         lat : 48.8570,
+//         lng: 2.2730
+//     },
+//     speed : '20',
+//     heat : '20',
+//     AM : {
+//         fullName : 'Youcef belaili',
+//         email : 'iy_belaili@esi.dz'
+//     }
+// },{
+//     name : 'V-12D6',
+//     position : {
+//         lat : 48.7570,
+//         lng: 2.2330
+//     },
+//     speed : '35K',
+//     heat : '40',
+//     AM : {
+//         fullName : 'Joe Goldberg',
+//         email : 'ij_goldberg@esi.dz'
+//     }
+// } ,{
+//     name : 'V-12D7',
+//     position : {
+//         lat : 48.7230,
+//         lng: 2.2550
+//     },
+//     speed : '45',
+//     heat : '65',
+//     AM : {
+//         fullName : 'Eren Yeager',
+//         email : 'ie_yeager@esi.dz'
+//     }
+// }
+//  ]
 const  CarsViewRoute=()=>{
+    const cars =useSelector(state=>state.carsViewReducer);
     const [WindowInfoStatus, setWindowInfoStatus] = useState({
         isOpen : false ,
-        car: cars[0]
+        car: cars.data[0]
     });
     const [directionsResponse, setDirectionsResponse] = useState(null)
     const [distance, setDistance] = useState('')
@@ -122,13 +124,13 @@ const  CarsViewRoute=()=>{
     const calculateCenterMap=()=>{
         let sumlat = 0;
         let sumlng = 0;
-        cars.forEach(car=>{
+        cars.data.forEach(car=>{
             sumlat += car.position.lat;
             sumlng += car.position.lng;
         })
         return  {
-            lat : sumlat/cars.length,
-            lng: sumlng/cars.length
+            lat : sumlat/cars.data.length,
+            lng: sumlng/cars.data.length
         }
     }
     return (
@@ -148,7 +150,7 @@ const  CarsViewRoute=()=>{
                     fullscreenControl: false
                 }}
             >
-                {cars.map(car=>{
+                {cars.data.map(car=>{
                     return(
                         <Marker position={car.position}
                             label={{
@@ -189,7 +191,7 @@ const  CarsViewRoute=()=>{
                     >
                     <List
                     >
-                                {cars.map(car=>{
+                                {cars.data.map(car=>{
                                     return(
 
                                         <CarteVehicule onCardClick={()=>setInfoWindowData(car)} idVehicule={car.name} temperature={car.heat} kilometres={car.speed} location={car.position}  email={car.AM.email} nomComplet={car.AM.fullName} heure={null} date={null} type={"comfortable"}></CarteVehicule>

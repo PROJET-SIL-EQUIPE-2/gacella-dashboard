@@ -9,13 +9,27 @@ const initialState = {
     error: null,
 };
 
+// {
+//     name : 'V-12D7',
+//         position : {
+//     lat : 48.7230,
+//         lng: 2.2550
+// },
+//     speed : '45',
+//         heat : '65',
+//     AM : {
+//     fullName : 'Eren Yeager',
+//         email : 'ie_yeager@esi.dz'
+// }
+// }
+
 export default function carsViewReducerModal(state = initialState, action) {
     switch (action.type) {
 
         case WEBSOCKET_FETCH_ALL_CARS:
             return {
                 ...state,
-                data: action.payload,
+                data: action.payload.map(car=>({...car , heat : car.temperature , name : car.matricule , AM : {fullName : "Metidji Sid Ahmed" , email :"is_metidji@esi.dz"} , position : {lat : car.lat , lng : car.long}})),
                 error: null,
                 loading: false,
             };

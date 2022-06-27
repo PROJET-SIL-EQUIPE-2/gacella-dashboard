@@ -8,11 +8,11 @@ const icons = {
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
 
-const surveillance = 
+const surveillance =
     {
     id: 'surveillance',
             title: 'Surveillance',
-            type: 'collapse',
+            type: 'group',
             icon: icons.IconKey,
 
             children: [

@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 import {fetchLogin} from "../../redux/actions/actions";
 import {useDispatch} from "react-redux";
 import {history} from "../../index";
-import Navbar from "../../ui-component/navbar/Navbar" ; 
+import Navbar from "../../ui-component/navbar/Navbar" ;
 
 const  Login=()=>{
     const sm = useMediaQuery('(min-width:576px)');
@@ -21,14 +21,14 @@ const  Login=()=>{
     const submitLogin =()=>{
         dispatch(fetchLogin(loginForm))
             .then(res=>{
-                history.push("/");
+                history.push("/cars-view");
             })
     }
 
     return(
-       
+
         <React.Fragment>
-            
+
             <Navbar className="">  </Navbar>
 
             <div className="d-none d-md-block" style={{height : "10vh"}}/>

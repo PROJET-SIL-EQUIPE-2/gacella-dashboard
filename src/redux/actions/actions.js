@@ -560,7 +560,10 @@ export const fetchAddDecideur = (newdata) => (dispatch) => {
   };
   dispatch(addDecideurLoading());
   const options = {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("gacela-token")}`
+    },
   };
 
   return new Promise((resolve, reject) => {
@@ -571,10 +574,18 @@ export const fetchAddDecideur = (newdata) => (dispatch) => {
         resolve();
       })
       .catch((err) => {
+        console.log("ERROR  =",err.response)
         if (err?.response?.data) {
-          console.log("RESPONSE=", err.response.data.errors[0].msg);
-          dispatch(addDecideurError(err.response.data.errors[0].msg, dispatch));
-          reject(err.response.data);
+          if(err.response.data?.errors){
+            console.log("RESPONSE=", err.response.data.errors[0].msg);
+            dispatch(addDecideurError(err.response.data.errors[0].msg, dispatch));
+            reject(err.response.data);
+          }else{
+            console.log("RESPONSE=", err.response.data);
+            dispatch(addDecideurError(err.response.data, dispatch));
+            reject(err.response.data);
+          }
+
         } else {
           console.log(err.message);
           dispatch(addDecideurError(err), dispatch);

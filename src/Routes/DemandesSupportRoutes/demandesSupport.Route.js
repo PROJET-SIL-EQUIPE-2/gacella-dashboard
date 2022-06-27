@@ -47,17 +47,7 @@ var i=0;
     const [loaded,setLoaded]=useState(0);
     const bMap = validateslocataires.data.reduce((map, item) => map.set(item.id, [item.name, item.family_name, item.email]), new Map);
     const  baseUrlTest = "http://localhost:3000";
-    const data=[
-        { demande_id: 2, message: 'Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran Mehmet Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
-        { demande_id: 3, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran this text is made longer to show text clamp where overflow text is clipped out', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
-        { demande_id: 4, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
-        { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
-        { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
-        { demande_id: 5, message: 'Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran Zerya Betl Baran', Locataires : {personal_photo: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4' ,family_name : 'mecheri',name :'hadia'}},
-
-
-
-    ];
+    const data=[];
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

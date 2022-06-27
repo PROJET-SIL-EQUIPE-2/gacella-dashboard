@@ -16,7 +16,6 @@ export default function AjouterVehiculeDialog({ isOpen, setOpen }) {
   const agents = useSelector((state) => state.amsProfiles);
   const [responsable, setResponsable] = useState("");
   const [ajouterVehiculeForm, setAjouterVehiculeForm] = useState({
-    price_per_hour: 0.0,
     mileage: 0.0,
     matricule: null,
     type: "classic",
@@ -100,23 +99,7 @@ export default function AjouterVehiculeDialog({ isOpen, setOpen }) {
                   />
                 </FormGroup>
 
-                <FormGroup>
-                  <Label className="roboto-700" for="price_per_hour">
-                    Prix de location (par heure)
-                  </Label>
-                  <Input
-                    onChange={(e) => {
-                      setAjouterVehiculeForm((oldState) => {
-                        return { ...oldState, [e.target.name]: e.target.value };
-                      });
-                    }}
-                    type="number"
-                    name="price_per_hour"
-                    className="signUpInput"
-                    id="price_per_hour"
-                    placeholder="prix par heure"
-                  />
-                </FormGroup>
+
 
                 <FormGroup>
                   <Label className="roboto-700" for="mileage">
@@ -171,8 +154,7 @@ export default function AjouterVehiculeDialog({ isOpen, setOpen }) {
                       !(
                         ajouterVehiculeForm.matricule?.length &&
                         ajouterVehiculeForm.type?.length &&
-                        responsable !== "" &&
-                        ajouterVehiculeForm.price_per_hour?.length
+                        responsable !== ""
                       )
                     }
                     id="signUpButton"

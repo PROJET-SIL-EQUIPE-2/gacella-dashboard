@@ -54,29 +54,29 @@ const addPostError = (err) => {
 };
 
 export const fetchAddPost = (postToAdd) => (dispatch) => {
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
-  };
-  dispatch(addPostLoading());
-  const options = {
-    headers: { ...headers, "Content-Type": "application/json" },
-  };
-  // let formattedCouponToPost={...couponToPost , }
-  console.log("question To post =", postToAdd);
-  return new Promise((resolve, reject) => {
-    axios
-      .post(Endpoints.ENDPOINT_POST_POST, options)
-      .then((res) => {
-        // dispatch(addPostSuccess(res.data));
-        dispatch(addPostSuccess(""));
-        resolve();
-      })
-      .catch((err) => {
-        console.log("ERROR OBJECT = ", err);
-        dispatch(addPostError(err.response.data.message));
-        reject(err.message);
-      });
-  });
+  // const headers = {
+  //   Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+  // };
+  // dispatch(addPostLoading());
+  // const options = {
+  //   headers: { ...headers, "Content-Type": "application/json" },
+  // };
+  // // let formattedCouponToPost={...couponToPost , }
+  // console.log("question To post =", postToAdd);
+  // return new Promise((resolve, reject) => {
+  //   axios
+  //     .post(Endpoints.ENDPOINT_POST_POST, options)
+  //     .then((res) => {
+  //       // dispatch(addPostSuccess(res.data));
+  //       dispatch(addPostSuccess(""));
+  //       resolve();
+  //     })
+  //     .catch((err) => {
+  //       console.log("ERROR OBJECT = ", err);
+  //       dispatch(addPostError(err.response.data.message));
+  //       reject(err.message);
+  //     });
+  // });
 };
 
 export const templateOpenMenu = (id) => {

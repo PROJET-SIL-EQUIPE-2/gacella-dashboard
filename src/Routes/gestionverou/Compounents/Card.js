@@ -66,20 +66,23 @@ export default function CarteVehicule(props){
 
 
                     </List>
-                    <List style={flexContainer}>
-                        <ListItem style={{width: 10}}>
-                            <img src={ProfileIcon} alt="profieleicone"/>
-                        </ListItem>
-                        <ListItem>
-                            <Typography component="div">
-                                {props.nomComplet},
-                            </Typography>
-                        </ListItem>
-                        <ListItem>
-                            <Typography  color="text.secondary"> {props.email}
-                            </Typography>
-                        </ListItem>
-                    </List>
+                    {/*<List style={flexContainer}>*/}
+                    {/*    <ListItem style={{width: 10}}>*/}
+                    {/*        <img src={ProfileIcon} alt="profieleicone"/>*/}
+                    {/*    </ListItem>*/}
+                    {/*    <ListItem>*/}
+                    {/*        <Typography component="div">*/}
+                    {/*            {props.nomComplet},*/}
+                    {/*        </Typography>*/}
+                    {/*    </ListItem>*/}
+                    {/*    <ListItem>*/}
+                    {/*        <Typography  color="text.secondary"> {props.email}*/}
+                    {/*        </Typography>*/}
+                    {/*    </ListItem>*/}
+                    {/*</List>*/}
+
+
+
                     {/*<List  class={"rightaligned"} style={flexContainer}>*/}
                     {/*    <ListItem style={{width: 10}}>*/}
                     {/*        <img src={TimeIcon} alt="Timeicone"/>*/}

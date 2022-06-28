@@ -194,7 +194,7 @@ const  CarsViewRoute=()=>{
                                 {cars.data.map(car=>{
                                     return(
 
-                                        <CarteVehicule onCardClick={()=>setInfoWindowData(car)} idVehicule={car.name} temperature={car.heat} kilometres={car.speed} location={car.position}  email={car.AM.email} nomComplet={car.AM.fullName} heure={null} date={null} type={"comfortable"}></CarteVehicule>
+                                        <CarteVehicule onCardClick={()=>setInfoWindowData(car)} idVehicule={car.name} temperature={car.heat} kilometres={car.speed} location={car.position}   heure={null} date={null} type={"comfortable"}></CarteVehicule>
                                     )
                                 })}
                         {/*<CarteVehicule idVehicule="5555555" temperature={17.9} kilometres={100} location={"Cheraga, daly brahim"}  email={"fouzi@gmail.com"} nomComplet={"Mon Nom"} heure={"14:30"} date={"16/04/2022"} type={"comfortable"}></CarteVehicule>*/}

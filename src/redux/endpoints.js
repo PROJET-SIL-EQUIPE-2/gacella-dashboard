@@ -1,4 +1,4 @@
-const baseUrlTest = "http://localhost:3000";
+const baseUrlTest = "http://192.168.108.205:3000";
 module.exports = {
   ENDPOINT_GET_POSTS: `${baseUrlTest}/posts`,
   ENDPOINT_POST_POST: `${baseUrlTest}/posts`,

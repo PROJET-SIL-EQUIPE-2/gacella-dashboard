@@ -30,28 +30,6 @@ export const getAllPostsSuccess = (content) => {
   };
 };
 
-export const fetchAllPosts = () => (dispatch) => {
-  dispatch(getAllPostsLoading());
-  const headers = {
-    // Pour athentification
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-    // pour specifier le format de reponse
-    "Content-Type": "application/json",
-  };
-  // const headers = {
-  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-  // };
-  axios
-    .get(Endpoints.ENDPOINT_GET_POSTS, { headers: headers })
-    .then((res) => {
-      console.log("response =", res);
-      dispatch(getAllPostsSuccess(res.data));
-    })
-    .catch((err) => {
-      console.log("err");
-      dispatch(getAllPostsError(err.response.data.message));
-    });
-};
 
 // TEMPLATE POST METHOD
 

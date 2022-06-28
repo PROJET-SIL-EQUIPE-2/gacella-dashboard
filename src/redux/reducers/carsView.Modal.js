@@ -37,7 +37,7 @@ export default function carsViewReducerModal(state = initialState, action) {
         case WEBSOCKET_OBSERVE_CAR_DATA:
             return {
                 ...state,
-                data: state.data.map(car=>car.matricule!== action.payload.matricule ? car : action.payload ),
+                data: state.data.map(car=>car.matricule!== action.payload.matricule ? car : {...action.payload , heat : action.payload.temperature , name :action.payload.matricule , AM : {fullName : "Metidji Sid Ahmed" , email :"is_metidji@esi.dz"} , position : {lat : action.payload.lat , lng : action.payload.long}} ),
                 error: null,
                 loading: false,
             };

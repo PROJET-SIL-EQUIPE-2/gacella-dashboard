@@ -1,6 +1,12 @@
 import * as Actiontypes from "./actionsTypes";
 import * as Endpoints from "../endpoints";
 import axios from "axios";
+import {
+  ENDPOINT_GET_RESERVATIONS_EN_COURS_LOADING, ENDPOINT_GET_VEHICLE_ID_LOADING, ENDPOINT_GET_VEHICLE_ID_SUCCESS,
+  GET_ALL_REPLYDEMANDESSUPPORTS_LOADING,
+  GET_VALIDATED_LOCATAIRES_LOADING,
+  POST_REPLY_SUPPORT_LOADING
+} from "./actionsTypes";
 
 // TEMPLATE GET METHOD
 export const getAllPostsLoading = () => {
@@ -24,28 +30,6 @@ export const getAllPostsSuccess = (content) => {
   };
 };
 
-export const fetchAllPosts = () => (dispatch) => {
-  dispatch(getAllPostsLoading());
-  const headers = {
-    // Pour athentification
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-    // pour specifier le format de reponse
-    "Content-Type": "application/json",
-  };
-  // const headers = {
-  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-  // };
-  axios
-    .get(Endpoints.ENDPOINT_GET_POSTS, { headers: headers })
-    .then((res) => {
-      console.log("response =", res);
-      dispatch(getAllPostsSuccess(res.data));
-    })
-    .catch((err) => {
-      console.log("err");
-      dispatch(getAllPostsError(err.response.data.message));
-    });
-};
 
 // TEMPLATE POST METHOD
 
@@ -70,29 +54,29 @@ const addPostError = (err) => {
 };
 
 export const fetchAddPost = (postToAdd) => (dispatch) => {
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  };
-  dispatch(addPostLoading());
-  const options = {
-    headers: { ...headers, "Content-Type": "application/json" },
-  };
-  // let formattedCouponToPost={...couponToPost , }
-  console.log("question To post =", postToAdd);
-  return new Promise((resolve, reject) => {
-    axios
-      .post(Endpoints.ENDPOINT_POST_POST, options)
-      .then((res) => {
-        // dispatch(addPostSuccess(res.data));
-        dispatch(addPostSuccess(""));
-        resolve();
-      })
-      .catch((err) => {
-        console.log("ERROR OBJECT = ", err);
-        dispatch(addPostError(err.response.data.message));
-        reject(err.message);
-      });
-  });
+  // const headers = {
+  //   Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+  // };
+  // dispatch(addPostLoading());
+  // const options = {
+  //   headers: { ...headers, "Content-Type": "application/json" },
+  // };
+  // // let formattedCouponToPost={...couponToPost , }
+  // console.log("question To post =", postToAdd);
+  // return new Promise((resolve, reject) => {
+  //   axios
+  //     .post(Endpoints.ENDPOINT_POST_POST, options)
+  //     .then((res) => {
+  //       // dispatch(addPostSuccess(res.data));
+  //       dispatch(addPostSuccess(""));
+  //       resolve();
+  //     })
+  //     .catch((err) => {
+  //       console.log("ERROR OBJECT = ", err);
+  //       dispatch(addPostError(err.response.data.message));
+  //       reject(err.message);
+  //     });
+  // });
 };
 
 export const templateOpenMenu = (id) => {
@@ -277,6 +261,54 @@ export const fetchgetLocatairesRequests = () => (dispatch) => {
     .catch((err) => {
       console.log("err =", err.response.data);
       dispatch(getAllLocatairesRequestsError(err.response.data, dispatch));
+    });
+};
+
+// GET ALL LOC
+export const getAllLocatairesLoading = () => {
+  console.log("LOADING LOCATAIRES !");
+  return {
+    type: Actiontypes.GET_LOC_ALL_LOADING,
+  };
+};
+
+export const getAllLocatairesError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_LOC_ALL_ERROR,
+    payload: err,
+  };
+};
+
+export const getAllLocatairesSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_LOC_ALL_SUCESS,
+    payload: content,
+  };
+};
+export const fetchgetLocataires = () => (dispatch) => {
+  dispatch(getAllLocatairesLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+    .get(Endpoints.ENDPOINT_GET_ALL_LOCATAIRES, { headers: headers })
+    .then((res) => {
+      console.log("response =", res);
+      let newResponse = res.data;
+      console.log("NEW response =", newResponse);
+      dispatch(getAllLocatairesSuccess(newResponse, dispatch));
+    })
+    .catch((err) => {
+      console.log("err =", err.response.data);
+      dispatch(getAllLocatairesError(err.response.data, dispatch));
     });
 };
 
@@ -506,7 +538,10 @@ export const fetchAddDecideur = (newdata) => (dispatch) => {
   };
   dispatch(addDecideurLoading());
   const options = {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("gacela-token")}`
+    },
   };
 
   return new Promise((resolve, reject) => {
@@ -517,10 +552,18 @@ export const fetchAddDecideur = (newdata) => (dispatch) => {
         resolve();
       })
       .catch((err) => {
+        console.log("ERROR  =",err.response)
         if (err?.response?.data) {
-          console.log("RESPONSE=", err.response.data.errors[0].msg);
-          dispatch(addDecideurError(err.response.data.errors[0].msg, dispatch));
-          reject(err.response.data);
+          if(err.response.data?.errors){
+            console.log("RESPONSE=", err.response.data.errors[0].msg);
+            dispatch(addDecideurError(err.response.data.errors[0].msg, dispatch));
+            reject(err.response.data);
+          }else{
+            console.log("RESPONSE=", err.response.data);
+            dispatch(addDecideurError(err.response.data, dispatch));
+            reject(err.response.data);
+          }
+
         } else {
           console.log(err.message);
           dispatch(addDecideurError(err), dispatch);
@@ -789,7 +832,7 @@ export const getAllAMSSuccess = (content) => {
 };
 
 export const fetchgetAMS = () => (dispatch) => {
-  dispatch(getAllAMSLoading());
+  dispatch(getAllAMSLoading()); // loading=true
   const headers = {
     Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
     "Content-Type": "application/json",
@@ -926,51 +969,696 @@ export const fetchRemoveAm = (email) => (dispatch) => {
 
 // GET AM
 
-export const getAMLoading = () => {
+export const getAMLoading=()=>{
+    return{
+        type: Actiontypes.GET_AM_LOADING
+    }
+}
+
+export const getAMError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_AM_ERROR,
+        payload: err
+    }
+}
+
+
+export const getAMSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_AM_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetAM=(id)=>(dispatch)=>{
+    dispatch(getAMLoading());
+    const options = {
+        headers: { 'Content-Type': 'application/json'}
+
+    };
+    return new Promise(((resolve, reject) => {
+        axios.get(Endpoints.ENDPOINT_GET_AM+id,{id:id}, options)
+            .then(res=>{
+                console.log("RESPONSE SUCCESS =", res);
+                dispatch(getAMSuccess(res.data.data , dispatch));
+                resolve('success')
+
+            })
+            .catch(err=>{
+                if(err?.response?.data){
+                    console.log("RESPONSE=",err.response.data.errors[0].msg);
+                    dispatch(getAMError(err.response.data.errors[0].msg , dispatch));
+                    reject(err.response.data);
+                }else{
+                    console.log(err.message);
+                    dispatch(getAMError(err) , dispatch);
+                    reject(err.message);
+                }
+            });
+    }))
+}
+
+// GET ALL DEMANDES DE SUPPORTS
+
+export const getAllDemandesSupportsLoading=()=>{
+    return{
+        type: Actiontypes.GET_ALL_DEMANDESSUPPORTS_LOADING
+    }
+}
+
+export const getAllDemandesSupportsError=(err,dispatch)=>{
+    dispatch(setSnackBarContent(err, "error"))
+
+    return{
+        type : Actiontypes.GET_ALL_DEMANDESSUPPORTS_ERROR,
+        payload: err
+    }
+}
+
+
+export const getAllDemandesSupportsSuccess=(content)=>{
+
+    return{
+        type: Actiontypes.GET_ALL_DEMANDESSUPPORTS_SUCCESS,
+        payload: content
+    }
+}
+
+export const fetchgetDemandesSupports=()=>(dispatch)=>{
+    dispatch(getAllDemandesSupportsLoading());
+    const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+        'Content-Type': 'application/json'
+    };
+    axios.get( Endpoints.ENDPOINT_GET_DEMANDESSUPPORTS,
+        { headers: headers }
+    )
+        .then(res=>{
+            console.log('response =', res);
+            dispatch(getAllDemandesSupportsSuccess(res.data , dispatch))
+        })
+        .catch(err=>{
+            console.log('err =', err.response.data);
+            dispatch(getAllDemandesSupportsError(err.response.data , dispatch))
+        });
+
+}
+
+// GET DEMANDE DE SUPPORT
+
+export const getDemandeSupportLoading=()=>{
+  return{
+      type: Actiontypes.GET_DEMANDESUPPORT_LOADING
+  }
+}
+
+export const getDemandeSupportError=(err,dispatch)=>{
+  dispatch(setSnackBarContent(err, "error"))
+
+  return{
+      type : Actiontypes.GET_DEMANDESUPPORT_ERROR,
+      payload: err
+  }
+}
+
+
+export const getDemandeSupportSuccess=(content)=>{
+
+  return{
+      type: Actiontypes.GET_DEMANDESUPPORT_SUCCESS,
+      payload: content
+  }
+}
+
+export const fetchgetDemandeSupport=(id)=>(dispatch)=>{
+  dispatch(getDemandeSupportLoading());
+  const options = {
+      headers: { 'Content-Type': 'application/json'}
+
+  };
+  return new Promise(((resolve, reject) => {
+      axios.get(Endpoints.ENDPOINT_GET_DEMANDESUPPORT+id,{id:id}, options)
+          .then(res=>{
+              console.log("RESPONSE SUCCESS =", res);
+              dispatch(getDemandeSupportSuccess(res.data.data , dispatch));
+              resolve('success')
+
+          })
+          .catch(err=>{
+              if(err?.response?.data){
+                  console.log("RESPONSE=",err.response.data.errors[0].msg);
+                  dispatch(getDemandeSupportError(err.response.data.errors[0].msg , dispatch));
+                  reject(err.response.data);
+              }else{
+                  console.log(err.message);
+                  dispatch(getDemandeSupportError(err) , dispatch);
+                  reject(err.message);
+              }
+          });
+  }))
+}
+
+// GET ALL VALIDATED LOCATAIRES
+
+export const getAllValidatedLocatairesLoading=()=>{
+  return{
+    type: Actiontypes.GET_VALIDATED_LOCATAIRES_LOADING
+  }
+}
+
+export const getAllValidatedLocatairesError=(err,dispatch)=>{
+  dispatch(setSnackBarContent(err, "error"))
+
+  return{
+    type : Actiontypes.GET_VALIDATED_LOCATAIRES_ERROR,
+    payload: err
+  }
+}
+
+
+export const getAllValidatedLocatairesSuccess=(content)=>{
+
+  return{
+    type: Actiontypes.GET_VALIDATED_LOCATAIRES_SUCCESS,
+    payload: content
+  }
+}
+
+export const fetchgetValidatedLocataires=()=>(dispatch)=>{
+  dispatch(getAllValidatedLocatairesLoading());
+  const headers = {
+    'Authorization': `Bearer ${localStorage.getItem('gacela-token')}`,
+    'Content-Type': 'application/json'
+  };
+  axios.get( Endpoints.ENDPOINT_GET_VALIDATESLOCATAIRES,
+      { headers: headers }
+  )
+      .then(res=>{
+        console.log('response =', res);
+        dispatch(getAllValidatedLocatairesSuccess(res , dispatch))
+      })
+      .catch(err=>{
+        console.log('err =', err.response.data);
+        dispatch(getAllValidatedLocatairesError(err.response.data , dispatch))
+      });
+
+}
+
+
+// ReplySupport
+
+const ReplySupportLoading = () => {
   return {
-    type: Actiontypes.GET_AM_LOADING,
+    type: Actiontypes.POST_REPLY_SUPPORT_LOADING,
   };
 };
 
-export const getAMError = (err, dispatch) => {
-  dispatch(setSnackBarContent(err, "error"));
-
+const ReplySupportSuccess = (post) => {
   return {
-    type: Actiontypes.GET_AM_ERROR,
+    type: Actiontypes.POST_REPLY_SUPPORT_SUCCESS,
+    payload: post,
+  };
+};
+
+const ReplySupportError = (err) => {
+  return {
+    type: Actiontypes.POST_REPLY_SUPPORT_ERROR,
+    paylaod: err,
+  };
+};
+
+export const fetchReplySupport = (idSupport,locataire_id,reply,admin_id) => (dispatch) => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  dispatch(ReplySupportLoading());
+  const options = {
+    headers: { ...headers, "Content-Type": "application/json" },
+  };
+  // let formattedCouponToPost={...couponToPost , }
+  console.log("question To post =");
+  return new Promise((resolve, reject) => {
+    axios
+        .post(Endpoints.ENDPOINT_GET_REPLYSUPPORT+idSupport,{ "locataire_id": locataire_id, "admin_id": admin_id, "message": reply }, options)
+        .then((res) => {
+          // dispatch(addPostSuccess(res.data));
+          dispatch(ReplySupportSuccess(""));
+          resolve();
+        })
+        .catch((err) => {
+          console.log("ERROR OBJECT = ", err);
+          dispatch(ReplySupportError(err.response.data.message));
+          reject(err.message);
+        });
+  });
+};
+
+// GET REPLIES TO SUPPORTS
+export const getRepliesSupportLoading = () => {
+  return {
+    // declancher un signal
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_LOADING,
+  };
+};
+
+export const getRepliesSupportError = (err) => {
+  return {
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_ERROR,
     payload: err,
   };
 };
 
-export const getAMSuccess = (content) => {
+export const getRepliesSupportSuccess = (content) => {
   return {
-    type: Actiontypes.GET_AM_SUCCESS,
+    type: Actiontypes.GET_ALL_REPLYDEMANDESSUPPORTS_SUCCESS,
     payload: content,
   };
 };
 
-export const fetchgetAM = (id) => (dispatch) => {
-  dispatch(getAMLoading());
+export const fetchgetRepliesSupport = (id) => (dispatch) => {
+  dispatch(getRepliesSupportLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+      .get(Endpoints.ENDPOINT_GET_REPLYSUPPORT+id, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        dispatch(getRepliesSupportSuccess(res.data));
+      })
+      .catch((err) => {
+        console.log("err");
+        dispatch(getRepliesSupportError(err.response.data.message));
+      });
+};
+
+
+// GET RESERVATIONS EN COURS
+export const getReservationEncoursLoading = () => {
+  return {
+    // declancher un signal
+    type: Actiontypes.ENDPOINT_GET_RESERVATIONS_EN_COURS_LOADING,
+  };
+};
+
+export const getReservationEncoursError = (err) => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_RESERVATIONS_EN_COURS_ERROR,
+    payload: err,
+  };
+};
+
+export const getReservationEncoursSuccess = (content) => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_RESERVATIONS_EN_COURS_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchgetReservationEncours = () => (dispatch) => {
+  dispatch(getReservationEncoursLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+      .get(Endpoints.ENDPOINT_GET_RESERVATIONS_EN_COURS, { headers: headers })
+      .then((res) => {
+        console.log("response =", res);
+        dispatch(getReservationEncoursSuccess(res.data));
+      })
+      .catch((err) => {
+        console.log("err");
+        dispatch(getReservationEncoursError(err.response.data.message));
+      });
+};
+
+
+// ReplySupport
+
+const VehicleByIdLoading = () => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_VEHICLE_ID_LOADING,
+  };
+};
+
+const VehicleByIdSuccess = (post) => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_VEHICLE_ID_SUCCESS,
+    payload: post,
+  };
+};
+
+const VehicleByIdError = (err) => {
+  return {
+    type: Actiontypes.ENDPOINT_GET_VEHICLE_ID_ERROR,
+    paylaod: err,
+  };
+};
+
+export const fetchVehicleById = (idVehicle) => (dispatch) => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  dispatch(VehicleByIdLoading());
   const options = {
-    headers: { "Content-Type": "application/json" },
+    headers: { ...headers, "Content-Type": "application/json" },
+  };
+  // let formattedCouponToPost={...couponToPost , }
+  console.log("question To post = __________________",Endpoints.ENDPOINT_GET_VEHICLE_BY_ID+idVehicle);
+  return new Promise((resolve, reject) => {
+    axios
+        .get(Endpoints.ENDPOINT_GET_VEHICLE_BY_ID+'/all',{ headers: headers })
+        .then((res) => {
+          console.log("response =", res);
+          dispatch(VehicleByIdSuccess(res.data));
+        })
+
+        .catch((err) => {
+          console.log("ERROR OBJECT = ", err);
+          dispatch(VehicleByIdError(err.response.data.message));
+          reject(err.message);
+        });
+  });
+};
+
+// WEBSOCKET STUFF
+export const testWebSocket = (arg) => {
+  return {
+    type: Actiontypes.WEBSOCKET_TEST,
+    payload: arg,
+  };
+};
+// GET ALL THE CARS FOR CARS VIEW
+export const observeAllCarsData = (carsArr) => {
+  return {
+    type: Actiontypes.WEBSOCKET_FETCH_ALL_CARS,
+    payload: carsArr,
+  };
+};
+
+// OBSERVE CAR DATA CHANGE
+export const observeCarData = (carData) => {
+  return {
+    type: Actiontypes.WEBSOCKET_OBSERVE_CAR_DATA,
+    payload: carData,
+  };
+};
+
+// UPDATE DECIDEUR PROFILE
+
+export const updateDecideurProfilLoading = () => {
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_LOADING,
+  };
+};
+
+export const updateDecideurProfilError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_ERROR,
+    payload: err,
+  };
+};
+
+export const updateDecideurProfilSuccess = (content, dispatch) => {
+  dispatch(setSnackBarContent("Update profile avec succées ! ", "success"));
+  return {
+    type: Actiontypes.UPDATE_DECIDEUR_PROFIL_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchupdateDecideurProfil = (id, newData) => (dispatch) => {
+  dispatch(updateDecideurProfilLoading());
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    },
   };
   return new Promise((resolve, reject) => {
     axios
-      .get(Endpoints.ENDPOINT_GET_AM + id, { id: id }, options)
+      // .put(Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id, newData, options)
+      .put(
+        Endpoints.ENDPOINT_PUT_DECIDEUR_PROFIL + id,
+        { email: newData.email },
+        options
+      )
       .then((res) => {
         console.log("RESPONSE SUCCESS =", res);
-        dispatch(getAMSuccess(res.data.data, dispatch));
+        dispatch(updateDecideurProfilSuccess(newData, dispatch));
         resolve("success");
       })
       .catch((err) => {
         if (err?.response?.data) {
           console.log("RESPONSE=", err.response.data.errors[0].msg);
-          dispatch(getAMError(err.response.data.errors[0].msg, dispatch));
+          dispatch(
+            updateDecideurProfilError(err.response.data.errors[0].msg, dispatch)
+          );
           reject(err.response.data);
         } else {
           console.log(err.message);
-          dispatch(getAMError(err), dispatch);
+          dispatch(updateDecideurProfilError(err, dispatch));
           reject(err.message);
         }
       });
   });
+};
+
+export const getReportsListsLoading = () => {
+  console.log("LOADING LOCATAIRES !");
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_LOADING,
+  };
+};
+
+export const getReportsListsError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_ERROR,
+    payload: err,
+  };
+};
+
+export const getReportsListsSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_REPORTS_LISTS_SUCCESS,
+    payload: content,
+  };
+};
+
+// TODO : use this method in the statistics page
+export const fetchgetReportsLists = () => (dispatch) => {
+  dispatch(getReportsListsLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+  // const headers = {
+  //     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+  // };
+  axios
+    .get(Endpoints.ENDPOINT_GET_REPORTS_LISTS, { headers: headers })
+    .then((res) => {
+      console.log("response =", res);
+      let newResponse = res.data.map((locataire) => {
+        return { ...locataire, ...locataire.locataire };
+      });
+      console.log("NEW response =", newResponse);
+      dispatch(getReportsListsSuccess(newResponse, dispatch));
+    })
+    .catch((err) => {
+      console.log("err =", err.response.data);
+      dispatch(getReportsListsSuccess(err.response.data, dispatch));
+    });
+};
+
+// GET ALL VEHICULES PROFILES
+
+export const getAllVehiculesLoading = () => {
+  return {
+    type: Actiontypes.GET_ALL_VEHICULES_LOADING,
+  };
+};
+
+export const getAllVehiculesError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_ALL_VEHICULES_ERROR,
+    payload: err,
+  };
+};
+
+export const getAllVehiculesSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_ALL_VEHICULES_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchgetAllVehicules = () => (dispatch) => {
+  dispatch(getAllVehiculesLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+
+  axios
+    .get(Endpoints.ENDPOINT_GET_ALL_VEHICULES, { headers: headers })
+    .then((res) => {
+      console.log("response =", res);
+      dispatch(getAllVehiculesSuccess(res.data, dispatch));
+    })
+    .catch((err) => {
+      console.log("err =", err.response.data);
+      dispatch(getAllVehiculesError(err.response.data, dispatch));
+    });
+};
+
+//ADD VEHICULES
+
+const addVehiculeLoading = () => {
+  return {
+    type: Actiontypes.POST_ADD_VEHICULE_LOADING,
+  };
+};
+
+const addVehiculeSuccess = (data, dispatch) => {
+  dispatch(
+    setSnackBarContent("Le véhicule a été ajouté avec succées", "success")
+  );
+  return {
+    type: Actiontypes.POST_ADD_VEHICULE_SUCCESS,
+    payload: data,
+  };
+};
+
+const addVehiculeError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+  return {
+    type: Actiontypes.POST_ADD_VEHICULE_ERROR,
+    paylaod: err,
+  };
+};
+
+export const fetchAddVehicule = (newVehicule, respo) => (dispatch) => {
+  dispatch(addVehiculeLoading());
+  const options = {
+    headers: { "Content-Type": "application/json" },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(Endpoints.ENDPOINT_POST_ADD_VEHICULE, newVehicule, options)
+      .then((res) => {
+        new Promise((resolv, rejec) => {
+          axios
+            .post(
+              Endpoints.ENDPOINT_POST_ASSIGN_VEHICULE,
+              {
+                matricule: newVehicule["matricule"],
+                email: respo,
+              },
+              options
+            )
+            .then((res) => {
+              dispatch(addVehiculeSuccess(res.response, dispatch));
+              resolv();
+            })
+            .catch((err) => {
+              if (err?.response?.data) {
+                console.log("RESPONSE=", err.response.data.errors[0].msg);
+                dispatch(
+                  addVehiculeError(err.response.data.errors[0].msg, dispatch)
+                );
+                rejec(err.response.data);
+              } else {
+                console.log(err.message);
+                dispatch(addVehiculeError(err), dispatch);
+                rejec(err.message);
+              }
+            });
+        }).then((r) => {
+          resolve();
+        });
+      })
+      .catch((err) => {
+        if (err?.response?.data) {
+          console.log("RESPONSE=", err.response.data.errors[0].msg);
+          dispatch(addVehiculeError(err.response.data.errors[0].msg, dispatch));
+          reject(err.response.data);
+        } else {
+          console.log(err.message);
+          dispatch(addVehiculeError(err), dispatch);
+          reject(err.message);
+        }
+      });
+  });
+};
+
+// GET ALL REGIONS PROFILES
+
+export const getAllRegionsLoading = () => {
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_LOADING,
+  };
+};
+
+export const getAllRegionsError = (err, dispatch) => {
+  dispatch(setSnackBarContent(err, "error"));
+
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_ERROR,
+    payload: err,
+  };
+};
+
+export const getAllRegionsSuccess = (content) => {
+  return {
+    type: Actiontypes.GET_ALL_REGIONS_SUCCESS,
+    payload: content,
+  };
+};
+
+export const fetchgetAllRegions = () => (dispatch) => {
+  dispatch(getAllRegionsLoading());
+  const headers = {
+    // Pour athentification
+    Authorization: `Bearer ${localStorage.getItem("gacela-token")}`,
+    // pour specifier le format de reponse
+    "Content-Type": "application/json",
+  };
+
+  axios
+    .get(Endpoints.ENDPOINT_GET_ALL_REGIONS, { headers: headers })
+    .then((res) => {
+      console.log("response =", res);
+      dispatch(getAllRegionsSuccess(res.data, dispatch));
+    })
+    .catch((err) => {
+      console.log("err =", err.response.data);
+      dispatch(getAllRegionsError(err.response.data, dispatch));
+    });
 };

@@ -1,0 +1,26 @@
+#rejectDialogTextArea {
+  height: 8rem;
+  background: rgba(248, 235, 227, 0.5) !important;
+  border-radius: 20px;
+}
+.MuiListItem-root {
+  width: fit-content;
+}
+
+.MuiDialog-paper {
+  padding: 1rem;
+}
+
+span {
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.MuiDialog-container {
+  background-color: rgba(247, 233, 226, 0.5) !important;
+}
+
+.contnondispo {
+  display: flex;
+  flex-direction: column;
+}

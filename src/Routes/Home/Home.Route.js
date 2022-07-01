@@ -22,9 +22,7 @@ const HomeRoute=(props)=>{
     // get teh data from reducers ( MODAL )
     const posts = useSelector(state => state.posts);
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(fetchAllPosts())
-    }, []);
+
     const [isAddPostDialogOpen, setOpenDialogStatus] = useState(false);
 
     return (

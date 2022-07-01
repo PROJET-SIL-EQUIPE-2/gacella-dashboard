@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import {GoogleMap, useJsApiLoader , Marker , Autocomplete , DirectionsRenderer , InfoWindow } from "@react-google-maps/api";
 import {Backdrop, Button, CircularProgress, TextField, Toolbar} from "@mui/material";
 import {ElectricCar} from "@mui/icons-material";
@@ -9,65 +9,66 @@ import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import CarteVehicule from "../gestionverou/Compounents/Card";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import  { WebSocketContext } from '../../WebSocket/webSocket';
+import {useSelector} from "react-redux";
 
-const centerPos = {lat : 48.8584  , lng: 2.2945}
-const Marker2Pos = {lat : 48.8570  , lng: 2.2930}
 
-const cars=[{
-    name : 'V-12D4',
-    position : {
-        lat : 48.5584,
-        lng: 2.2945
-    },
-    speed : '75',
-    heat : '55',
-    AM : {
-        fullName : 'Metidji Sid Ahmed',
-        email : 'is_metidji@esi.dz'
-    }
-
-}, {
-    name : 'V-12D5',
-    position : {
-        lat : 48.8570,
-        lng: 2.2730
-    },
-    speed : '20',
-    heat : '20',
-    AM : {
-        fullName : 'Youcef belaili',
-        email : 'iy_belaili@esi.dz'
-    }
-},{
-    name : 'V-12D6',
-    position : {
-        lat : 48.7570,
-        lng: 2.2330
-    },
-    speed : '35K',
-    heat : '40',
-    AM : {
-        fullName : 'Joe Goldberg',
-        email : 'ij_goldberg@esi.dz'
-    }
-} ,{
-    name : 'V-12D7',
-    position : {
-        lat : 48.7230,
-        lng: 2.2550
-    },
-    speed : '45',
-    heat : '65',
-    AM : {
-        fullName : 'Eren Yeager',
-        email : 'ie_yeager@esi.dz'
-    }
-}
- ]
+// const cars=[{
+//     name : 'V-12D4',
+//     position : {
+//         lat : 48.5584,
+//         lng: 2.2945
+//     },
+//     speed : '75',
+//     heat : '55',
+//     AM : {
+//         fullName : 'Metidji Sid Ahmed',
+//         email : 'is_metidji@esi.dz'
+//     }
+//
+// }, {
+//     name : 'V-12D5',
+//     position : {
+//         lat : 48.8570,
+//         lng: 2.2730
+//     },
+//     speed : '20',
+//     heat : '20',
+//     AM : {
+//         fullName : 'Youcef belaili',
+//         email : 'iy_belaili@esi.dz'
+//     }
+// },{
+//     name : 'V-12D6',
+//     position : {
+//         lat : 48.7570,
+//         lng: 2.2330
+//     },
+//     speed : '35K',
+//     heat : '40',
+//     AM : {
+//         fullName : 'Joe Goldberg',
+//         email : 'ij_goldberg@esi.dz'
+//     }
+// } ,{
+//     name : 'V-12D7',
+//     position : {
+//         lat : 48.7230,
+//         lng: 2.2550
+//     },
+//     speed : '45',
+//     heat : '65',
+//     AM : {
+//         fullName : 'Eren Yeager',
+//         email : 'ie_yeager@esi.dz'
+//     }
+// }
+//  ]
 const  CarsViewRoute=()=>{
+    const cars =useSelector(state=>state.carsViewReducer);
     const [WindowInfoStatus, setWindowInfoStatus] = useState({
         isOpen : false ,
-        car: cars[0]
+        car: cars.data[0]
     });
     const [directionsResponse, setDirectionsResponse] = useState(null)
     const [distance, setDistance] = useState('')
@@ -81,7 +82,8 @@ const  CarsViewRoute=()=>{
         googleMapsApiKey : "AIzaSyDwCTYOj2SWL6bt2rz_k8_bcXirZtJNB3g",
         libraries: ['places']
     })
-    console.log(process.env);
+    const websocket = useContext(WebSocketContext);
+
     if(!isLoaded){
         return(
             <Backdrop
@@ -122,13 +124,13 @@ const  CarsViewRoute=()=>{
     const calculateCenterMap=()=>{
         let sumlat = 0;
         let sumlng = 0;
-        cars.forEach(car=>{
+        cars.data.forEach(car=>{
             sumlat += car.position.lat;
             sumlng += car.position.lng;
         })
         return  {
-            lat : sumlat/cars.length,
-            lng: sumlng/cars.length
+            lat : sumlat/cars.data.length,
+            lng: sumlng/cars.data.length
         }
     }
     return (
@@ -148,7 +150,7 @@ const  CarsViewRoute=()=>{
                     fullscreenControl: false
                 }}
             >
-                {cars.map(car=>{
+                {cars.data.map(car=>{
                     return(
                         <Marker position={car.position}
                             label={{
@@ -189,10 +191,10 @@ const  CarsViewRoute=()=>{
                     >
                     <List
                     >
-                                {cars.map(car=>{
+                                {cars.data.map(car=>{
                                     return(
 
-                                        <CarteVehicule onCardClick={()=>setInfoWindowData(car)} idVehicule={car.name} temperature={car.heat} kilometres={car.speed} location={car.position}  email={car.AM.email} nomComplet={car.AM.fullName} heure={null} date={null} type={"comfortable"}></CarteVehicule>
+                                        <CarteVehicule onCardClick={()=>setInfoWindowData(car)} idVehicule={car.name} temperature={car.heat} kilometres={car.speed} location={car.position}   heure={null} date={null} type={"comfortable"}></CarteVehicule>
                                     )
                                 })}
                         {/*<CarteVehicule idVehicule="5555555" temperature={17.9} kilometres={100} location={"Cheraga, daly brahim"}  email={"fouzi@gmail.com"} nomComplet={"Mon Nom"} heure={"14:30"} date={"16/04/2022"} type={"comfortable"}></CarteVehicule>*/}

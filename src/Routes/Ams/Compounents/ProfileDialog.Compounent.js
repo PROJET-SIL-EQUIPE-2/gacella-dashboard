@@ -11,12 +11,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchRejectLocataire } from "../../../redux/actions/actions";
 import ProfileView from "./ProfileView.Compoument";
-import CustomizedTables from "./DifferentsVehicules.Compounent";
+import DiffVehicules from "./DifferentsVehicules.Compounent";
 import TotalePannes from "./TotalPannes.Compounent";
 import Tasks from "./Tasksalt.Compounent";
 import { makeStyles } from "@material-ui/core/styles";
+// import { useDispatch, useSelector } from "react-redux";
 
-export default function ProfileDialog({ isOpen, setOpen, amId }) {
+export default function ProfileDialog({ isOpen, setOpen, amdata }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -26,114 +27,15 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
   };
 
   // replace with reel data
-  const Userinfos = {
-    nom: "nom",
-    prenom: "prenom",
-    mail: "mail@gmail.com",
-    tel: "0721548631",
-    mdp: "Mot de passe",
-    libre: true,
-  };
 
-  // replace with reel data
-  const CarsData = [
-    {
-      id: "V-12D54",
-      etat: "réservé",
-    },
-    {
-      id: "V-1FF54",
-      etat: "diponible",
-    },
-    {
-      id: "V-1R454",
-      etat: "réservé",
-    },
-    {
-      id: "V-1S024",
-      etat: "diponible",
-    },
-    {
-      id: "V-12D54",
-      etat: "réservé",
-    },
-    {
-      id: "V-1FF54",
-      etat: "diponible",
-    },
-    {
-      id: "V-1R454",
-      etat: "réservé",
-    },
-    {
-      id: "V-1S024",
-      etat: "diponible",
-    },
-    {
-      id: "V-12D54",
-      etat: "réservé",
-    },
-    {
-      id: "V-1FF54",
-      etat: "diponible",
-    },
-    {
-      id: "V-1R454",
-      etat: "réservé",
-    },
-    {
-      id: "V-1S024",
-      etat: "diponible",
-    },
-  ];
+  const tachesData = amdata.data.Task;
 
-  // replace with reel data
-  const tachesData = [
-    {
-      tache: "V-12D54V-12D54V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-    {
-      tache: "V-12D54",
-      progres: "25%",
-    },
-  ];
+  let nbpannes = 0;
+  tachesData?.map((el) => {
+    if (el.progress == 100) nbpannes++;
+  });
+
+  let CarsData = amdata.data.Vehicules;
 
   const useStyles = makeStyles({
     diagstyle: {
@@ -172,11 +74,11 @@ export default function ProfileDialog({ isOpen, setOpen, amId }) {
         >
           <div className="profilDialogue" /* style={{ width: 100 }} */>
             <div>
-              <ProfileView Userinfos={Userinfos} />
-              <TotalePannes nbpannes="250" />
+              <ProfileView Userinfos={amdata} />
+              <TotalePannes nbpannes={nbpannes} />
             </div>
             <div className="tables">
-              <CustomizedTables CarsData={CarsData} />
+              <DiffVehicules CarsData={CarsData} />
               <Tasks tachesData={tachesData} />
             </div>
           </div>

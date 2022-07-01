@@ -31,7 +31,10 @@ const Header = ({ handleLeftDrawerToggle }) => {
                 }}
             >
                 <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-                    <LogoSection />
+                    <div className="d-flex justify-content-center">
+                        <LogoSection />
+
+                    </div>
                 </Box>
                 <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
                     <Avatar
@@ -56,7 +59,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
             </Box>
 
             {/* header search */}
-            <SearchSection />
+            {/*<SearchSection />*/}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ flexGrow: 1 }} />
 

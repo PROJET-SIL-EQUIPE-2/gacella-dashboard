@@ -26,15 +26,11 @@ export default function CarteVehicule(props){
             <CardActionArea onClick={props.onCardClick}>
                 <CardContent>
                     <List style={flexContainer}>
-
-                        <ListItem> <Typography variant="h5" component="div">
-                            {props.idVehicule}
-                        </Typography><
-                                            /ListItem>
                         <ListItem>
-                            <Typography  color="text.secondary">
-                                ({props.type})
-                            </Typography>
+                            <Typography variant="h5" component="div">{props.idVehicule}</Typography>
+                        </ListItem>
+                        <ListItem>
+                            <Typography  color="text.secondary">({props.type})</Typography>
                         </ListItem>
                     </List>
                     <List style={flexContainer}>
@@ -42,21 +38,15 @@ export default function CarteVehicule(props){
                             <img src={LocationIcon} alt="LocationIcon"/>
                         </ListItem>
                         <ListItem>
-                            <Typography component="div">
-                                {props.location.lat} , {props.location.lng}
-                            </Typography>
+                            <Typography component="div">{props.location.lat} , {props.location.lng}</Typography>
                         </ListItem>
                     </List>
                     <List style={flexContainer } >
-
-
                         <ListItem style={{width: 10}}>
                             <img src={SpeedIcon} alt="SpeedIcon"/>
                         </ListItem>
                         <ListItem style={{wordBreak : "keep-all" }} >
-                            <Typography style={{wordBreak : "keep-all" }} >
-                                {props.kilometres} Km/h
-                            </Typography>
+                            <Typography style={{wordBreak : "keep-all" }} >{props.kilometres} Km/h</Typography>
                         </ListItem>
 
 
@@ -76,20 +66,23 @@ export default function CarteVehicule(props){
 
 
                     </List>
-                    <List style={flexContainer}>
-                        <ListItem style={{width: 10}}>
-                            <img src={ProfileIcon} alt="profieleicone"/>
-                        </ListItem>
-                        <ListItem>
-                            <Typography component="div">
-                                {props.nomComplet},
-                            </Typography>
-                        </ListItem>
-                        <ListItem>
-                            <Typography  color="text.secondary"> {props.email}
-                            </Typography>
-                        </ListItem>
-                    </List>
+                    {/*<List style={flexContainer}>*/}
+                    {/*    <ListItem style={{width: 10}}>*/}
+                    {/*        <img src={ProfileIcon} alt="profieleicone"/>*/}
+                    {/*    </ListItem>*/}
+                    {/*    <ListItem>*/}
+                    {/*        <Typography component="div">*/}
+                    {/*            {props.nomComplet},*/}
+                    {/*        </Typography>*/}
+                    {/*    </ListItem>*/}
+                    {/*    <ListItem>*/}
+                    {/*        <Typography  color="text.secondary"> {props.email}*/}
+                    {/*        </Typography>*/}
+                    {/*    </ListItem>*/}
+                    {/*</List>*/}
+
+
+
                     {/*<List  class={"rightaligned"} style={flexContainer}>*/}
                     {/*    <ListItem style={{width: 10}}>*/}
                     {/*        <img src={TimeIcon} alt="Timeicone"/>*/}
